@@ -1,0 +1,61 @@
+
+Space hall scavanger
+
+
+Travel from ship to ship (in a choice-based tree map)
+
+Energy resupplies BOTH oxygen and laser shots
+
+Your ship is your base
+- be able to walk around inside? 
+- -- give some reason to need to be inside.
+- --- organize rigid body supplies / decorations.. 
+- --- create defenses inside 
+- ----(create a chance to be raided while traveling to the next location)
+- -- Crafting stations must be protected during raids / repaired from occasional damage caused by events
+
+
+
+explore ships 
+- different gravities
+- collect supplies to....
+- -- build upgrades
+- -- continue your journey (Ship Fuel)
+- submarine ping style radar?
+
+
+Types of abandoned ships: (influences loot pool)
+- Fuel Tanker (fuel)
+- Military Vessel (weaponry)
+Level Modifiers
+- overtaken by enemies
+
+
+
+Upgrades:
+- Energy Max Capacity
+- -- high tier: energy generation (is this part of a "standard" progression or a rare chance?)
+- Laser Shot Charge Max
+- Laser Fire Rate
+- Laser Shotgun Spread
+- Laser 
+- Oxygen Max Capacity
+- Flashlight spread
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwdekrbnrp8yo"]
+[gd_scene load_steps=7 format=3 uid="uid://cwdekrbnrp8yo"]
 
 [ext_resource type="PackedScene" uid="uid://drajoe6caob2t" path="res://hall.tscn" id="1_e2o6t"]
 [ext_resource type="Texture2D" uid="uid://cumaw7c1aqwmo" path="res://tiles_sheet.png" id="1_feb5d"]
 [ext_resource type="PackedScene" uid="uid://c6txhrt448b4u" path="res://player.tscn" id="2_feb5d"]
 [ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://crate.tscn" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://b6mvathho3qof" path="res://player_ui.tscn" id="5_7jktm"]
+[ext_resource type="PackedScene" uid="uid://byb2km2antifu" path="res://laser_projectile.tscn" id="6_ryrav"]
 
 [node name="Game" type="Node2D"]
 
@@ -21,3 +23,14 @@ position = Vector2(837, 839)
 
 [node name="Crate" parent="." instance=ExtResource("4_fc0e3")]
 position = Vector2(1468, 612)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("5_7jktm")]
+
+[node name="LaserProjectile" parent="." instance=ExtResource("6_ryrav")]
+position = Vector2(981, 864)
+
+[node name="LaserProjectile2" parent="." instance=ExtResource("6_ryrav")]
+position = Vector2(977, 801)
+rotation = -0.308923

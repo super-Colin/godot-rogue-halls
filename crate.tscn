@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://chso3bqugycky"]
+[gd_scene load_steps=4 format=3 uid="uid://chso3bqugycky"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4417n"]
 size = Vector2(169.25, 146.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uep05"]
 size = Vector2(134.5, 116.25)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4417n"]
+polygon = PackedVector2Array(-68, -56, -68, 64, 68, 64, 68, -56)
 
 [node name="Crate" type="Node2D"]
 
@@ -27,3 +30,6 @@ offset_top = -56.0
 offset_right = 68.0
 offset_bottom = 64.0
 color = Color(0.474923, 0.263101, 0.109084, 1)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_4417n")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://byb2km2antifu"]
+
+[ext_resource type="Script" uid="uid://dgbdrhaqnr40" path="res://laser_projectile.gd" id="1_yagdn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ke2sr"]
+radius = 6.0
+height = 88.0
+
+[node name="LaserProjectile" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_yagdn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ke2sr")
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(-3, 1)
+points = PackedVector2Array(-37, -1, 42, -1)
+default_color = Color(0.593236, 0, 0.233841, 1)
