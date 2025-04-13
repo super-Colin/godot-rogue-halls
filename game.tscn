@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwdekrbnrp8yo"]
+
+[ext_resource type="PackedScene" uid="uid://drajoe6caob2t" path="res://hall.tscn" id="1_e2o6t"]
+[ext_resource type="Texture2D" uid="uid://cumaw7c1aqwmo" path="res://tiles_sheet.png" id="1_feb5d"]
+[ext_resource type="PackedScene" uid="uid://c6txhrt448b4u" path="res://player.tscn" id="2_feb5d"]
+[ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://crate.tscn" id="4_fc0e3"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(994.75, 617.75)
+scale = Vector2(25.9453, 11.2034)
+texture = ExtResource("1_feb5d")
+region_enabled = true
+region_rect = Rect2(419.268, 564.904, 137.19, 145.764)
+
+[node name="Hall" parent="." instance=ExtResource("1_e2o6t")]
+
+[node name="Player" parent="." instance=ExtResource("2_feb5d")]
+position = Vector2(837, 839)
+
+[node name="Crate" parent="." instance=ExtResource("4_fc0e3")]
+position = Vector2(1468, 612)
