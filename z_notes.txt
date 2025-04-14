@@ -1,10 +1,51 @@
 
 Space hall scavanger
 
+= Inspirations / Influences
+FTL 
+- Classic roguelite
+- Tree based navigation
+- planning ahead required, can be very punishing for a small mistake
+This War of Mine
+- 2D Exporation hallways
+Dead Space
+- Dark, and brutal
+- Visceral and deadly enemies
+
 
 Travel from ship to ship (in a choice-based tree map)
-
+Need to escape the ship before oxygen runs out; or game over
 Energy resupplies BOTH oxygen and laser shots
+
+
+
+Laser shots are expensive, but powerful
+blowback from laser, battery pickups for energy extension, flashlight isn't always needed (drains extra power)
+
+
+= Phases
+Upgrading (Ship maintainance)
+- [Tree menu] branching categories of upgrades
+- -- Agility = starts with dash boost (speed, dash energy consumption)
+- -- Mule = starts with extra space (backpack size, jetpack energy consumption, oxygen max / generation)
+- -- Commando = starts with laser (Laser max, laser energy consumption)
+Destination selection
+(Travel)
+Exploring / Scavenging
+- Inventory
+- -- looting crates etc..
+Upgrading (from the top)
+
+
+
+
+
+
+
+can manually loot an area 
+- going in 
+or quick search for much lower rewards and lower risks
+- allows certain kind of events to happen
 
 Your ship is your base
 - be able to walk around inside? 
@@ -41,11 +82,17 @@ Upgrades:
 - Laser 
 - Oxygen Max Capacity
 - Flashlight spread
+- Ship space
 
 
 
-
-
+Resources:
+- Scrap
+- -- general purpose currency and repairs
+- Power Cores 
+- -- for tier upgrades
+- Ship Fuel 
+- -- Fuel *is* energy, it costs fuel to recharge your suit energy before each level
 
 
 

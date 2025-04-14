@@ -45,11 +45,12 @@ fill_mode = 3
 show_percentage = false
 
 [node name="Magazine" type="VBoxContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 5
 
-[node name="Shot" type="ColorRect" parent="HBoxContainer/Magazine"]
+[node name="ShotTemplate" type="ColorRect" parent="HBoxContainer/Magazine"]
 custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 color = Color(0.725207, 0, 0.0551934, 1)

@@ -1,6 +1,11 @@
 class_name Player
 extends CharacterBody2D
 
+var laserProjectileScene = preload("res://laser_projectile.tscn")
+
+
+
+
 @onready var coyote_timer = $CoyoteTimer
 @onready var jump_buffer_timer = $JumpBufferTimer
 #@onready var jump_trojectory_line = $JumpTrojectoryLine
@@ -53,7 +58,33 @@ extends CharacterBody2D
 @onready var fall_gravity : float = (-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent) * -1
 
 
-#func _ready():
+var dead = false
+
+var laserChargesMax = 3.0
+var laserCharges = 3.0
+var laserGenerationEnergyEffeciency = 0.2 # higher is better
+var laserRegenerationOn = true
+
+var energyMax = 30.0
+var energy = 30.0
+var energyGeneration = 0.0
+
+var oxygenMax = 30.0
+var oxygen = 30.0
+var oxygenGenerationEnergyEffeciency = 1.1 # higher is better
+
+
+
+
+
+
+
+
+
+
+func _ready():
+	Globals.playerRef = $'.'
+	Globals.s_playerReady.emit()
 	#coyote_timer.wait_time = coyote_timer_value
 	#jump_buffer_timer.wait_time = jump_buffer_timer_value
 
@@ -66,7 +97,6 @@ func _get_gravity(_velocity):
 # Calculates the players movement depending on the context
 func _get_movement(fric: float, accel: float, delta: float):
 	var direction = Input.get_axis("Move_Left", "Move_Right")
-
 	if direction:
 		velocity.x += sign(direction) * accel * delta * 100
 	
@@ -82,20 +112,7 @@ func _get_movement(fric: float, accel: float, delta: float):
 			velocity.x = maxf(abs(velocity.x), abs(min_speed * sign(direction))) * sign(direction)
 
 
-## A way to visialize the players jump trojectory in real time (WiP)
-#func _projected_jump_trojectory(_delta, direction):
-	#var max_points = max_trojectory_ponints
-	#
-	#jump_trojectory_line.clear_points()
-	#var pos := Vector2.ZERO
-	#var vel := Vector2(max_speed * direction, jump_velocity)
-	#for point in max_points:
-		#jump_trojectory_line.add_point(pos)
-		#vel.y += _get_gravity(vel) * _delta
-		#pos += vel * _delta
 
-
-## Flips the player sprite depending on their movemnt direction
 func _set_sprite_direction(direction: int) -> void:
 	if direction > 0.0:
 		$AnimatedSprite2D.flip_h = true
@@ -108,16 +125,38 @@ func _set_flashlight_direction(direction: int) -> void:
 	if direction > 0.0: # moving right
 		%Flashlight.rotation = 0
 		%PlayerSprite.flip_h = false
-		#%FlashlightLeft.visible = false
-		#%FlashlightRight.visible = true
 	if direction < 0.0: # moving left
 		%Flashlight.rotation = PI
 		%PlayerSprite.flip_h = true
-		#%FlashlightLeft.visible = true
-		#%FlashlightRight.visible = false
+
+func refillBars():
+	laserCharges = laserChargesMax
+	energy = energyMax
+	oxygen = oxygenMax
+
+func handleOxygenDrain(delta):
+	oxygen -= delta
+	if oxygen < -10.0:
+		Globals.s_playerDied.emit()
+		dead = true
+		print("player - died from oxygen")
+
+func generateOxygen(delta):
+	if energy > delta and oxygen < oxygenMax:
+		energy -= delta
+		oxygen += delta * oxygenGenerationEnergyEffeciency
+
+func generateEnergy(delta):
+	energy += delta * energyGeneration
 
 
 func _physics_process(delta):
+	if dead:
+		return
+	generateEnergy(delta)
+	generateOxygen(delta)
+	handleOxygenDrain(delta)
+	# Die at -20, bar doesn't show below 0, screen starts flashing red... then game over
 	if not is_on_floor():
 		velocity.y += _get_gravity(velocity) * delta
 		_get_movement(air_resistance, air_acceleration, delta)
@@ -138,7 +177,9 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_released("Jump"):
 		jump_cut()
-	
+
+	if Input.is_action_just_released("Fire"):
+		fireLaser()
 	#if velocity != Vector2.ZERO:
 		#$AnimatedSprite2D.play("walk")
 	#else:
@@ -148,6 +189,12 @@ func _physics_process(delta):
 #		_projected_jump_trojectory(delta, sign(velocity.x))
 	
 	move_and_slide()
+
+func fireLaser():
+	var las = laserProjectileScene.instantiate()
+	las.position = $'.'.global_position
+	get_tree().root.add_child(las)
+
 
 
 # Adds the player's jump velocity if able
