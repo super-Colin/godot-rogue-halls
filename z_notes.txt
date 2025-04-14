@@ -12,7 +12,9 @@ Dead Space
 - Dark, and brutal
 - Visceral and deadly enemies
 
-
+Some insanity tones?
+- infinitely repeating hallways..
+- imaginary monsters (disapear on hitting, don't do any actual damage to player)
 Travel from ship to ship (in a choice-based tree map)
 Need to escape the ship before oxygen runs out; or game over
 Energy resupplies BOTH oxygen and laser shots

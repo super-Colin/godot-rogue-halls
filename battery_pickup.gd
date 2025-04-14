@@ -7,6 +7,8 @@ extends Area2D
 
 func playerInteraction():
 	Globals.playerRef.rechargeEnergy(energyRechargeAmount)
+	Globals.playerRef.clearInteractionOject()
+	$'.'.queue_free()
 
 
 

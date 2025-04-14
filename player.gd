@@ -102,6 +102,8 @@ func _ready():
 	Globals.s_playerReady.emit()
 	%PickupRange.area_entered.connect(checkForPromptUpdate.bind(true))
 	%PickupRange.area_exited.connect(checkForPromptUpdate.bind(false))
+	%PickupRange.body_entered.connect(checkForPromptUpdate.bind(true))
+	%PickupRange.body_exited.connect(checkForPromptUpdate.bind(false))
 	#coyote_timer.wait_time = coyote_timer_value
 	#jump_buffer_timer.wait_time = jump_buffer_timer_value
 
@@ -120,12 +122,9 @@ func checkForPromptUpdate(areaOrBody:Node, entered:bool): # entered or exited
 	elif areaOrBody == currentInteractionObject and not entered:
 		updateInteractionPrompt.emit("")
 
-#func checkIfInteractable(areaOrBody:Node):
-	#if "playerInteraction" in areaOrBody:
-		#print("player: object is usable: ", areaOrBody)
-		#currentInteractionObject = areaOrBody
-		#updateInteractionPrompt.emit(currentInteractionObject.interactionPrompt)
-
+func clearInteractionOject():
+	updateInteractionPrompt.emit("")
+	currentInteractionObject = null
 
 func rechargeEnergy(amount):
 	energy += amount
@@ -196,11 +195,15 @@ func _physics_process(delta):
 		jump_cut()
 	if Input.is_action_just_pressed("Fire"):
 		fireLaser()
+	if Input.is_action_just_released("Interact"):
+		if currentInteractionObject != null:
+			currentInteractionObject.playerInteraction()
 	#if velocity != Vector2.ZERO:
 		#$AnimatedSprite2D.play("walk")
 	#else:
 		#$AnimatedSprite2D.play("idle")
 	move_and_slide()
+
 
 
 

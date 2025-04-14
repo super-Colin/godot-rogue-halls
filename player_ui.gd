@@ -3,13 +3,27 @@ extends Control
 
 
 func _ready() -> void:
+	Inventory.playerInventoryUpdated.connect(updatePlayerInventory)
 	if Globals.playerRef:
 		setup()
 	else:
 		Globals.s_playerReady.connect(setup)
 
 
+func setupPlayerInventorySlots():
+	Globals.playerRef
 
+func updatePlayerInventory():
+	var inventorySlots = %Inventory.get_children()
+	var slot = 0
+	for item in Inventory.playerInventory.keys():
+		for i in Inventory.playerInventory[item]:
+			if slot >= inventorySlots.size():
+				return
+			var iconNode = inventorySlots[slot].get_node("TextureRect")
+			print("ui - icon node: ", iconNode, ", item: ", item, ", --", Inventory.playerInventory[item])
+			iconNode.texture = Inventory.texMap[item]
+			slot += 1
 
 
 
