@@ -12,7 +12,20 @@ func _physics_process(delta: float) -> void:
 	if Globals.playerRef:
 		%Energy.value = Globals.playerRef.energy
 		%Oxygen.value = Globals.playerRef.oxygen
+		trackLaserCharges()
 
+func trackLaserCharges():
+	#if Globals.playerRef.laserCharges > Globals.playerRef.laserChargesMax:
+		#return
+	#%Magazine.get_children()
+	var i = 1
+	for shell in %Magazine.get_children():
+		#i += 1
+		if Globals.playerRef.laserCharges >= i:
+			shell.visible = true
+		else:
+			shell.visible = false
+		i += 1
 
 func setup():
 	setEnergyBar()

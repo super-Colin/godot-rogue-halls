@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://drajoe6caob2t"]
+[gd_scene load_steps=5 format=3 uid="uid://drajoe6caob2t"]
 
 [ext_resource type="Texture2D" uid="uid://cumaw7c1aqwmo" path="res://tiles_sheet.png" id="1_7h0dx"]
+[ext_resource type="Script" uid="uid://jy4kvlx8m05f" path="res://level.gd" id="1_ru55v"]
+[ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://crate.tscn" id="3_wkri5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kftm2"]
 size = Vector2(7260, 329)
 
 [node name="Hall" type="Node2D"]
+script = ExtResource("1_ru55v")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 3
@@ -32,3 +35,13 @@ scale = Vector2(30.1901, 6.1087)
 texture = ExtResource("1_7h0dx")
 region_enabled = true
 region_rect = Rect2(700.8, 280.44, 71.2001, 69.2083)
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(280, 786)
+
+[node name="Crate" parent="." instance=ExtResource("3_wkri5")]
+position = Vector2(1311, 849)
+
+[node name="Crate2" parent="." instance=ExtResource("3_wkri5")]
+position = Vector2(884, 444)

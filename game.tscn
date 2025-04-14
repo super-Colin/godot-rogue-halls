@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwdekrbnrp8yo"]
+[gd_scene load_steps=8 format=3 uid="uid://cwdekrbnrp8yo"]
 
 [ext_resource type="PackedScene" uid="uid://drajoe6caob2t" path="res://hall.tscn" id="1_e2o6t"]
 [ext_resource type="Texture2D" uid="uid://cumaw7c1aqwmo" path="res://tiles_sheet.png" id="1_feb5d"]
 [ext_resource type="Script" uid="uid://c4sikoknnuubk" path="res://game.gd" id="1_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://c6txhrt448b4u" path="res://player.tscn" id="2_feb5d"]
-[ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://crate.tscn" id="4_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://b6mvathho3qof" path="res://player_ui.tscn" id="5_7jktm"]
 [ext_resource type="PackedScene" uid="uid://by7o0iymt8xvt" path="res://main_menu.tscn" id="6_eow3j"]
 [ext_resource type="PackedScene" uid="uid://byb2km2antifu" path="res://laser_projectile.tscn" id="6_ryrav"]
@@ -19,13 +18,13 @@ texture = ExtResource("1_feb5d")
 region_enabled = true
 region_rect = Rect2(419.268, 564.904, 137.19, 145.764)
 
-[node name="Hall" parent="." instance=ExtResource("1_e2o6t")]
+[node name="Level" type="Node2D" parent="."]
+unique_name_in_owner = true
 
-[node name="Player" parent="." instance=ExtResource("2_feb5d")]
+[node name="Hall" parent="Level" instance=ExtResource("1_e2o6t")]
+
+[node name="Player" parent="Level" instance=ExtResource("2_feb5d")]
 position = Vector2(837, 839)
-
-[node name="Crate" parent="." instance=ExtResource("4_fc0e3")]
-position = Vector2(1468, 612)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

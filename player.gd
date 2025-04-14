@@ -65,8 +65,8 @@ var laserCharges = 3.0
 var laserGenerationEnergyEffeciency = 0.2 # higher is better
 var laserRegenerationOn = true
 
-var energyMax = 30.0
-var energy = 30.0
+var energyMax = 50.0
+var energy = 50.0
 var energyGeneration = 0.0
 
 var oxygenMax = 30.0
@@ -76,8 +76,19 @@ var oxygenGenerationEnergyEffeciency = 1.1 # higher is better
 
 
 
+func fireLaser():
+	print("player - firing laser, charges left: ", laserCharges)
+	if laserCharges < 1:
+		return
+	laserCharges -= 1
+	var las = laserProjectileScene.instantiate()
+	las.position = $'.'.global_position
+	get_tree().root.add_child(las)
 
-
+func generateLaser(delta):
+	if laserRegenerationOn and laserCharges < laserChargesMax and energy > delta:
+		energy -= delta
+		laserCharges += delta * laserGenerationEnergyEffeciency
 
 
 
@@ -87,6 +98,67 @@ func _ready():
 	Globals.s_playerReady.emit()
 	#coyote_timer.wait_time = coyote_timer_value
 	#jump_buffer_timer.wait_time = jump_buffer_timer_value
+
+
+
+func fullRecharge():
+	laserCharges = laserChargesMax
+	energy = energyMax
+	oxygen = oxygenMax
+
+func handleOxygenDrain(delta):
+	oxygen -= delta
+	# Die at -x, bar doesn't show below 0, screen starts flashing red... then game over
+	if oxygen < -4.0:
+		Globals.s_playerDied.emit()
+		dead = true
+		print("player - died from oxygen")
+
+func generateOxygen(delta):
+	if energy > delta and oxygen < oxygenMax:
+		energy -= delta
+		oxygen += delta * oxygenGenerationEnergyEffeciency
+
+func generateEnergy(delta):
+	energy += delta * energyGeneration
+
+
+
+
+
+func _physics_process(delta):
+	if dead:
+		return
+	generateEnergy(delta)
+	generateOxygen(delta)
+	generateLaser(delta)
+	handleOxygenDrain(delta)
+	if not is_on_floor():
+		velocity.y += _get_gravity(velocity) * delta
+		_get_movement(air_resistance, air_acceleration, delta)
+	else:
+		#if coyote_timer.is_stopped():
+			#coyote_timer.start()
+		#if jump_buffer_timer.time_left > 0.0:
+			#jump_buffer_timer.stop()
+			#jump()
+		_get_movement(friction, acceleration, delta)
+	#_set_sprite_direction(sign(velocity.x))
+	_set_flashlight_direction(sign(velocity.x))
+	if Input.is_action_just_pressed("Jump"):
+		jump()
+		#_projected_jump_trojectory(delta, sign(velocity.x))
+	if Input.is_action_just_released("Jump"):
+		jump_cut()
+	if Input.is_action_just_released("Fire"):
+		fireLaser()
+	#if velocity != Vector2.ZERO:
+		#$AnimatedSprite2D.play("walk")
+	#else:
+		#$AnimatedSprite2D.play("idle")
+	move_and_slide()
+
+
 
 
 # Sets the gravity depending on the context
@@ -113,89 +185,6 @@ func _get_movement(fric: float, accel: float, delta: float):
 
 
 
-func _set_sprite_direction(direction: int) -> void:
-	if direction > 0.0:
-		$AnimatedSprite2D.flip_h = true
-	elif direction < 0.0:
-		$AnimatedSprite2D.flip_h = false
-		
-func _set_flashlight_direction(direction: int) -> void:
-	#return
-	#print("player - flashlight direction is: ", direction)
-	if direction > 0.0: # moving right
-		%Flashlight.rotation = 0
-		%PlayerSprite.flip_h = false
-	if direction < 0.0: # moving left
-		%Flashlight.rotation = PI
-		%PlayerSprite.flip_h = true
-
-func refillBars():
-	laserCharges = laserChargesMax
-	energy = energyMax
-	oxygen = oxygenMax
-
-func handleOxygenDrain(delta):
-	oxygen -= delta
-	if oxygen < -10.0:
-		Globals.s_playerDied.emit()
-		dead = true
-		print("player - died from oxygen")
-
-func generateOxygen(delta):
-	if energy > delta and oxygen < oxygenMax:
-		energy -= delta
-		oxygen += delta * oxygenGenerationEnergyEffeciency
-
-func generateEnergy(delta):
-	energy += delta * energyGeneration
-
-
-func _physics_process(delta):
-	if dead:
-		return
-	generateEnergy(delta)
-	generateOxygen(delta)
-	handleOxygenDrain(delta)
-	# Die at -20, bar doesn't show below 0, screen starts flashing red... then game over
-	if not is_on_floor():
-		velocity.y += _get_gravity(velocity) * delta
-		_get_movement(air_resistance, air_acceleration, delta)
-	else:
-		#if coyote_timer.is_stopped():
-			#coyote_timer.start()
-		#if jump_buffer_timer.time_left > 0.0:
-			#jump_buffer_timer.stop()
-			#jump()
-		_get_movement(friction, acceleration, delta)
-	
-	#_set_sprite_direction(sign(velocity.x))
-	_set_flashlight_direction(sign(velocity.x))
-	
-	if Input.is_action_just_pressed("Jump"):
-		jump()
-		#_projected_jump_trojectory(delta, sign(velocity.x))
-	
-	if Input.is_action_just_released("Jump"):
-		jump_cut()
-
-	if Input.is_action_just_released("Fire"):
-		fireLaser()
-	#if velocity != Vector2.ZERO:
-		#$AnimatedSprite2D.play("walk")
-	#else:
-		#$AnimatedSprite2D.play("idle")
-		
-#	if Input.is_action_just_pressed("Preview_Jump"):
-#		_projected_jump_trojectory(delta, sign(velocity.x))
-	
-	move_and_slide()
-
-func fireLaser():
-	var las = laserProjectileScene.instantiate()
-	las.position = $'.'.global_position
-	get_tree().root.add_child(las)
-
-
 
 # Adds the player's jump velocity if able
 func jump():
@@ -214,3 +203,22 @@ func jump_cut():
 	
 	if velocity.y < minimum_jump_height * up_direction.y:
 		velocity.y = minimum_jump_height * up_direction.y
+
+
+
+
+func _set_sprite_direction(direction: int) -> void:
+	if direction > 0.0:
+		$AnimatedSprite2D.flip_h = true
+	elif direction < 0.0:
+		$AnimatedSprite2D.flip_h = false
+		
+func _set_flashlight_direction(direction: int) -> void:
+	#return
+	#print("player - flashlight direction is: ", direction)
+	if direction > 0.0: # moving right
+		%Flashlight.rotation = 0
+		%PlayerSprite.flip_h = false
+	if direction < 0.0: # moving left
+		%Flashlight.rotation = PI
+		%PlayerSprite.flip_h = true

@@ -1,6 +1,8 @@
 extends Node2D
 
 
+var hallScene = preload("res://hall.tscn")
+var playerScene = preload("res://player.tscn")
 
 
 func _ready() -> void:
@@ -15,6 +17,13 @@ func startNewRun():
 	generateLevel()
 
 func generateLevel():
+	for c in %Level.get_children():
+		c.queue_free()
+	var level = hallScene.instantiate()
+	%Level.add_child(level)
+	var player = playerScene.instantiate()
+	player.position = level.getSpawnPoint()
+	%Level.add_child(player)
 	return 
 
 
