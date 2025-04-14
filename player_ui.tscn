@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6mvathho3qof"]
+[gd_scene load_steps=5 format=3 uid="uid://b6mvathho3qof"]
 
 [ext_resource type="Script" uid="uid://dmed2b4o6cuxt" path="res://player_ui.gd" id="1_lwipk"]
 
@@ -7,6 +7,9 @@ bg_color = Color(0.717919, 0.697337, 0.0414697, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lwipk"]
 bg_color = Color(3.7542e-06, 0.668846, 0.797771, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_654h1"]
+bg_color = Color(0, 0.409894, 0.000328348, 1)
 
 [node name="PlayerUI" type="MarginContainer"]
 anchors_preset = 15
@@ -24,6 +27,7 @@ script = ExtResource("1_lwipk")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 8
 
 [node name="Energy" type="ProgressBar" parent="HBoxContainer"]
@@ -46,6 +50,7 @@ show_percentage = false
 
 [node name="Magazine" type="VBoxContainer" parent="HBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 5
@@ -89,3 +94,27 @@ color = Color(0.725207, 0, 0.0551934, 1)
 custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 color = Color(0.725207, 0, 0.0551934, 1)
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/fill = SubResource("StyleBoxFlat_654h1")
+value = 100.0
+show_percentage = false
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 250
+
+[node name="InteractionPrompt" type="Label" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Player Prompt"

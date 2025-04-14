@@ -1,14 +1,4 @@
-class_name Player
 extends CharacterBody2D
-
-var laserProjectileScene = preload("res://laser_projectile.tscn")
-
-
-
-
-@onready var coyote_timer = $CoyoteTimer
-@onready var jump_buffer_timer = $JumpBufferTimer
-#@onready var jump_trojectory_line = $JumpTrojectoryLine
 
 
 @export_group("Movement")
@@ -58,125 +48,12 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 @onready var fall_gravity : float = (-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent) * -1
 
 
+var health = 100.0
 var dead = false
-
-var laserChargesMax = 3.0
-var laserCharges = 3.0
-var laserGenerationEnergyEfficiency = 1.0 # lower is better
-var laserGenerationRate = 0.2 # higher is better
-var laserRegenerationOn = true
-
-var energyMax = 30.0
-var energy = 30.0
-var energyGeneration = 0.0
-
-var oxygenMax = 30.0
-var oxygen = 30.0
-var oxygenGenerationEnergyEfficiency = 1.0 # lower is better
-var oxygenGenerationRate = 2.0 # higher is better
-
-var suitCondition = 100.0
-
-
-var currentInteractionObject:Node
-
-
-
-
-
-
-func fireLaser():
-	print("player - firing laser, charges left: ", laserCharges)
-	if laserCharges < 1:
-		return
-	laserCharges -= 1
-	var las = laserProjectileScene.instantiate()
-	las.position = $'.'.global_position
-	get_tree().root.add_child(las)
-
-
-
-
-func _ready():
-	Globals.playerRef = $'.'
-	Globals.s_playerReady.emit()
-	%PickupRange.area_entered.connect(checkForPromptUpdate.bind(true))
-	%PickupRange.area_exited.connect(checkForPromptUpdate.bind(false))
-	#coyote_timer.wait_time = coyote_timer_value
-	#jump_buffer_timer.wait_time = jump_buffer_timer_value
-
-
-
-
-signal updateInteractionPrompt(string)
-
-func checkForPromptUpdate(areaOrBody:Node, entered:bool): # entered or exited
-	if not "playerInteraction" in areaOrBody:
-		return
-	if entered:
-		print("player: object is usable: ", areaOrBody)
-		currentInteractionObject = areaOrBody
-		updateInteractionPrompt.emit(currentInteractionObject.interactionPrompt)
-	elif areaOrBody == currentInteractionObject and not entered:
-		updateInteractionPrompt.emit("")
-
-#func checkIfInteractable(areaOrBody:Node):
-	#if "playerInteraction" in areaOrBody:
-		#print("player: object is usable: ", areaOrBody)
-		#currentInteractionObject = areaOrBody
-		#updateInteractionPrompt.emit(currentInteractionObject.interactionPrompt)
-
-
-func rechargeEnergy(amount):
-	energy += amount
-	if energy > energyMax:
-		energy = energyMax
-
-
-
-func fullRecharge():
-	laserCharges = laserChargesMax
-	energy = energyMax
-	oxygen = oxygenMax
-
-func handleOxygenDrain(delta):
-	oxygen -= delta
-	# Die at -x, bar doesn't show below 0, screen starts flashing red... then game over
-	if oxygen < -4.0:
-		Globals.s_playerDied.emit()
-		dead = true
-		print("player - died from oxygen")
-
-
-func generateEnergy(delta):
-	energy += delta * energyGeneration
-
-func generateOxygen(delta):
-	var energyCost = delta * oxygenGenerationEnergyEfficiency
-	#if energy >= delta and oxygen < oxygenMax:
-	if energy >= energyCost and oxygen < oxygenMax:
-		energy -= energyCost
-		oxygen += delta * oxygenGenerationRate 
-
-func generateLaser(delta):
-	if not laserRegenerationOn:
-		return
-	var energyCost = delta * laserGenerationEnergyEfficiency
-	#var unitProduction = energy * laserGenerationRate
-	if laserCharges < laserChargesMax and energy > energyCost:
-		energy -= energyCost
-		laserCharges += delta * laserGenerationRate
-
-
-
 
 func _physics_process(delta):
 	if dead:
 		return
-	generateEnergy(delta)
-	generateOxygen(delta)
-	generateLaser(delta)
-	handleOxygenDrain(delta)
 	if not is_on_floor():
 		velocity.y += _get_gravity(velocity) * delta
 		_get_movement(air_resistance, air_acceleration, delta)
@@ -187,22 +64,13 @@ func _physics_process(delta):
 			#jump_buffer_timer.stop()
 			#jump()
 		_get_movement(friction, acceleration, delta)
-	#_set_sprite_direction(sign(velocity.x))
-	_set_flashlight_direction(sign(velocity.x))
-	if Input.is_action_just_pressed("Jump"):
-		jump()
-		#_projected_jump_trojectory(delta, sign(velocity.x))
+	_set_sprite_direction(sign(velocity.x))
+	#if Input.is_action_just_pressed("Jump"):
+		#jump()
 	if Input.is_action_just_released("Jump"):
 		jump_cut()
-	if Input.is_action_just_pressed("Fire"):
-		fireLaser()
-	#if velocity != Vector2.ZERO:
-		#$AnimatedSprite2D.play("walk")
-	#else:
-		#$AnimatedSprite2D.play("idle")
+
 	move_and_slide()
-
-
 
 
 # Sets the gravity depending on the context
@@ -212,7 +80,8 @@ func _get_gravity(_velocity):
 
 # Calculates the players movement depending on the context
 func _get_movement(fric: float, accel: float, delta: float):
-	var direction = Input.get_axis("Move_Left", "Move_Right")
+	#var direction = Input.get_axis("Move_Left", "Move_Right")
+	var direction = (Globals.playerRef.global_position.x - $'.'.global_position.x )
 	if direction:
 		velocity.x += sign(direction) * accel * delta * 100
 	
@@ -253,16 +122,7 @@ func jump_cut():
 
 func _set_sprite_direction(direction: int) -> void:
 	if direction > 0.0:
-		$AnimatedSprite2D.flip_h = true
+		$Sprite.flip_h = true
 	elif direction < 0.0:
-		$AnimatedSprite2D.flip_h = false
+		$Sprite.flip_h = false
 		
-func _set_flashlight_direction(direction: int) -> void:
-	#return
-	#print("player - flashlight direction is: ", direction)
-	if direction > 0.0: # moving right
-		%Flashlight.rotation = 0
-		%PlayerSprite.flip_h = false
-	if direction < 0.0: # moving left
-		%Flashlight.rotation = PI
-		%PlayerSprite.flip_h = true

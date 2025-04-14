@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://djph6lk4gcr73"]
+
+[ext_resource type="Texture2D" uid="uid://cm2emr5kak8xq" path="res://windowHighLeadlightTop.png" id="1_btwt1"]
+[ext_resource type="Script" uid="uid://cwsog62xl0gad" path="res://battery_pickup.gd" id="1_w6ge3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w6ge3"]
+radius = 36.0
+
+[node name="BatteryPickup" type="Area2D"]
+script = ExtResource("1_w6ge3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -12)
+shape = SubResource("CircleShape2D_w6ge3")
+
+[node name="WindowHighLeadlightTop" type="Sprite2D" parent="."]
+position = Vector2(0, -35)
+texture = ExtResource("1_btwt1")

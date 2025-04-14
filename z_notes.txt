@@ -16,12 +16,14 @@ Dead Space
 Travel from ship to ship (in a choice-based tree map)
 Need to escape the ship before oxygen runs out; or game over
 Energy resupplies BOTH oxygen and laser shots
-
+Health is suit condition,
+- cost resources to fix
+- a lower condition leads to faster oxygen drain
 
 
 Laser shots are expensive, but powerful
 blowback from laser, battery pickups for energy extension, flashlight isn't always needed (drains extra power)
-
+1 grenade per level perk?
 
 = Phases
 Upgrading (Ship maintainance)

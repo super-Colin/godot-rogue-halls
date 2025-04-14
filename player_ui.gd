@@ -8,6 +8,12 @@ func _ready() -> void:
 	else:
 		Globals.s_playerReady.connect(setup)
 
+
+
+
+
+
+
 func _physics_process(delta: float) -> void:
 	if Globals.playerRef:
 		%Energy.value = Globals.playerRef.energy
@@ -21,6 +27,7 @@ func trackLaserCharges():
 	var i = 1
 	for shell in %Magazine.get_children():
 		#i += 1
+		# something like shell recharge progress = Globals.playerRef.laserCharges % i   ???
 		if Globals.playerRef.laserCharges >= i:
 			shell.visible = true
 		else:
@@ -31,6 +38,14 @@ func setup():
 	setEnergyBar()
 	setOxygenBar()
 	setMagazineBar()
+	Globals.playerRef.updateInteractionPrompt.connect(updateInteractionPrompt)
+
+func updateInteractionPrompt(newPrompt):
+	if newPrompt == "":
+		%InteractionPrompt.visible = false
+	else:
+		%InteractionPrompt.visible = true
+		%InteractionPrompt.text = newPrompt
 
 func setEnergyBar():
 	%Energy.max_value = Globals.playerRef.energyMax

@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://drajoe6caob2t"]
+[gd_scene load_steps=8 format=3 uid="uid://drajoe6caob2t"]
 
 [ext_resource type="Texture2D" uid="uid://cumaw7c1aqwmo" path="res://tiles_sheet.png" id="1_7h0dx"]
 [ext_resource type="Script" uid="uid://jy4kvlx8m05f" path="res://level.gd" id="1_ru55v"]
 [ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://crate.tscn" id="3_wkri5"]
+[ext_resource type="PackedScene" uid="uid://d1gbcitmb13oa" path="res://enemy.tscn" id="4_76b4i"]
+[ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://transition_door.tscn" id="5_u1ytf"]
+[ext_resource type="PackedScene" uid="uid://djph6lk4gcr73" path="res://battery_pickup.tscn" id="6_ubv8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kftm2"]
 size = Vector2(7260, 329)
@@ -45,3 +48,12 @@ position = Vector2(1311, 849)
 
 [node name="Crate2" parent="." instance=ExtResource("3_wkri5")]
 position = Vector2(884, 444)
+
+[node name="Enemy" parent="." instance=ExtResource("4_76b4i")]
+position = Vector2(917, 678)
+
+[node name="TransitionDoor" parent="." instance=ExtResource("5_u1ytf")]
+position = Vector2(1504, 770)
+
+[node name="BatteryPickup" parent="." instance=ExtResource("6_ubv8k")]
+position = Vector2(1309, 784)
