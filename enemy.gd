@@ -52,7 +52,7 @@ var health = 100.0
 var dead = false
 
 func _physics_process(delta):
-	if dead:
+	if dead or not Globals.playerInLevel:
 		return
 	if not is_on_floor():
 		velocity.y += _get_gravity(velocity) * delta

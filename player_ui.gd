@@ -30,8 +30,8 @@ func updatePlayerInventory():
 
 func _physics_process(delta: float) -> void:
 	if Globals.playerRef:
-		%Energy.value = Globals.playerRef.energy
-		%Oxygen.value = Globals.playerRef.oxygen
+		%Energy.value = Stats.energy
+		%Oxygen.value = Stats.oxygen
 		trackLaserCharges()
 
 func trackLaserCharges():
@@ -42,7 +42,7 @@ func trackLaserCharges():
 	for shell in %Magazine.get_children():
 		#i += 1
 		# something like shell recharge progress = Globals.playerRef.laserCharges % i   ???
-		if Globals.playerRef.laserCharges >= i:
+		if Stats.laserCharges >= i:
 			shell.visible = true
 		else:
 			shell.visible = false
@@ -62,12 +62,12 @@ func updateInteractionPrompt(newPrompt):
 		%InteractionPrompt.text = newPrompt
 
 func setEnergyBar():
-	%Energy.max_value = Globals.playerRef.energyMax
-	%Energy.value = Globals.playerRef.energy
+	%Energy.max_value = Stats.energyMax
+	%Energy.value = Stats.energy
 
 func setOxygenBar():
-	%Oxygen.max_value = Globals.playerRef.oxygenMax
-	%Oxygen.value = Globals.playerRef.oxygen
+	%Oxygen.max_value = Stats.oxygenMax
+	%Oxygen.value = Stats.oxygen
 
 var standardShellSize = 20
 func setMagazineBar():
@@ -76,9 +76,9 @@ func setMagazineBar():
 			c.queue_free()
 		var verticalSize = %Magazine.get_parent_area_size().y
 		var shellSize = standardShellSize
-		if standardShellSize * Globals.playerRef.laserChargesMax > verticalSize:
-			shellSize = verticalSize / (Globals.playerRef.laserChargesMax + 1)
-		for s in Globals.playerRef.laserChargesMax:
+		if standardShellSize * Stats.laserChargesMax > verticalSize:
+			shellSize = verticalSize / (Stats.laserChargesMax + 1)
+		for s in Stats.laserChargesMax:
 			var cRect = ColorRect.new()
 			cRect.custom_minimum_size = Vector2(50, shellSize)
 			cRect.color = Color(200,0,0)

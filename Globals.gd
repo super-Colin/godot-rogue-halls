@@ -3,6 +3,7 @@ extends Node
 
 
 var playerRef
+var playerInLevel = false
 #var levelRef
 #var shipRef 
 
@@ -10,6 +11,7 @@ var playerRef
 signal s_playerReady
 signal s_playerDied
 
+signal exitLevel
 
 
 

@@ -60,22 +60,22 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 
 var dead = false
 
-var laserChargesMax = 3.0
-var laserCharges = 3.0
-var laserGenerationEnergyEfficiency = 1.0 # lower is better
-var laserGenerationRate = 0.2 # higher is better
-var laserRegenerationOn = true
-
-var energyMax = 30.0
-var energy = 30.0
-var energyGeneration = 0.0
-
-var oxygenMax = 30.0
-var oxygen = 30.0
-var oxygenGenerationEnergyEfficiency = 1.0 # lower is better
-var oxygenGenerationRate = 2.0 # higher is better
-
-var suitCondition = 100.0
+#var laserChargesMax = 3.0
+#var laserCharges = 3.0
+#var laserGenerationEnergyEfficiency = 1.0 # lower is better
+#var laserGenerationRate = 0.2 # higher is better
+#var laserRegenerationOn = true
+#
+#var energyMax = 30.0
+#var energy = 30.0
+#var energyGeneration = 0.0
+#
+#var oxygenMax = 30.0
+#var oxygen = 30.0
+#var oxygenGenerationEnergyEfficiency = 1.0 # lower is better
+#var oxygenGenerationRate = 2.0 # higher is better
+#
+#var suitCondition = 100.0
 
 
 var currentInteractionObject:Node
@@ -86,10 +86,10 @@ var currentInteractionObject:Node
 
 
 func fireLaser():
-	print("player - firing laser, charges left: ", laserCharges)
-	if laserCharges < 1:
+	print("player - firing laser, charges left: ", Stats.laserCharges)
+	if Stats.laserCharges < 1:
 		return
-	laserCharges -= 1
+	Stats.laserCharges -= 1
 	var las = laserProjectileScene.instantiate()
 	las.position = $'.'.global_position
 	get_tree().root.add_child(las)
@@ -127,50 +127,50 @@ func clearInteractionOject():
 	currentInteractionObject = null
 
 func rechargeEnergy(amount):
-	energy += amount
-	if energy > energyMax:
-		energy = energyMax
+	Stats.energy += amount
+	if Stats.energy > Stats.energyMax:
+		Stats.energy = Stats.energyMax
 
 
 
 func fullRecharge():
-	laserCharges = laserChargesMax
-	energy = energyMax
-	oxygen = oxygenMax
+	Stats.laserCharges = Stats.laserChargesMax
+	Stats.energy = Stats.energyMax
+	Stats.oxygen = Stats.oxygenMax
 
 func handleOxygenDrain(delta):
-	oxygen -= delta
+	Stats.oxygen -= delta
 	# Die at -x, bar doesn't show below 0, screen starts flashing red... then game over
-	if oxygen < -4.0:
+	if Stats.oxygen < -4.0:
 		Globals.s_playerDied.emit()
 		dead = true
 		print("player - died from oxygen")
 
 
 func generateEnergy(delta):
-	energy += delta * energyGeneration
+	Stats.energy += delta * Stats.energyGeneration
 
 func generateOxygen(delta):
-	var energyCost = delta * oxygenGenerationEnergyEfficiency
+	var energyCost = delta * Stats.oxygenGenerationEnergyEfficiency
 	#if energy >= delta and oxygen < oxygenMax:
-	if energy >= energyCost and oxygen < oxygenMax:
-		energy -= energyCost
-		oxygen += delta * oxygenGenerationRate 
+	if Stats.energy >= energyCost and Stats.oxygen < Stats.oxygenMax:
+		Stats.energy -= energyCost
+		Stats.oxygen += delta * Stats.oxygenGenerationRate 
 
 func generateLaser(delta):
-	if not laserRegenerationOn:
+	if not Stats.laserRegenerationOn:
 		return
-	var energyCost = delta * laserGenerationEnergyEfficiency
+	var energyCost = delta * Stats.laserGenerationEnergyEfficiency
 	#var unitProduction = energy * laserGenerationRate
-	if laserCharges < laserChargesMax and energy > energyCost:
-		energy -= energyCost
-		laserCharges += delta * laserGenerationRate
+	if Stats.laserCharges < Stats.laserChargesMax and Stats.energy > energyCost:
+		Stats.energy -= energyCost
+		Stats.laserCharges += delta * Stats.laserGenerationRate
 
 
 
 
 func _physics_process(delta):
-	if dead:
+	if dead or not Globals.playerInLevel:
 		return
 	generateEnergy(delta)
 	generateOxygen(delta)

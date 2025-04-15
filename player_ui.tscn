@@ -149,3 +149,21 @@ size_flags_vertical = 8
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/Inventory/PanelContainer3"]
 layout_mode = 2
 expand_mode = 3
+
+[node name="PanelContainer4" type="PanelContainer" parent="HBoxContainer/Inventory"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Inventory/PanelContainer4"]
+layout_mode = 2
+expand_mode = 3
+
+[node name="PanelContainer5" type="PanelContainer" parent="HBoxContainer/Inventory"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Inventory/PanelContainer5"]
+layout_mode = 2
+expand_mode = 3

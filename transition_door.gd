@@ -8,10 +8,18 @@ signal openRequested
 @export var interactionPrompt:String = "Open Door"
 
 
+func _ready() -> void:
+	if isLevelExit:
+		interactionPrompt = "Exit Level"
 
 func playerInteraction():
+	if isLevelExit:
+		Globals.exitLevel.emit()
+		return
 	openRequested.emit()
 	print("door - open requested")
+
+
 
 
 
