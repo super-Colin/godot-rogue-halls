@@ -22,9 +22,6 @@ script = ExtResource("1_xiitf")
 layout_mode = 2
 color = Color(2.40654e-08, 0.212954, 0.118689, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 2
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 4

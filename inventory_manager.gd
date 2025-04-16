@@ -4,6 +4,7 @@ extends Node
 var shipInventory = {
 	Inventory.items.fuel:1,
 	Inventory.items.scrap:3,
+	Inventory.items.core:1,
 }
 
 

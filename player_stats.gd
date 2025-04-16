@@ -59,17 +59,17 @@ var upgrades = {
 	"agility":{
 		"1":{
 			"cost":{Inventory.items.scrap:1},
-			"stats":{},
+			"stats":{"energyMax":20},
 			"bought":false # Reset this on new run
 		},
 		"2":{
 			"cost":{Inventory.items.scrap:2},
-			"stats":{},
+			"stats":{"energyGeneration":2},
 			"bought":false
 		},
 		"3":{
 			"cost":{Inventory.items.core:1},
-			"stats":{},
+			"stats":{"laserGenerationRate":5},
 			"bought":false
 		},
 	},
@@ -78,7 +78,27 @@ var upgrades = {
 }
 
 
-
-
 func boughtUpgrade(branch, tier):
+	print("stats - upgrading branch: ", branch, ", tier: ", tier)
+	print("stats - upgrading stats: ", upgrades[branch][tier])
+	print("stats - upgrading stats: ", upgrades[branch][tier]["stats"])
+	for stat in upgrades[branch][tier]["stats"].keys():
+		print("stats - upgrading stat: ", stat)
+		$'.'[stat] += upgrades[branch][tier]["stats"][stat]
 	upgrades[branch][tier]["bought"] = true
+	print("stats - updated ", branch)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
