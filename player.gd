@@ -15,7 +15,7 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 ## Maximum speed reachable by player
 @export_range(0, 500) var max_speed := 200.0
 ## Minimum speed when variable_min_speed is set to true & min_speed isn't 0
-@export_range(0, 500) var min_speed := 0.0
+#@export_range(0, 500) var min_speed := 0.0
 ## Acceleration while on the ground (how quickly the player reaches max speed)
 @export_range(0, 500) var acceleration := 100.0
 ## Friction while on group (how quickly the player slows down)
@@ -25,9 +25,9 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 ## Air friction while in the air (how quickly the player slows down)
 @export_range(0, 50) var air_resistance := 50.0
 ## Sets a variable max speed depending on how far the joystick is pushed
-@export var is_variable_max_speed := false
-## sets a minimum speed based on min_speed
-@export var is_variable_min_speed := false
+#@export var is_variable_max_speed := false
+### sets a minimum speed based on min_speed
+#@export var is_variable_min_speed := false
 
 @export_group("Jump Assist")
 ## Max amount of time allowed after leaving the ground while still being able to jump
@@ -199,13 +199,13 @@ func _get_movement(fric: float, accel: float, delta: float):
 	if !direction or sign(direction) != sign(velocity.x):
 		velocity.x = move_toward(velocity.x, 0, fric * delta * 100)
 	
-	if is_variable_max_speed:
-		velocity.x = clamp(velocity.x, -max_speed * abs(direction), max_speed * abs(direction))
-	else:
-		velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	#if is_variable_max_speed:
+		#velocity.x = clamp(velocity.x, -max_speed * abs(direction), max_speed * abs(direction))
+	#else:
+	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
-	if is_variable_min_speed and min_speed > 0:
-			velocity.x = maxf(abs(velocity.x), abs(min_speed * sign(direction))) * sign(direction)
+	#if is_variable_min_speed and min_speed > 0:
+			#velocity.x = maxf(abs(velocity.x), abs(min_speed * sign(direction))) * sign(direction)
 
 
 

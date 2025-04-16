@@ -59,22 +59,54 @@ var upgrades = {
 	"agility":{
 		"1":{
 			"cost":{Inventory.items.scrap:1},
-			"stats":{"energyMax":20},
+			"stats":{"energyGeneration":0.2, "energyMax":10},
 			"bought":false # Reset this on new run
 		},
 		"2":{
 			"cost":{Inventory.items.scrap:2},
-			"stats":{"energyGeneration":2},
+			"stats":{"energyGeneration":0.2},
 			"bought":false
 		},
 		"3":{
 			"cost":{Inventory.items.core:1},
-			"stats":{"laserGenerationRate":5},
+			"stats":{"energyGeneration":0.2},
 			"bought":false
 		},
 	},
-	"looting":{},
-	"combat":{},
+	"looting":{
+		"1":{
+			"cost":{Inventory.items.scrap:1},
+			"stats":{"inventorySlots":1, "oxygenMax":10},
+			"bought":false # Reset this on new run
+		},
+		"2":{
+			"cost":{Inventory.items.scrap:2},
+			"stats":{"energyGeneration":0.2, "inventorySlots":1},
+			"bought":false
+		},
+		"3":{
+			"cost":{Inventory.items.core:1},
+			"stats":{"laserGenerationRate":1, "inventorySlots":1},
+			"bought":false
+		},
+	},
+	"combat":{
+		"1":{
+			"cost":{Inventory.items.scrap:1},
+			"stats":{"laserGenerationRate":0.3, "laserChargesMax":1},
+			"bought":false # Reset this on new run
+		},
+		"2":{
+			"cost":{Inventory.items.scrap:2},
+			"stats":{"energyGeneration":0.2, "laserChargesMax":1},
+			"bought":false
+		},
+		"3":{
+			"cost":{Inventory.items.core:1},
+			"stats":{"laserGenerationRate":1, "laserChargesMax":1},
+			"bought":false
+		},
+	},
 }
 
 
