@@ -8,7 +8,8 @@ var playerScene = preload("res://player.tscn")
 func _ready() -> void:
 	%MainMenu.newRun.connect(startNewRun)
 	Globals.s_playerDied.connect(showGameOver)
-	Globals.exitLevel.connect(showShipMenu)
+	Globals.s_exitLevel.connect(showShipMenu)
+	Globals.s_startLevel.connect(startLevel)
 
 
 func showShipMenu():
@@ -24,6 +25,10 @@ func startNewRun():
 	#generateLevel()
 	showShipMenu()
 
+func startLevel():
+	generateLevel()
+	%MainMenu.visible = false
+	%ShipMenu.visible = false
 
 func generateLevel():
 	for c in %Level.get_children():

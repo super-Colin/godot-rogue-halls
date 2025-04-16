@@ -13,7 +13,6 @@ config_version=5
 config/name="Rogue Halls"
 run/main_scene="uid://cwdekrbnrp8yo"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
 
 [autoload]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://biqkmwcv0bmkf"]
 
-[ext_resource type="Texture2D" uid="uid://dhc406tshlctc" path="res://pattern_46.png" id="1_fwr7s"]
+[ext_resource type="Texture2D" uid="uid://dhc406tshlctc" path="res://assets/pattern_46.png" id="1_fwr7s"]
 [ext_resource type="Script" uid="uid://3qpnrua142sa" path="res://ship_menu.gd" id="1_xiitf"]
-[ext_resource type="Texture2D" uid="uid://b6fxttte02rd2" path="res://pattern_37.png" id="2_xiitf"]
+[ext_resource type="Texture2D" uid="uid://b6fxttte02rd2" path="res://assets/pattern_37.png" id="2_xiitf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xiitf"]
 bg_color = Color(0.585065, 0.260884, 0.246856, 1)
@@ -22,46 +22,55 @@ script = ExtResource("1_xiitf")
 layout_mode = 2
 color = Color(2.40654e-08, 0.212954, 0.118689, 1)
 
-[node name="NavigationChoices" type="VBoxContainer" parent="."]
-visible = false
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 15
 
-[node name="Button" type="Button" parent="NavigationChoices"]
+[node name="NavigationChoices" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="Button" type="Button" parent="VBoxContainer/NavigationChoices"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Ship Choice 1"
 
-[node name="Button2" type="Button" parent="NavigationChoices"]
+[node name="Button2" type="Button" parent="VBoxContainer/NavigationChoices"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Ship Choice 2"
 
-[node name="SkillTrees" type="HBoxContainer" parent="."]
+[node name="SkillTrees" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 50
 
-[node name="AgilityTree" type="VBoxContainer" parent="SkillTrees"]
+[node name="AgilityTree" type="VBoxContainer" parent="VBoxContainer/SkillTrees"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="SkillTrees/AgilityTree"]
+[node name="Label" type="Label" parent="VBoxContainer/SkillTrees/AgilityTree"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Agility"
 horizontal_alignment = 1
 
-[node name="Level3" type="HBoxContainer" parent="SkillTrees/AgilityTree"]
+[node name="Level3" type="HBoxContainer" parent="VBoxContainer/SkillTrees/AgilityTree"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Button" type="Button" parent="SkillTrees/AgilityTree/Level3"]
+[node name="Button" type="Button" parent="VBoxContainer/SkillTrees/AgilityTree/Level3"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
@@ -70,17 +79,17 @@ toggle_mode = true
 button_pressed = true
 text = "Max"
 
-[node name="TextureRect" type="TextureRect" parent="SkillTrees/AgilityTree/Level3"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SkillTrees/AgilityTree/Level3"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("1_fwr7s")
 expand_mode = 2
 
-[node name="Level2" type="HBoxContainer" parent="SkillTrees/AgilityTree"]
+[node name="Level2" type="HBoxContainer" parent="VBoxContainer/SkillTrees/AgilityTree"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Button" type="Button" parent="SkillTrees/AgilityTree/Level2"]
+[node name="Button" type="Button" parent="VBoxContainer/SkillTrees/AgilityTree/Level2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
@@ -89,13 +98,13 @@ toggle_mode = true
 button_pressed = true
 text = "Level 2"
 
-[node name="TextureRect" type="TextureRect" parent="SkillTrees/AgilityTree/Level2"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SkillTrees/AgilityTree/Level2"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("2_xiitf")
 expand_mode = 2
 
-[node name="Label" type="Label" parent="SkillTrees/AgilityTree/Level2/TextureRect"]
+[node name="Label" type="Label" parent="VBoxContainer/SkillTrees/AgilityTree/Level2/TextureRect"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -108,11 +117,11 @@ theme_override_font_sizes/font_size = 32
 text = "x2"
 vertical_alignment = 2
 
-[node name="Level1" type="HBoxContainer" parent="SkillTrees/AgilityTree"]
+[node name="Level1" type="HBoxContainer" parent="VBoxContainer/SkillTrees/AgilityTree"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Button" type="Button" parent="SkillTrees/AgilityTree/Level1"]
+[node name="Button" type="Button" parent="VBoxContainer/SkillTrees/AgilityTree/Level1"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
@@ -122,29 +131,29 @@ toggle_mode = true
 button_pressed = true
 text = "Level 1"
 
-[node name="TextureRect" type="TextureRect" parent="SkillTrees/AgilityTree/Level1"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SkillTrees/AgilityTree/Level1"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("2_xiitf")
 expand_mode = 2
 
-[node name="Looting" type="VBoxContainer" parent="SkillTrees"]
+[node name="Looting" type="VBoxContainer" parent="VBoxContainer/SkillTrees"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="SkillTrees/Looting"]
+[node name="Label" type="Label" parent="VBoxContainer/SkillTrees/Looting"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Looting"
 horizontal_alignment = 1
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="SkillTrees/Looting"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/SkillTrees/Looting"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Level3" type="Button" parent="SkillTrees/Looting/HBoxContainer3"]
+[node name="Level3" type="Button" parent="VBoxContainer/SkillTrees/Looting/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
@@ -153,17 +162,17 @@ toggle_mode = true
 button_pressed = true
 text = "Max"
 
-[node name="TextureRect" type="TextureRect" parent="SkillTrees/Looting/HBoxContainer3"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SkillTrees/Looting/HBoxContainer3"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("1_fwr7s")
 expand_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="SkillTrees/Looting"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/SkillTrees/Looting"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Level2" type="Button" parent="SkillTrees/Looting/HBoxContainer2"]
+[node name="Level2" type="Button" parent="VBoxContainer/SkillTrees/Looting/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
@@ -171,13 +180,13 @@ toggle_mode = true
 button_pressed = true
 text = "Level 2"
 
-[node name="TextureRect" type="TextureRect" parent="SkillTrees/Looting/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SkillTrees/Looting/HBoxContainer2"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("2_xiitf")
 expand_mode = 2
 
-[node name="Label" type="Label" parent="SkillTrees/Looting/HBoxContainer2/TextureRect"]
+[node name="Label" type="Label" parent="VBoxContainer/SkillTrees/Looting/HBoxContainer2/TextureRect"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -190,11 +199,11 @@ theme_override_font_sizes/font_size = 32
 text = "x2"
 vertical_alignment = 2
 
-[node name="HBoxContainer1" type="HBoxContainer" parent="SkillTrees/Looting"]
+[node name="HBoxContainer1" type="HBoxContainer" parent="VBoxContainer/SkillTrees/Looting"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Level1" type="Button" parent="SkillTrees/Looting/HBoxContainer1"]
+[node name="Level1" type="Button" parent="VBoxContainer/SkillTrees/Looting/HBoxContainer1"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
@@ -204,29 +213,29 @@ toggle_mode = true
 button_pressed = true
 text = "Level 1"
 
-[node name="TextureRect" type="TextureRect" parent="SkillTrees/Looting/HBoxContainer1"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SkillTrees/Looting/HBoxContainer1"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("2_xiitf")
 expand_mode = 2
 
-[node name="AgilityTree3" type="VBoxContainer" parent="SkillTrees"]
+[node name="AgilityTree3" type="VBoxContainer" parent="VBoxContainer/SkillTrees"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="SkillTrees/AgilityTree3"]
+[node name="Label" type="Label" parent="VBoxContainer/SkillTrees/AgilityTree3"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Combat"
 horizontal_alignment = 1
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="SkillTrees/AgilityTree3"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/SkillTrees/AgilityTree3"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Level3" type="Button" parent="SkillTrees/AgilityTree3/HBoxContainer4"]
+[node name="Level3" type="Button" parent="VBoxContainer/SkillTrees/AgilityTree3/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
@@ -235,17 +244,17 @@ toggle_mode = true
 button_pressed = true
 text = "Max"
 
-[node name="TextureRect" type="TextureRect" parent="SkillTrees/AgilityTree3/HBoxContainer4"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SkillTrees/AgilityTree3/HBoxContainer4"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("1_fwr7s")
 expand_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="SkillTrees/AgilityTree3"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/SkillTrees/AgilityTree3"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Level2" type="Button" parent="SkillTrees/AgilityTree3/HBoxContainer2"]
+[node name="Level2" type="Button" parent="VBoxContainer/SkillTrees/AgilityTree3/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
@@ -253,13 +262,13 @@ toggle_mode = true
 button_pressed = true
 text = "Level 2"
 
-[node name="TextureRect" type="TextureRect" parent="SkillTrees/AgilityTree3/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SkillTrees/AgilityTree3/HBoxContainer2"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("2_xiitf")
 expand_mode = 2
 
-[node name="Label" type="Label" parent="SkillTrees/AgilityTree3/HBoxContainer2/TextureRect"]
+[node name="Label" type="Label" parent="VBoxContainer/SkillTrees/AgilityTree3/HBoxContainer2/TextureRect"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -272,11 +281,11 @@ theme_override_font_sizes/font_size = 32
 text = "x2"
 vertical_alignment = 2
 
-[node name="HBoxContainer1" type="HBoxContainer" parent="SkillTrees/AgilityTree3"]
+[node name="HBoxContainer1" type="HBoxContainer" parent="VBoxContainer/SkillTrees/AgilityTree3"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Level1" type="Button" parent="SkillTrees/AgilityTree3/HBoxContainer1"]
+[node name="Level1" type="Button" parent="VBoxContainer/SkillTrees/AgilityTree3/HBoxContainer1"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
@@ -286,8 +295,13 @@ toggle_mode = true
 button_pressed = true
 text = "Level 1"
 
-[node name="TextureRect" type="TextureRect" parent="SkillTrees/AgilityTree3/HBoxContainer1"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SkillTrees/AgilityTree3/HBoxContainer1"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("2_xiitf")
 expand_mode = 2
+
+[node name="StartLevelButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start Level"

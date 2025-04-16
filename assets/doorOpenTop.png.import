@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cumaw7c1aqwmo"
-path="res://.godot/imported/tiles_sheet.png-04b2fbee30e6cc0bc28643be107f5f59.ctex"
+uid="uid://c2jaug6xeq108"
+path="res://.godot/imported/doorOpenTop.png-f626fd9db7c0540ee0f73c282705797d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tiles_sheet.png"
-dest_files=["res://.godot/imported/tiles_sheet.png-04b2fbee30e6cc0bc28643be107f5f59.ctex"]
+source_file="res://assets/doorOpenTop.png"
+dest_files=["res://.godot/imported/doorOpenTop.png-f626fd9db7c0540ee0f73c282705797d.ctex"]
 
 [params]
 

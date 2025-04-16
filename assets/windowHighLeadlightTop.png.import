@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vf2veboqankt"
-path="res://.godot/imported/doorOpen.png-ce3ecf071bfc22b81ea277e0067cea47.ctex"
+uid="uid://cm2emr5kak8xq"
+path="res://.godot/imported/windowHighLeadlightTop.png-6631aea59962d82e1da679e62086c3c8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://doorOpen.png"
-dest_files=["res://.godot/imported/doorOpen.png-ce3ecf071bfc22b81ea277e0067cea47.ctex"]
+source_file="res://assets/windowHighLeadlightTop.png"
+dest_files=["res://.godot/imported/windowHighLeadlightTop.png-6631aea59962d82e1da679e62086c3c8.ctex"]
 
 [params]
 

@@ -11,7 +11,8 @@ var playerInLevel = false
 signal s_playerReady
 signal s_playerDied
 
-signal exitLevel
+signal s_exitLevel
+signal s_startLevel
 
 
 

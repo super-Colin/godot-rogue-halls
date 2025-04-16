@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func playerInteraction():
 	if isLevelExit:
-		Globals.exitLevel.emit()
+		Globals.s_exitLevel.emit()
 		return
 	openRequested.emit()
 	print("door - open requested")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c6txhrt448b4u"]
 
-[ext_resource type="Texture2D" uid="uid://8vt5rcarnmw2" path="res://alienYellow.png" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://8vt5rcarnmw2" path="res://assets/alienYellow.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://6mw2v5l8oogf" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="PackedScene" uid="uid://caf8xfg6vi0k5" path="res://flashlight.tscn" id="3_i3pqv"]
 

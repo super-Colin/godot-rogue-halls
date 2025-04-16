@@ -25,9 +25,9 @@ var itemsInPlayerInventory = 0
 
 enum items {fuel, scrap, core}
 
-var fuelTexture = preload("res://pattern_30.png")
-var scrapTexture = preload("res://pattern_37.png")
-var coreTexture = preload("res://pattern_46.png")
+var fuelTexture = preload("res://assets/pattern_30.png")
+var scrapTexture = preload("res://assets/pattern_37.png")
+var coreTexture = preload("res://assets/pattern_46.png")
 
 var texMap = {
 	Inventory.items.fuel:fuelTexture,

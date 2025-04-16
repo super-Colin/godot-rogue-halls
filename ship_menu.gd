@@ -6,6 +6,7 @@ extends Control
 
 
 func _ready() -> void:
+	%StartLevelButton.pressed.connect(func():Globals.s_startLevel.emit())
 	pass
 
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cwdekrbnrp8yo"]
 
-[ext_resource type="Texture2D" uid="uid://cumaw7c1aqwmo" path="res://tiles_sheet.png" id="1_feb5d"]
+[ext_resource type="Texture2D" uid="uid://cumaw7c1aqwmo" path="res://assets/tiles_sheet.png" id="1_feb5d"]
 [ext_resource type="Script" uid="uid://c4sikoknnuubk" path="res://game.gd" id="1_j5wjh"]
 [ext_resource type="PackedScene" uid="uid://biqkmwcv0bmkf" path="res://ship_menu.tscn" id="4_7jktm"]
 [ext_resource type="PackedScene" uid="uid://b6mvathho3qof" path="res://player_ui.tscn" id="5_7jktm"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2jaug6xeq108"
-path="res://.godot/imported/doorOpenTop.png-019d9f8d0754d0eb6ae02ea1c34dc57f.ctex"
+uid="uid://8vt5rcarnmw2"
+path="res://.godot/imported/alienYellow.png-74df16c0ab92140c97a049508c140592.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://doorOpenTop.png"
-dest_files=["res://.godot/imported/doorOpenTop.png-019d9f8d0754d0eb6ae02ea1c34dc57f.ctex"]
+source_file="res://assets/alienYellow.png"
+dest_files=["res://.godot/imported/alienYellow.png-74df16c0ab92140c97a049508c140592.ctex"]
 
 [params]
 
