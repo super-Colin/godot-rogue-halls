@@ -11,16 +11,19 @@ func _ready() -> void:
 	Globals.exitLevel.connect(showShipMenu)
 
 
-
 func showShipMenu():
 	%MainMenu.visible = false
+	%ShipMenu.setupUpgradeTree()
 	%ShipMenu.visible = true
 	Globals.playerInLevel = false
+
 
 func startNewRun():
 	print("game - starting new run")
 	%MainMenu.visible = false
-	generateLevel()
+	#generateLevel()
+	showShipMenu()
+
 
 func generateLevel():
 	for c in %Level.get_children():

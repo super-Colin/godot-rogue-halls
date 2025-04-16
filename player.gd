@@ -48,10 +48,6 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 ## Determains the minumum jump heighet a player can reach if they barely tap the jump button (and variable_jump_height is true)
 @export var minimum_jump_height := -100
 
-@export_group("Jump Trojectory")
-## Maximum amount of points used to visualize player's jump trojectory (WiP)
-@export var max_trojectory_ponints := 100
-
 
 @onready var jump_velocity : float = (2.0 * jump_height) / jump_time_to_peak * -1
 @onready var jump_gravity : float = (-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak) * -1
@@ -59,25 +55,6 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 
 
 var dead = false
-
-#var laserChargesMax = 3.0
-#var laserCharges = 3.0
-#var laserGenerationEnergyEfficiency = 1.0 # lower is better
-#var laserGenerationRate = 0.2 # higher is better
-#var laserRegenerationOn = true
-#
-#var energyMax = 30.0
-#var energy = 30.0
-#var energyGeneration = 0.0
-#
-#var oxygenMax = 30.0
-#var oxygen = 30.0
-#var oxygenGenerationEnergyEfficiency = 1.0 # lower is better
-#var oxygenGenerationRate = 2.0 # higher is better
-#
-#var suitCondition = 100.0
-
-
 var currentInteractionObject:Node
 
 
@@ -99,11 +76,11 @@ func fireLaser():
 
 func _ready():
 	Globals.playerRef = $'.'
-	Globals.s_playerReady.emit()
 	%PickupRange.area_entered.connect(checkForPromptUpdate.bind(true))
 	%PickupRange.area_exited.connect(checkForPromptUpdate.bind(false))
 	%PickupRange.body_entered.connect(checkForPromptUpdate.bind(true))
 	%PickupRange.body_exited.connect(checkForPromptUpdate.bind(false))
+	Globals.s_playerReady.emit()
 	#coyote_timer.wait_time = coyote_timer_value
 	#jump_buffer_timer.wait_time = jump_buffer_timer_value
 
