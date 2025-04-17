@@ -51,6 +51,15 @@ extends CharacterBody2D
 var health = 100.0
 var dead = false
 
+func hitByLaser(laser):
+	takeDamage(laser.damage)
+
+func takeDamage(amount):
+	health -= amount
+	if health <= 0:
+		$'.'.queue_free()
+
+
 func _physics_process(delta):
 	if dead or not Globals.playerInLevel:
 		return

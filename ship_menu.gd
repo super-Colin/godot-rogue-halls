@@ -6,21 +6,28 @@ extends Control
 
 
 func _ready() -> void:
-	%StartLevelButton.pressed.connect(func():Globals.s_startLevel.emit())
+	%StartLevelButton.pressed.connect(travelToLevel)
 	#updateInventoryDisplay()
+
+var levelTravelCost = {Inventory.items.fuel:1}
+func travelToLevel():
+	Inventory.payCostFromShipInventory(levelTravelCost)
+	Globals.s_startLevel.emit()
+
 
 
 
 func setupUpgradeTree():
 	updateInventoryDisplay()
 	for skill in Stats.trees:
-		print("ship menu - skill: ", skill, ", upgrades: ", Stats.upgrades[skill])
+		#print("ship menu - skill: ", skill, ", upgrades: ", Stats.upgrades[skill])
 		setupSkillBranch(skill)
 		#if skill == Stats.trees.agility:
 			#
 
 
 func updateInventoryDisplay():
+	print("ship menu - inventory is: ", Inventory.shipInventory)
 	%FuelInventory/Label.text = str(Inventory.shipInventory[Inventory.items.fuel])
 	%ScrapInventory/Label.text = str(Inventory.shipInventory[Inventory.items.scrap])
 	%CoreInventory/Label.text = str(Inventory.shipInventory[Inventory.items.core])
@@ -35,7 +42,7 @@ func setupSkillBranch(skillBranch):
 		parentNode = %CombatTree
 	var highestTierBought = 0
 	for tier in Stats.upgrades[skillBranch]:
-		print("ship menu - tier: ", tier, ", cost: ", Stats.upgrades[skillBranch][tier]["cost"])
+		#print("ship menu - tier: ", tier, ", cost: ", Stats.upgrades[skillBranch][tier]["cost"])
 		var button = parentNode.get_node("Level"+ str(tier) +"/Button")
 		if button.pressed.is_connected(buySkillUpgrade):
 			button.pressed.disconnect(buySkillUpgrade)
@@ -52,7 +59,7 @@ func setupSkillBranch(skillBranch):
 			markButtonAsCantAfford(button)
 
 func buySkillUpgrade(branch, tier):
-	print("ship - bought upgrade: ", branch, ": ", tier)
+	#print("ship - bought upgrade: ", branch, ": ", tier)
 	Inventory.payCostFromShipInventory(Stats.upgrades[branch][tier]["cost"])
 	Stats.boughtUpgrade(branch, tier)
 	#setupSkillBranch(branch)

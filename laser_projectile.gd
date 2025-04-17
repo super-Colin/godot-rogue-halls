@@ -1,7 +1,7 @@
 extends Area2D
 
-@export var projectileSpeed = 10
-
+var projectileSpeed = 10
+var damage = 60
 
 func _ready() -> void:
 	$'.'.area_entered.connect(_area_entered)
@@ -16,6 +16,8 @@ func _area_entered(area):
 
 func _body_entered(body):
 	print("laser - body", body)
+	if "hitByLaser" in body:
+		body.hitByLaser($'.')
 	$".".queue_free()
 
 

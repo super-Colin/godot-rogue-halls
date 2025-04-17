@@ -117,7 +117,6 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/fill = SubResource("StyleBoxFlat_654h1")
 value = 100.0
-show_percentage = false
 
 [node name="Inventory" type="HBoxContainer" parent="HBoxContainer"]
 unique_name_in_owner = true

@@ -1,25 +1,14 @@
 extends Node
 
 
-var shipInventory = {
+var startingShipInventory = {
 	Inventory.items.fuel:1,
 	Inventory.items.scrap:3,
 	Inventory.items.core:1,
 }
+var shipInventory = startingShipInventory
 
 
-func canShipAffordCost(costDict)->bool:
-	for item in costDict:
-		if not shipInventory.has(item):
-			return false
-		if costDict[item] > shipInventory[item]:
-			return false
-	print("inv - can afford: ", costDict)
-	return true
-
-func payCostFromShipInventory(costDict):
-	for item in costDict:
-		shipInventory[item] -= costDict[item]
 
 var playerInventory = {}
 var itemsInPlayerInventory = 0
@@ -58,20 +47,31 @@ func addItemsToPlayerInventory(items:Dictionary):
 
 
 
-func _ready() -> void:
-	if Globals.playerRef:
-		newRunSetup()
-	else:
-		Globals.s_playerReady.connect(newRunSetup)
+#func _ready() -> void:
+	#if Globals.playerRef:
+		#newRunSetup()
+	#else:
+		#Globals.s_playerReady.connect(newRunSetup)
 
 
 func newRunSetup():
-	shipInventory = {}
+	shipInventory = startingShipInventory
 	playerInventory = {}
 
 
 
+func canShipAffordCost(costDict)->bool:
+	for item in costDict:
+		if not shipInventory.has(item):
+			return false
+		if costDict[item] > shipInventory[item]:
+			return false
+	#print("inv - can afford: ", costDict)
+	return true
 
+func payCostFromShipInventory(costDict):
+	for item in costDict:
+		shipInventory[item] -= costDict[item]
 
 
 

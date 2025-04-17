@@ -22,7 +22,7 @@ func showShipMenu():
 func startNewRun():
 	print("game - starting new run")
 	%MainMenu.visible = false
-	#generateLevel()
+	Inventory.newRunSetup()
 	showShipMenu()
 
 func startLevel():
