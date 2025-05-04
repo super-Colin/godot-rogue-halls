@@ -50,7 +50,7 @@ position = Vector2(1311, 849)
 position = Vector2(884, 444)
 
 [node name="Enemy" parent="." instance=ExtResource("4_76b4i")]
-position = Vector2(917, 678)
+position = Vector2(1773, 777)
 
 [node name="TransitionDoor" parent="." instance=ExtResource("5_u1ytf")]
 position = Vector2(1504, 770)

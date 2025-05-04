@@ -14,16 +14,6 @@ extends CharacterBody2D
 @export_range(0, 500) var air_acceleration := 5.0
 ## Air friction while in the air (how quickly the player slows down)
 @export_range(0, 50) var air_resistance := 50.0
-## Sets a variable max speed depending on how far the joystick is pushed
-@export var is_variable_max_speed := false
-## sets a minimum speed based on min_speed
-@export var is_variable_min_speed := false
-
-@export_group("Jump Assist")
-## Max amount of time allowed after leaving the ground while still being able to jump
-@export_range(0, 1) var coyote_timer_value = 0.1
-## Max amount of time the game holds on to the players input to accecute when avaiable
-@export_range(0, 1) var jump_buffer_timer_value = 0.15
 
 
 @export_group("Jump")
@@ -37,10 +27,6 @@ extends CharacterBody2D
 @export var variable_jump_height := false
 ## Determains the minumum jump heighet a player can reach if they barely tap the jump button (and variable_jump_height is true)
 @export var minimum_jump_height := -100
-
-@export_group("Jump Trojectory")
-## Maximum amount of points used to visualize player's jump trojectory (WiP)
-@export var max_trojectory_ponints := 100
 
 
 @onready var jump_velocity : float = (2.0 * jump_height) / jump_time_to_peak * -1
@@ -63,22 +49,17 @@ func takeDamage(amount):
 func _physics_process(delta):
 	if dead or not Globals.playerInLevel:
 		return
+	AI.attackPlayer($'.')
 	if not is_on_floor():
 		velocity.y += _get_gravity(velocity) * delta
 		_get_movement(air_resistance, air_acceleration, delta)
 	else:
-		#if coyote_timer.is_stopped():
-			#coyote_timer.start()
-		#if jump_buffer_timer.time_left > 0.0:
-			#jump_buffer_timer.stop()
-			#jump()
 		_get_movement(friction, acceleration, delta)
 	_set_sprite_direction(sign(velocity.x))
 	#if Input.is_action_just_pressed("Jump"):
 		#jump()
 	if Input.is_action_just_released("Jump"):
 		jump_cut()
-
 	move_and_slide()
 
 
@@ -87,9 +68,10 @@ func _get_gravity(_velocity):
 	return jump_gravity if _velocity.y < 0.0 else fall_gravity
 
 
-# Calculates the players movement depending on the context
+
+
+
 func _get_movement(fric: float, accel: float, delta: float):
-	#var direction = Input.get_axis("Move_Left", "Move_Right")
 	var direction = (Globals.playerRef.global_position.x - $'.'.global_position.x )
 	if direction:
 		velocity.x += sign(direction) * accel * delta * 100
@@ -97,13 +79,13 @@ func _get_movement(fric: float, accel: float, delta: float):
 	if !direction or sign(direction) != sign(velocity.x):
 		velocity.x = move_toward(velocity.x, 0, fric * delta * 100)
 	
-	if is_variable_max_speed:
-		velocity.x = clamp(velocity.x, -max_speed * abs(direction), max_speed * abs(direction))
-	else:
-		velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	#if is_variable_max_speed:
+		#velocity.x = clamp(velocity.x, -max_speed * abs(direction), max_speed * abs(direction))
+	#else:
+	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
-	if is_variable_min_speed and min_speed > 0:
-			velocity.x = maxf(abs(velocity.x), abs(min_speed * sign(direction))) * sign(direction)
+	#if is_variable_min_speed and min_speed > 0:
+			#velocity.x = maxf(abs(velocity.x), abs(min_speed * sign(direction))) * sign(direction)
 
 
 

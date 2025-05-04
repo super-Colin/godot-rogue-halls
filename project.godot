@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 Globals="*res://Globals.gd"
 Inventory="*res://inventory_manager.gd"
 Stats="*res://player_stats.gd"
+AI="*res://ai_behavior.gd"
 
 [display]
 
