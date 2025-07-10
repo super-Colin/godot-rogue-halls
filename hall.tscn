@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://cumaw7c1aqwmo" path="res://assets/tiles_sheet.png" id="1_7h0dx"]
 [ext_resource type="Script" uid="uid://jy4kvlx8m05f" path="res://level.gd" id="1_ru55v"]
-[ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://crate.tscn" id="3_wkri5"]
+[ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://level_pieces/crate.tscn" id="3_wkri5"]
 [ext_resource type="PackedScene" uid="uid://d1gbcitmb13oa" path="res://enemy.tscn" id="4_76b4i"]
-[ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://transition_door.tscn" id="5_u1ytf"]
-[ext_resource type="PackedScene" uid="uid://djph6lk4gcr73" path="res://battery_pickup.tscn" id="6_ubv8k"]
+[ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://level_pieces/transition_door.tscn" id="5_u1ytf"]
+[ext_resource type="PackedScene" uid="uid://djph6lk4gcr73" path="res://pickups/battery_pickup.tscn" id="6_ubv8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kftm2"]
 size = Vector2(7260, 329)
@@ -14,8 +14,7 @@ size = Vector2(7260, 329)
 script = ExtResource("1_ru55v")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 3
-collision_mask = 3
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(890, -356.25)

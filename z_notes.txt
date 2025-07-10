@@ -1,9 +1,52 @@
-
 Space hall scavanger
+
+
+
+motion cancel shader on an enemy
+
+=== Gameplay: 
+2D, roguelite, shooter
+Survive by scavenging/looting supplies from other ships
+- Timed (by oxygen running out) RNG area exploration
+High stakes
+
+= Gameplay Phases:
+Ship management:
+- Spend scrap to upgrade abilities
+
+
+=== Story:
+You awake on your ship with no memories
+
+=== World:
+
+=== Music:
+Dark, Electronic
+ambient tension
+
+=== Art:
+
+=== Technical Challenges:
+2.5 D hallways
+- purely left-to-right, but with doors to move forward/backward
+-- layer transistion
+Procedural level generation
+- generating consistantly possible layouts
+Enemy AI behavior
+- at least 2-3 different "personalities" / behavior patterns
+
+=== 
+
+
+
+
+
+
+
 
 = Inspirations / Influences
 FTL 
-- Classic roguelite
+- Classic roguelite, brutal
 - Tree based navigation
 - planning ahead required, can be very punishing for a small mistake
 This War of Mine
@@ -11,6 +54,10 @@ This War of Mine
 Dead Space
 - Dark, and brutal
 - Visceral and deadly enemies
+Hell Is Others
+- Dark, brutal
+- Resource gathering 
+- Home base grid space mechanic
 
 Some insanity tones?
 - infinitely repeating hallways..

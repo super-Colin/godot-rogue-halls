@@ -6,7 +6,7 @@ var startingShipInventory = {
 	Inventory.items.scrap:3,
 	Inventory.items.core:1,
 }
-var shipInventory = startingShipInventory
+var shipInventory = startingShipInventory.duplicate()
 
 
 
@@ -15,11 +15,11 @@ var itemsInPlayerInventory = 0
 
 enum items {fuel, scrap, core}
 
-var fuelTexture = preload("res://assets/pattern_30.png")
-var scrapTexture = preload("res://assets/pattern_37.png")
-var coreTexture = preload("res://assets/pattern_46.png")
+const fuelTexture = preload("res://assets/pattern_30.png")
+const scrapTexture = preload("res://assets/pattern_37.png")
+const coreTexture = preload("res://assets/pattern_46.png")
 
-var texMap = {
+const texMap = {
 	Inventory.items.fuel:fuelTexture,
 	Inventory.items.scrap:scrapTexture,
 	Inventory.items.core:coreTexture,

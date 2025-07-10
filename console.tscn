@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://cisv4u03vah24"]
+
+[ext_resource type="Script" uid="uid://dhthhtqk71xkr" path="res://console.gd" id="1_buh4c"]
+[ext_resource type="Texture2D" uid="uid://d1kbtmc7b85aq" path="res://assets/console-19-600x400.png" id="1_lu137"]
+[ext_resource type="PackedScene" uid="uid://by7o0iymt8xvt" path="res://menus/main_menu_screen.tscn" id="3_ewjey"]
+
+[node name="Console" type="Area2D"]
+script = ExtResource("1_buh4c")
+
+[node name="Console" type="Sprite2D" parent="."]
+texture = ExtResource("1_lu137")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-356, 341, 381, 351, 410, 211, 250, 170, 250, -149, -250, -151, -250, 176, -358, 198)
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -20.0
+offset_right = 250.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenScale" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 2000.0
+offset_bottom = 1164.0
+scale = Vector2(0.25, 0.25)
+
+[node name="MainMenu" parent="Control/ScreenScale" instance=ExtResource("3_ewjey")]
+layout_mode = 1
+
+[node name="ScreenCamera" type="Camera2D" parent="."]
+zoom = Vector2(3.8, 3.8)

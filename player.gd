@@ -1,3 +1,4 @@
+#@tool
 class_name Player
 extends CharacterBody2D
 
@@ -10,6 +11,8 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 @onready var jump_buffer_timer = $JumpBufferTimer
 #@onready var jump_trojectory_line = $JumpTrojectoryLine
 
+#@export_tool_button("Flip X Direction")
+#var flipXDirectionAction = flipDirection
 
 @export_group("Movement")
 ## Maximum speed reachable by player
@@ -75,6 +78,8 @@ func fireLaser():
 
 
 func _ready():
+	if Engine.is_editor_hint():
+		return
 	Globals.playerRef = $'.'
 	%PickupRange.area_entered.connect(checkForPromptUpdate.bind(true))
 	%PickupRange.area_exited.connect(checkForPromptUpdate.bind(false))
@@ -83,6 +88,47 @@ func _ready():
 	Globals.s_playerReady.emit()
 	#coyote_timer.wait_time = coyote_timer_value
 	#jump_buffer_timer.wait_time = jump_buffer_timer_value
+
+
+
+func _physics_process(delta):
+	if Engine.is_editor_hint():
+		return
+	if dead or not Globals.playerIsControllable:
+		return
+	if not is_on_floor():
+		velocity.y += _get_gravity(velocity) * delta
+		_get_movement(air_resistance, air_acceleration, delta)
+	else:
+		#if coyote_timer.is_stopped():
+			#coyote_timer.start()
+		#if jump_buffer_timer.time_left > 0.0:
+			#jump_buffer_timer.stop()
+			#jump()
+		_get_movement(friction, acceleration, delta)
+
+	#_set_sprite_direction(sign(velocity.x))
+	_set_player_direction(sign(velocity.x))
+	if Input.is_action_just_pressed("Jump"):
+		jump()
+		#_projected_jump_trojectory(delta, sign(velocity.x))
+	if Input.is_action_just_released("Jump"):
+		jump_cut()
+	if Input.is_action_just_pressed("Fire"):
+		fireLaser()
+	if Input.is_action_just_released("Interact"):
+		if currentInteractionObject != null:
+			currentInteractionObject.playerInteraction()
+	#if velocity != Vector2.ZERO:
+		#$AnimatedSprite2D.play("walk")
+	#else:
+		#$AnimatedSprite2D.play("idle")
+	generateEnergy(delta)
+	generateOxygen(delta)
+	generateLaser(delta)
+	handleOxygenDrain(delta)
+	move_and_slide()
+
 
 
 
@@ -146,40 +192,6 @@ func generateLaser(delta):
 
 
 
-func _physics_process(delta):
-	if dead or not Globals.playerInLevel:
-		return
-	generateEnergy(delta)
-	generateOxygen(delta)
-	generateLaser(delta)
-	handleOxygenDrain(delta)
-	if not is_on_floor():
-		velocity.y += _get_gravity(velocity) * delta
-		_get_movement(air_resistance, air_acceleration, delta)
-	else:
-		#if coyote_timer.is_stopped():
-			#coyote_timer.start()
-		#if jump_buffer_timer.time_left > 0.0:
-			#jump_buffer_timer.stop()
-			#jump()
-		_get_movement(friction, acceleration, delta)
-	#_set_sprite_direction(sign(velocity.x))
-	_set_flashlight_direction(sign(velocity.x))
-	if Input.is_action_just_pressed("Jump"):
-		jump()
-		#_projected_jump_trojectory(delta, sign(velocity.x))
-	if Input.is_action_just_released("Jump"):
-		jump_cut()
-	if Input.is_action_just_pressed("Fire"):
-		fireLaser()
-	if Input.is_action_just_released("Interact"):
-		if currentInteractionObject != null:
-			currentInteractionObject.playerInteraction()
-	#if velocity != Vector2.ZERO:
-		#$AnimatedSprite2D.play("walk")
-	#else:
-		#$AnimatedSprite2D.play("idle")
-	move_and_slide()
 
 
 
@@ -230,14 +242,14 @@ func jump_cut():
 
 
 
+func flipDirection():
+	print("player - flipping direction")
+	if %PlayerSprite.flip_h:
+		_set_player_direction(1)
+	else:
+		_set_player_direction(-1)
 
-func _set_sprite_direction(direction: int) -> void:
-	if direction > 0.0:
-		$AnimatedSprite2D.flip_h = true
-	elif direction < 0.0:
-		$AnimatedSprite2D.flip_h = false
-		
-func _set_flashlight_direction(direction: int) -> void:
+func _set_player_direction(direction: int) -> void:
 	#return
 	#print("player - flashlight direction is: ", direction)
 	if direction > 0.0: # moving right

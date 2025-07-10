@@ -1,0 +1,43 @@
+
+
+
+=== Game overview: Genre, platform, story premise, target audience.
+2D, roguelite, shooter
+Survive by scavenging/looting supplies from other ships
+- Timed (by oxygen running out) RNG area exploration
+High stakes
+
+=== Gameplay mechanics: Controls, progression, win/loss conditions.
+Ship management:
+- Spend scrap to upgrade abilities
+
+
+=== Game loop: Core player activities and how they repeat.
+pick a level and explore a ship - gathering materials and killing enemies
+survive or die - death means game over
+repeat until making it to the final boss
+final boss - test of strength / equipment gathered along the way
+
+=== Level/world design: Layouts, themes, and progression.
+Space, Space Ships
+Dark, your flashlight is your #1 ally
+
+
+=== Characters and lore: Bios, abilities, relationships.
+Most ships still have power, and are still lit
+- some ships have entered emergency mode and only having dim, flashing red lights
+
+
+=== UI/UX design: Menus, HUD, navigation flow.
+Manage your ship interior
+- Place aquired components
+- Things take up (limited, grid based) space to deploy and have passive effects
+- Buy suit upgrades (don't take space)
+Plot a course (pick level)
+- choice of a few RNG levels, maybe along a path
+
+
+=== Monetization strategy: If applicable.
+Steam, ... and as many other platforms as possible
+Longtail, just make a good game..
+

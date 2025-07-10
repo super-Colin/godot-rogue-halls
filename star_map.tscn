@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bbs5ib6s5eor0"]
+
+[node name="StarMap" type="Node2D"]
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(80, 175, 238, 92)
+width = 5.0
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-113, -70)
+color = Color(0.501961, 0.305882, 1, 1)
+polygon = PackedVector2Array(350, 140, 338, 159, 354, 173, 369, 155)
+
+[node name="Line2D2" type="Line2D" parent="."]
+points = PackedVector2Array(80, 175, 234, 210)
+width = 5.0
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+position = Vector2(-118, 52)
+color = Color(0.704483, 0.380639, 0.283651, 1)
+polygon = PackedVector2Array(350, 140, 338, 159, 354, 173, 369, 155)

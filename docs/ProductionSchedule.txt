@@ -1,0 +1,24 @@
+
+
+
+
+=== 1 month:
+playable, simple prototype of the 2 phases
+Simple story outline
+=== 2 months:
+RNG level generation coming together, can make very simple level
+=== 3 months:
+placeholder art being replaced with actual assets
+RNG level generation can create multiple layers
+=== 6 months:
+=== 1 year:
+
+
+
+
+
+
+
+
+
+

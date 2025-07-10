@@ -1,0 +1,22 @@
+
+
+=== Architecture: Game engine, programming languages, frameworks.
+Godot
+GDscript
+
+
+=== Core systems: Input, AI, physics, networking.
+No networking / multiplayer
+Godot in-built InputMap
+custom / in-house built AI
+
+
+=== Tools and pipelines: Level editor, asset importers, build process.
+Godot
+Krita for art preferably
+
+
+
+=== Performance targets and constraints.
+Steam deck??
+

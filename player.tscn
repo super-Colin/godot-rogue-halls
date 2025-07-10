@@ -12,6 +12,8 @@ height = 144.0
 radius = 97.1854
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 13
 script = ExtResource("1_onrkg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -19,6 +21,8 @@ shape = SubResource("CapsuleShape2D_sh265")
 
 [node name="PickupRange" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupRange"]
 shape = SubResource("CircleShape2D_i3pqv")
