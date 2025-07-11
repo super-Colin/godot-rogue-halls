@@ -1,9 +1,41 @@
-[gd_scene load_steps=2 format=3 uid="uid://26jyeewg82uy"]
+[gd_scene load_steps=5 format=3 uid="uid://26jyeewg82uy"]
+
+[ext_resource type="Script" uid="uid://bknpsarxqojf3" path="res://menus/map_destination.gd" id="1_bdn2q"]
+[ext_resource type="Texture2D" uid="uid://b7wdej8b5ftx1" path="res://assets/The Chess 1-0 C_tile_13.png" id="1_hwvfq"]
+[ext_resource type="Texture2D" uid="uid://dhc406tshlctc" path="res://assets/pattern_46.png" id="2_dvq18"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hvmma"]
 radius = 25.02
 
 [node name="MapDestination" type="Area2D"]
+collision_layer = 3
+priority = 1
+script = ExtResource("1_bdn2q")
+
+[node name="Selected" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_dvq18")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hvmma")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(3, 3)
+texture = ExtResource("1_hwvfq")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("1_hwvfq")
+stretch_mode = 0

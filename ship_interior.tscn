@@ -4473,4 +4473,4 @@ isShipExit = true
 position = Vector2(920, 728)
 
 [node name="Player" parent="." instance=ExtResource("1_5y7u2")]
-position = Vector2(901, 1007)
+position = Vector2(860, 954)

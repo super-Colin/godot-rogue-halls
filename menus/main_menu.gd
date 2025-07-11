@@ -9,6 +9,7 @@ signal s_releaseMenu
 func _ready() -> void:
 	#%StartButton.pressed.connect(func():newRun.emit())
 	%StartButton.pressed.connect(func():s_releaseMenu.emit())
+	%OptionsButton.pressed.connect(func():print("main menu - options pressed"))
 	#%StartButton.pressed.connect(releaseMainMenu)
 
 

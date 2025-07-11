@@ -94,7 +94,8 @@ func _ready():
 func _physics_process(delta):
 	if Engine.is_editor_hint():
 		return
-	if dead or not Globals.playerIsControllable:
+	if dead:
+	#if dead or not Globals.playerIsControllable:
 		return
 	if not is_on_floor():
 		velocity.y += _get_gravity(velocity) * delta
@@ -106,8 +107,12 @@ func _physics_process(delta):
 			#jump_buffer_timer.stop()
 			#jump()
 		_get_movement(friction, acceleration, delta)
-
-	#_set_sprite_direction(sign(velocity.x))
+	
+	# Even if the player cannot control the character, apply gravity etc.
+	if not Globals.playerIsControllable:
+		move_and_slide()
+		return
+	
 	_set_player_direction(sign(velocity.x))
 	if Input.is_action_just_pressed("Jump"):
 		jump()
