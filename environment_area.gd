@@ -1,4 +1,8 @@
+class_name EnvironmentSettings
 extends Area2D
+
+
+@export var infiniteEnergy:bool = true
 
 
 
@@ -12,14 +16,19 @@ func _ready() -> void:
 
 
 func entered(body):
-	if body == Globals.playerRef:
+	#if body == Globals.playerRef:
+	if body is Player:
 		print("environment - PLAYER entered: ", body)
-	print("environment - entered: ", body)
+		body.enteredEnvironment($'.')
+	#print("environment - entered: ", body)
 
 
 
 func exited(body):
-	print("environment - entered: ", body)
+	if body is Player:
+		print("environment - PLAYER exited: ", body)
+		body.exitedEnvironment($'.')
+	#print("environment - entered: ", body)
 
 
 

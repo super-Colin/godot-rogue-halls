@@ -14,7 +14,7 @@ position = Vector2(-2, 0)
 [node name="ShipInterior" parent="." instance=ExtResource("6_ryrav")]
 
 [node name="PlayerUI" parent="." instance=ExtResource("5_7jktm")]
-visible = false
 offset_top = 789.0
 offset_right = 942.0
 offset_bottom = 1099.0
+mouse_filter = 2

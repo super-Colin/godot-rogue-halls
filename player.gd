@@ -59,21 +59,24 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 
 var dead = false
 var currentInteractionObject:Node
+var currentEnvironmentRef:Node
 
 
 
 
 
+signal updateInteractionPrompt(string)
 
-func fireLaser():
-	print("player - firing laser, charges left: ", Stats.laserCharges)
-	if Stats.laserCharges < 1:
-		return
-	Stats.laserCharges -= 1
-	var las = laserProjectileScene.instantiate()
-	las.position = $'.'.global_position
-	get_tree().root.add_child(las)
 
+func enteredEnvironment(newEnvironment):
+	if newEnvironment is EnvironmentSettings:
+		currentEnvironmentRef = newEnvironment
+		print("player - entered newEnvironment: ", newEnvironment)
+
+func exitedEnvironment(environment):
+	if environment == currentEnvironmentRef:
+		currentEnvironmentRef == null
+		print("player - exited the environment: ", environment)
 
 
 
@@ -128,17 +131,33 @@ func _physics_process(delta):
 		#$AnimatedSprite2D.play("walk")
 	#else:
 		#$AnimatedSprite2D.play("idle")
-	generateEnergy(delta)
-	generateOxygen(delta)
-	generateLaser(delta)
-	handleOxygenDrain(delta)
+	if currentEnvironmentRef:
+		if currentEnvironmentRef.infiniteEnergy:
+			fullRecharge()
+	else:
+		generateEnergy(delta)
+		generateOxygen(delta)
+		generateLaser(delta)
+		handleOxygenDrain(delta)
 	move_and_slide()
 
 
 
 
 
-signal updateInteractionPrompt(string)
+
+
+func fireLaser():
+	print("player - firing laser, charges left: ", Stats.laserCharges)
+	if Stats.laserCharges < 1:
+		return
+	Stats.laserCharges -= 1
+	var las = laserProjectileScene.instantiate()
+	las.position = $'.'.global_position
+	get_tree().root.add_child(las)
+
+
+
 
 func checkForPromptUpdate(areaOrBody:Node, entered:bool): # entered or exited
 	if not "playerInteraction" in areaOrBody:
