@@ -8,6 +8,7 @@ extends Area2D
 
 func _ready() -> void:
 	pullCameraFocus()
+	%MainMenu.s_releaseMenu.connect(releaseScreenFocus)
 
 
 func playerInteraction():
@@ -20,10 +21,14 @@ func playerInteraction():
 
 
 func pullCameraFocus():
+	%ScreenCamera.enabled = true
 	print("console - pulling camera")
 
 
-
+func releaseScreenFocus():
+	Globals.playerIsControllable = true
+	%ScreenCamera.enabled = false
+	#$'.'.visible = false
 
 
 

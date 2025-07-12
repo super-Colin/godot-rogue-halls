@@ -1,15 +1,21 @@
 @tool
 extends Control
 
-const mapDestinationScene = preload("res://menus/map_destination.tscn")
 
+const mapDestinationScene = preload("res://menus/map_destination.tscn")
 
 
 
 @export_tool_button("Make Grid")
 var makeGridAction = makeGridMarkers
-
 @export var gridSize:Vector2 = Vector2(10, 5)
+
+
+var currentlySelected:Node = null
+var lockedOut = false
+
+signal s_selected(destinationNode)
+
 
 
 
@@ -22,6 +28,9 @@ func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 
+
+func lockOutNewSelections():
+	lockedOut = true
 
 
 func makeMap():
@@ -42,15 +51,21 @@ func makeGridMarkers():
 			var newDest = mapDestinationScene.instantiate()
 			newDest.position = Vector2(xSpacing * (x+1), ySpacing * (y+1) )
 			#var newDestCoord = chooseCoordsForThisColumn(x, y)
-			newDest.s_selected.connect(setNewSelected)
+			if not Engine.is_editor_hint():
+				newDest.s_selected.connect(setNewSelected)
 			$'.'.add_child(newDest)
 
-var currentlySelected:Node = null
+
+
 func setNewSelected(newSelected:Node):
+	if lockedOut:
+		newSelected.unselected()
+		return
 	if currentlySelected:
 		currentlySelected.unselected()
 	currentlySelected = newSelected
-	pass
+	s_selected.emit(currentlySelected)
+
 
 
 func chooseCoordsForThisColumn(timeAxis_current:int, timeAxis_currentAvailable:Array[int], choiceAxisMax:int=5, paths:int=0)->Array[int]:
@@ -61,7 +76,6 @@ func chooseCoordsForThisColumn(timeAxis_current:int, timeAxis_currentAvailable:A
 		paths = timeAxis_currentAvailable.size() * 2 # double available paths by default
 		if paths > choiceAxisMax:
 			paths = choiceAxisMax
-	
 	return[1]
 
 

@@ -10,16 +10,30 @@ func _ready() -> void:
 	#%StartButton.pressed.connect(func():newRun.emit())
 	%StartButton.pressed.connect(func():s_releaseMenu.emit())
 	%OptionsButton.pressed.connect(func():print("main menu - options pressed"))
-	#%StartButton.pressed.connect(releaseMainMenu)
+	#%StartButton.pressed.connect(releaseScreenFocus)
+	%StarMapMenu.s_selected.connect(selectedDestination)
+	%ConfirmButton.pressed.connect(confirmedDestination)
 
 
-
-
-
-
-#func releaseMainMenu():
+#func releaseScreenFocus():
 	#Globals.playerIsControllable = true
-	#$'.'.visible = false
+	##$'.'.visible = false
+
+
+func selectedDestination(newDestination):
+	%ConfirmButton.disabled = false
+	#Globals.confirmedDestination = newDestination
+
+func confirmedDestination():
+	if "currentlySelected" in %StarMapMenu and %StarMapMenu.currentlySelected:
+		Globals.confirmedDestination = %StarMapMenu.currentlySelected
+		%StarMapMenu.lockOutNewSelections()
+	%ConfirmButton.text = "Confirmed"
+	%ConfirmButton.disabled = true
+
+
+
+
 
 
 func _physics_process(delta: float) -> void:

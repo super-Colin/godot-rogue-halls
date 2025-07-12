@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://by7o0iymt8xvt" path="res://menus/main_menu_screen.tscn" id="3_ewjey"]
 
 [node name="Console" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
 script = ExtResource("1_buh4c")
 
 [node name="Console" type="Sprite2D" parent="."]
@@ -35,7 +37,11 @@ offset_bottom = 1164.0
 scale = Vector2(0.25, 0.25)
 
 [node name="MainMenu" parent="Control/ScreenScale" instance=ExtResource("3_ewjey")]
+unique_name_in_owner = true
 layout_mode = 1
+offset_left = -4.0
+offset_right = -4.0
 
 [node name="ScreenCamera" type="Camera2D" parent="."]
+unique_name_in_owner = true
 zoom = Vector2(3.8, 3.8)

@@ -172,6 +172,7 @@ func handleOxygenDrain(delta):
 	if Stats.oxygen < -4.0:
 		Globals.s_playerDied.emit()
 		dead = true
+		%PlayerSprite.modulate = "aa5853"
 		print("player - died from oxygen")
 
 

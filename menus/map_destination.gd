@@ -4,6 +4,7 @@ extends Area2D
 
 var mouseHoveringOn = false
 var isSelected = false
+var isHere = false
 
 signal s_selected(selectedNode:Node)
 

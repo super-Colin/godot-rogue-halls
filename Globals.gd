@@ -8,6 +8,8 @@ var playerIsControllable = false
 #var levelRef
 #var shipRef 
 
+var confirmedDestination
+
 
 signal s_playerReady
 signal s_playerDied
