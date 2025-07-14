@@ -1,5 +1,7 @@
 extends Node
 
+enum RoomTypes {HALLWAY, SHAFT, ELBOW_UP, ELBOW_DOWN, TJUNCTION_UP, TJUNCTION_DOWN, DEADEND, OPEN, ENCLOSED}
+
 
 var uiRef
 var playerRef
@@ -8,7 +10,7 @@ var playerIsControllable = false
 #var levelRef
 #var shipRef 
 
-var confirmedDestination
+var confirmedDestination:Node
 
 
 signal s_playerReady

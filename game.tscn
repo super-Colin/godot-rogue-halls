@@ -1,20 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwdekrbnrp8yo"]
+[gd_scene load_steps=6 format=3 uid="uid://cwdekrbnrp8yo"]
 
 [ext_resource type="Script" uid="uid://c4sikoknnuubk" path="res://game.gd" id="1_j5wjh"]
+[ext_resource type="PackedScene" uid="uid://cygpdhltcqi0i" path="res://level.tscn" id="2_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://b6mvathho3qof" path="res://player_ui.tscn" id="5_7jktm"]
+[ext_resource type="PackedScene" uid="uid://c6txhrt448b4u" path="res://player.tscn" id="5_ryrav"]
 [ext_resource type="PackedScene" uid="uid://bqorj7se6lptu" path="res://ship_interior.tscn" id="6_ryrav"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_j5wjh")
 
-[node name="Level" type="Node2D" parent="."]
+[node name="MainShip" parent="." instance=ExtResource("6_ryrav")]
+
+[node name="Player" parent="MainShip" instance=ExtResource("5_ryrav")]
+position = Vector2(426, 1000)
+
+[node name="Level" parent="." instance=ExtResource("2_fc0e3")]
 unique_name_in_owner = true
-position = Vector2(-2, 0)
 
-[node name="ShipInterior" parent="." instance=ExtResource("6_ryrav")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+follow_viewport_enabled = true
 
-[node name="PlayerUI" parent="." instance=ExtResource("5_7jktm")]
-offset_top = 789.0
-offset_right = 942.0
-offset_bottom = 1099.0
+[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("5_7jktm")]
+z_index = -1
 mouse_filter = 2

@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://y8327s5lrqew"]
+
+[ext_resource type="Script" uid="uid://dubxvqp43ruxu" path="res://rooms/room.gd" id="1_pmtbo"]
+[ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://level_pieces/transition_door.tscn" id="2_ya37f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pmtbo"]
+size = Vector2(218, 1357)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ya37f"]
+size = Vector2(2013, 196)
+
+[node name="Room" type="Node2D"]
+script = ExtResource("1_pmtbo")
+
+[node name="TransitionDoor" parent="." instance=ExtResource("2_ya37f")]
+unique_name_in_owner = true
+position = Vector2(1155, 929)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-111, 530.5)
+shape = SubResource("RectangleShape2D_pmtbo")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(2033, 530.5)
+shape = SubResource("RectangleShape2D_pmtbo")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(962, -100)
+shape = SubResource("RectangleShape2D_ya37f")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
+position = Vector2(962, 1177)
+shape = SubResource("RectangleShape2D_ya37f")
+
+[node name="WallSprite_Left" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+polygon = PackedVector2Array(-216, -131, -5, -140, -8, 1223, -244, 1214)
+
+[node name="WallSprite_Right" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(2151, 0)
+polygon = PackedVector2Array(-226, -134, -5, -140, -8, 1223, -227, 1231)
+
+[node name="CeilingSprite" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+polygon = PackedVector2Array(-44, -195, -50, -9, 1974, -6, 1975, -207)
+
+[node name="FloorSprite" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-19, 1287)
+polygon = PackedVector2Array(-44, -208, -50, -9, 1974, -6, 1975, -207)

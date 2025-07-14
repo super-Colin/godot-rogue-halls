@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvikv2twumlnx"]
+
+[ext_resource type="Script" uid="uid://dubxvqp43ruxu" path="res://rooms/room.gd" id="1_hxy7i"]
+[ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://level_pieces/transition_door.tscn" id="2_7g0n0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pmtbo"]
+size = Vector2(218, 1357)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ya37f"]
+size = Vector2(556.5, 196)
+
+[node name="Room" type="Node2D"]
+script = ExtResource("1_hxy7i")
+
+[node name="TransitionDoor" parent="." instance=ExtResource("2_7g0n0")]
+unique_name_in_owner = true
+position = Vector2(679, 926)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="Left" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-111, 530.5)
+shape = SubResource("RectangleShape2D_pmtbo")
+
+[node name="Sprite_Left" type="Polygon2D" parent="Walls/Left"]
+unique_name_in_owner = true
+position = Vector2(111, -530.5)
+polygon = PackedVector2Array(-216, -131, -5, -140, -8, 1223, -244, 1214)
+
+[node name="Right" type="CollisionShape2D" parent="Walls"]
+position = Vector2(2033, 530.5)
+shape = SubResource("RectangleShape2D_pmtbo")
+
+[node name="Sprite_Right" type="Polygon2D" parent="Walls/Right"]
+unique_name_in_owner = true
+position = Vector2(118, -530.5)
+polygon = PackedVector2Array(-226, -134, -5, -140, -8, 1223, -227, 1231)
+
+[node name="Top" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1451, 483)
+shape = SubResource("RectangleShape2D_ya37f")
+
+[node name="Sprite_Top" type="Polygon2D" parent="Walls/Top"]
+unique_name_in_owner = true
+position = Vector2(-290, 100)
+scale = Vector2(0.291901, 1)
+polygon = PackedVector2Array(-51.3875, -204, -50, -9, 1974, -6, 1975, -207)
+uv = PackedVector2Array(-58.239, -215, -50, -9, 1974, -6, 1975, -207)
+
+[node name="Bottom" type="CollisionShape2D" parent="Walls"]
+position = Vector2(716, 1177)
+shape = SubResource("RectangleShape2D_ya37f")
+
+[node name="Sprite_Bottom" type="Polygon2D" parent="Walls/Bottom"]
+unique_name_in_owner = true
+position = Vector2(-285, 103)
+scale = Vector2(0.292586, 1)
+polygon = PackedVector2Array(-44, -208, -50, -9, 1974, -6, 1975, -207)

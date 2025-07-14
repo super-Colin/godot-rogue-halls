@@ -1,17 +1,17 @@
 [gd_scene load_steps=8 format=3 uid="uid://drajoe6caob2t"]
 
-[ext_resource type="Texture2D" uid="uid://cumaw7c1aqwmo" path="res://assets/tiles_sheet.png" id="1_7h0dx"]
-[ext_resource type="Script" uid="uid://jy4kvlx8m05f" path="res://level.gd" id="1_ru55v"]
-[ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://level_pieces/crate.tscn" id="3_wkri5"]
-[ext_resource type="PackedScene" uid="uid://d1gbcitmb13oa" path="res://enemy.tscn" id="4_76b4i"]
-[ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://level_pieces/transition_door.tscn" id="5_u1ytf"]
-[ext_resource type="PackedScene" uid="uid://djph6lk4gcr73" path="res://pickups/battery_pickup.tscn" id="6_ubv8k"]
+[ext_resource type="Script" uid="uid://jy4kvlx8m05f" path="res://level.gd" id="1_uxl1b"]
+[ext_resource type="Texture2D" uid="uid://cumaw7c1aqwmo" path="res://assets/tiles_sheet.png" id="2_7jbqj"]
+[ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://level_pieces/crate.tscn" id="3_43rnp"]
+[ext_resource type="PackedScene" uid="uid://d1gbcitmb13oa" path="res://enemy.tscn" id="4_7evwb"]
+[ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://level_pieces/transition_door.tscn" id="5_a2sb8"]
+[ext_resource type="PackedScene" uid="uid://djph6lk4gcr73" path="res://pickups/battery_pickup.tscn" id="6_68nge"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kftm2"]
 size = Vector2(7260, 329)
 
 [node name="Hall" type="Node2D"]
-script = ExtResource("1_ru55v")
+script = ExtResource("1_uxl1b")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_mask = 0
@@ -27,14 +27,14 @@ shape = SubResource("RectangleShape2D_kftm2")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1050, 1135.25)
 scale = Vector2(30.1901, 6.1087)
-texture = ExtResource("1_7h0dx")
+texture = ExtResource("2_7jbqj")
 region_enabled = true
 region_rect = Rect2(700.8, 280.44, 71.2001, 69.2083)
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 position = Vector2(1050, -399.25)
 scale = Vector2(30.1901, 6.1087)
-texture = ExtResource("1_7h0dx")
+texture = ExtResource("2_7jbqj")
 region_enabled = true
 region_rect = Rect2(700.8, 280.44, 71.2001, 69.2083)
 
@@ -42,17 +42,17 @@ region_rect = Rect2(700.8, 280.44, 71.2001, 69.2083)
 unique_name_in_owner = true
 position = Vector2(280, 786)
 
-[node name="Crate" parent="." instance=ExtResource("3_wkri5")]
+[node name="Crate" parent="." instance=ExtResource("3_43rnp")]
 position = Vector2(1311, 849)
 
-[node name="Crate2" parent="." instance=ExtResource("3_wkri5")]
+[node name="Crate2" parent="." instance=ExtResource("3_43rnp")]
 position = Vector2(884, 444)
 
-[node name="Enemy" parent="." instance=ExtResource("4_76b4i")]
+[node name="Enemy" parent="." instance=ExtResource("4_7evwb")]
 position = Vector2(1773, 777)
 
-[node name="TransitionDoor" parent="." instance=ExtResource("5_u1ytf")]
+[node name="TransitionDoor" parent="." instance=ExtResource("5_a2sb8")]
 position = Vector2(1504, 770)
 
-[node name="BatteryPickup" parent="." instance=ExtResource("6_ubv8k")]
+[node name="BatteryPickup" parent="." instance=ExtResource("6_68nge")]
 position = Vector2(1309, 784)

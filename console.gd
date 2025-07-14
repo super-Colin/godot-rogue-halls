@@ -12,12 +12,7 @@ func _ready() -> void:
 
 
 func playerInteraction():
-	#Globals.playerRef.rechargeEnergy(energyRechargeAmount)
-	var items = {Inventory.items.fuel : 1, Inventory.items.scrap : 1}
-	print("crate - dropping: ", items)
-	Inventory.addItemsToPlayerInventory(items)
-	Globals.playerRef.clearInteractionOject()
-	#$'.'.queue_free()
+	pullCameraFocus()
 
 
 func pullCameraFocus():
@@ -28,10 +23,8 @@ func pullCameraFocus():
 func releaseScreenFocus():
 	Globals.playerIsControllable = true
 	%ScreenCamera.enabled = false
+	$Screen.mouse_filter = Control.MouseFilter.MOUSE_FILTER_IGNORE
 	#$'.'.visible = false
-
-
-
 
 
 
