@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cueb0uhe4gqhl"]
+
+[ext_resource type="Script" uid="uid://6y5uqsqjbme1" path="res://menus/destination_display.gd" id="1_eegqw"]
+[ext_resource type="PackedScene" uid="uid://bxxdxai13eg37" path="res://Planets/GasPlanetLayers/GasPlanetLayers.tscn" id="1_w7qw0"]
+[ext_resource type="PackedScene" uid="uid://deijc2q754sel" path="res://Planets/Galaxy/galaxy.tscn" id="3_ff1t2"]
+[ext_resource type="PackedScene" uid="uid://xy040rk21k6d" path="res://Planets/BlackHole/black_hole.tscn" id="4_ms5ie"]
+
+[node name="DestinationDisplay" type="VBoxContainer"]
+offset_right = 200.0
+offset_bottom = 227.0
+script = ExtResource("1_eegqw")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Oiduts-g-437"
+horizontal_alignment = 1
+
+[node name="Planet" parent="." instance=ExtResource("1_w7qw0")]
+layout_mode = 2
+
+[node name="Galaxy" parent="." instance=ExtResource("3_ff1t2")]
+layout_mode = 2
+
+[node name="BlackHole" parent="." instance=ExtResource("4_ms5ie")]
+layout_mode = 2

@@ -7,13 +7,14 @@ var isSelected = false
 var isHere = false
 
 signal s_selected(selectedNode:Node)
-
+#/root/Game/MainShip/Console/Screen/ScreenScale/MainMenu/MarginContainer/StarMapMenu/MapDestination/CollisionShape2D
 func _ready() -> void:
 	#$'.'.mouse_entered.connect(_mouseEntered)
 	#$'.'.mouse_exited.connect(_mouseExited)
 	$TextureButton.mouse_entered.connect(_mouseEntered)
 	$TextureButton.mouse_exited.connect(_mouseExited)
-	pass
+	choosePlanetToDisplay()
+	$'.'.z_index = 0
 #$TextureButton
 
 func _physics_process(delta: float) -> void:
@@ -25,11 +26,13 @@ func _mouseEntered():
 	print("destination - mouse entered")
 	mouseHoveringOn = true
 	scaleSelf(true)
+	$'.'.z_index = 1
 
 
 func _mouseExited():
 	mouseHoveringOn = false
 	scaleSelf(false)
+	$'.'.z_index = 0
 
 
 func scaleSelf(scaleUp=true):
@@ -47,6 +50,34 @@ func _process(delta: float) -> void:
 	if mouseHoveringOn and Input.is_action_just_pressed("Accept"):
 		selected()
 		print("dest - clicked")
+
+func choosePlanetToDisplay():
+	var seed = randi() % 5
+	if seed == 0:
+		$GasPlanet.queue_free()
+		$Galaxy.queue_free()
+		$Terran.queue_free()
+		$Star.queue_free()
+	elif seed == 1:
+		$GasPlanet.queue_free()
+		$BlackHole.queue_free()
+		$Terran.queue_free()
+		$Star.queue_free()
+	elif seed == 2:
+		$Galaxy.queue_free()
+		$BlackHole.queue_free()
+		$Terran.queue_free()
+		$Star.queue_free()
+	elif seed == 3:
+		$GasPlanet.queue_free()
+		$Galaxy.queue_free()
+		$BlackHole.queue_free()
+		$Star.queue_free()
+	elif seed == 4:
+		$GasPlanet.queue_free()
+		$Galaxy.queue_free()
+		$Terran.queue_free()
+		$BlackHole.queue_free()
 
 
 

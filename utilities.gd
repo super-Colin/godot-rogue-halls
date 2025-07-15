@@ -1,18 +1,43 @@
 extends Node
 
 
-func _ready() -> void:
-	#clipboardSteal()
-	pass
-
-func _exit_tree() -> void:
-	#clipboardUnsteal()
-	pass
 
 
-func adjustBusVolume(busName:String, newVolume):
-	var busIndex = AudioServer.get_bus_index(busName)
-	AudioServer.set_bus_volume_db(busIndex, newVolume)
+
+
+
+
+#var activeTransitionCamera:Node
+#func transitionCameras(fromCamera, toCamera)
+func transitionCameras(toCamera):
+	print("Utils - changing to camera: ", toCamera)
+	var activeCam = get_viewport().get_camera_2d()
+	var transitionCamera = activeCam.duplicate()
+	print("Utils - from camera: ", activeCam)
+	transitionCamera.global_position = activeCam.global_position
+	get_tree().root.add_child(transitionCamera)
+	activeCam.enabled = false
+	var tween = get_tree().create_tween()
+	transitionCamera.enabled = true
+	# always zoom out first / zoom in last
+	if transitionCamera.zoom > toCamera.zoom:
+		tween.tween_property(transitionCamera, "zoom", toCamera.zoom, 0.25)
+		tween.tween_property(transitionCamera, "global_position", toCamera.global_position, 0.3)
+	else:
+		tween.tween_property(transitionCamera, "global_position", toCamera.global_position, 0.3)
+		tween.tween_property(transitionCamera, "zoom", toCamera.zoom, 0.25)
+	#tween.parallel().tween_property(transitionCamera, "global_position", toCamera.global_position, 0.5)
+	tween.tween_callback(func():toCamera.enabled = true)
+	tween.tween_callback(transitionCamera.queue_free)
+
+
+
+
+
+
+
+
+
 
 
 func oneShotTimer(time:float, timeoutFunc:Callable):
@@ -25,12 +50,6 @@ func oneShotTimer(time:float, timeoutFunc:Callable):
 
 
 
-func isCarStillInArea(area:Area2D)->bool:
-	for body in area.get_overlapping_bodies():
-		if(body.is_in_group("car")):
-			return true
-	return false
-
 
 func vectorToColor(vector:Vector2)->Color:
 	var normalizedAngle = (vector.angle() + PI) / TAU # normalize angle to between 0.0 and 1.0
@@ -41,21 +60,7 @@ func vectorToColor(vector:Vector2)->Color:
 
 
 
-func quitGame():
-	#SaveManager.saveGame_all()
-	clipboardUnsteal()
-	get_tree().quit()
-
-
-
-
-
-
-
-
-
-
-func take_huge_screenshot():
+func take_screenshot(size:Vector2=Vector2(1000,1000)):
 	print("util - taking screenshot")
 	var vp = get_viewport()
 	vp.size = Vector2(18000,13000)
@@ -189,9 +194,7 @@ func randomStringForClipboard():
 	].pick_random()
 
 #endregion  Clipboard
-
-
-
+#region     Sound
 func toggleMute():
 	var index = AudioServer.get_bus_index("Master")
 	if AudioServer.is_bus_mute(index):
@@ -200,3 +203,14 @@ func toggleMute():
 	else:
 		AudioServer.set_bus_mute(index, true)
 		print("utils - muting")
+
+
+func adjustBusVolume(busName:String, newVolume):
+	var busIndex = AudioServer.get_bus_index(busName)
+	AudioServer.set_bus_volume_db(busIndex, newVolume)
+#endregion
+
+
+
+
+#

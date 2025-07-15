@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=4 uid="uid://bqorj7se6lptu"]
+[gd_scene load_steps=9 format=4 uid="uid://bqorj7se6lptu"]
 
+[ext_resource type="Script" uid="uid://c0vrrj5mccrs7" path="res://ship_interior.gd" id="1_lhc14"]
 [ext_resource type="Script" uid="uid://decm4t42mpevk" path="res://environment_area.gd" id="1_uia4y"]
 [ext_resource type="Texture2D" uid="uid://biknuvc8247wd" path="res://assets/interfacePack_sheet@2.png" id="2_5a1ih"]
 [ext_resource type="PackedScene" uid="uid://cisv4u03vah24" path="res://console.tscn" id="3_06qg0"]
@@ -4453,10 +4454,14 @@ texture = ExtResource("2_5a1ih")
 sources/0 = SubResource("TileSetAtlasSource_lt3ng")
 
 [node name="ShipInterior" type="Node2D"]
+script = ExtResource("1_lhc14")
 
 [node name="Environment" type="Area2D" parent="."]
+visible = false
+z_index = -1
 collision_layer = 128
 collision_mask = 2
+input_pickable = false
 script = ExtResource("1_uia4y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment"]

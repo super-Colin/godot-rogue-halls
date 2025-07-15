@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cisv4u03vah24"]
+[gd_scene load_steps=5 format=3 uid="uid://cisv4u03vah24"]
 
 [ext_resource type="Script" uid="uid://dhthhtqk71xkr" path="res://console.gd" id="1_buh4c"]
 [ext_resource type="Texture2D" uid="uid://d1kbtmc7b85aq" path="res://assets/console-19-600x400.png" id="1_lu137"]
 [ext_resource type="PackedScene" uid="uid://by7o0iymt8xvt" path="res://menus/main_menu_screen.tscn" id="3_ewjey"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewjey"]
 
 [node name="Console" type="Area2D"]
 collision_layer = 16
@@ -43,6 +45,17 @@ layout_mode = 1
 offset_left = -4.0
 offset_right = -4.0
 
+[node name="MouseBlocker" type="PanelContainer" parent="Screen/ScreenScale"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ewjey")
+
 [node name="ScreenCamera" type="Camera2D" parent="."]
 unique_name_in_owner = true
+enabled = false
 zoom = Vector2(3.8, 3.8)

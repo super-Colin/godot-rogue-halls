@@ -54,6 +54,7 @@ func makeGridMarkers():
 			if not Engine.is_editor_hint():
 				newDest.s_selected.connect(setNewSelected)
 			$'.'.add_child(newDest)
+			#newDest.owner = $'.'newDest
 
 
 

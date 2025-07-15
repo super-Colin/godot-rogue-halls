@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://dppccb2u3ngme"]
+
+[ext_resource type="Script" uid="uid://wqtttv4ciq87" path="res://Planets/Star/star.gd" id="1_yl1te"]
+[ext_resource type="Shader" uid="uid://q0j87v0klgir" path="res://Planets/Star/StarBlobs.gdshader" id="2_fx0oc"]
+[ext_resource type="Shader" uid="uid://bmncafj4mtqyd" path="res://Planets/Star/star.gdshader" id="3_ftgjj"]
+[ext_resource type="Shader" uid="uid://loucd8bc0shl" path="res://Planets/Star/StarFlares.gdshader" id="4_7x5qq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ftgjj"]
+shader = ExtResource("2_fx0oc")
+shader_parameter/pixels = 204.06
+shader_parameter/colors = PackedColorArray(1, 1, 0.894118, 1)
+shader_parameter/time_speed = 0.05
+shader_parameter/time = 0.0
+shader_parameter/rotation = 0.0
+shader_parameter/seed = 2.188
+shader_parameter/circle_amount = 2.0
+shader_parameter/circle_size = 1.0
+shader_parameter/size = 3.0
+shader_parameter/OCTAVES = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7x5qq"]
+shader = ExtResource("3_ftgjj")
+shader_parameter/pixels = 100.0
+shader_parameter/time_speed = 0.001
+shader_parameter/time = 0.0
+shader_parameter/rotation = 0.0
+shader_parameter/colors = PackedColorArray(0.960784, 1, 0.909804, 1, 0.466667, 0.839216, 0.756863, 1, 0.109804, 0.572549, 0.654902, 1, 0.0117647, 0.243137, 0.368627, 1)
+shader_parameter/n_colors = 4
+shader_parameter/should_dither = true
+shader_parameter/seed = 3.233
+shader_parameter/size = 5.0
+shader_parameter/OCTAVES = 4
+shader_parameter/TILES = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2tpax"]
+shader = ExtResource("4_7x5qq")
+shader_parameter/pixels = 300.0
+shader_parameter/colors = PackedColorArray(0.466667, 0.839216, 0.756863, 1, 1, 1, 0.894118, 1)
+shader_parameter/time_speed = 0.05
+shader_parameter/time = 0.0
+shader_parameter/rotation = 0.0
+shader_parameter/should_dither = true
+shader_parameter/storm_width = 0.224
+shader_parameter/storm_dither_width = 0.311
+shader_parameter/scale = 1.0
+shader_parameter/seed = 2.556
+shader_parameter/circle_amount = 2.0
+shader_parameter/circle_scale = 1.0
+shader_parameter/size = 2.0
+shader_parameter/OCTAVES = 4
+
+[node name="Star" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_yl1te")
+
+[node name="Blobs" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ftgjj")
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 300.0
+offset_bottom = 300.0
+mouse_filter = 2
+
+[node name="Star" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_7x5qq")
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 200.0
+mouse_filter = 2
+
+[node name="StarFlares" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_2tpax")
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 200.0
+mouse_filter = 2

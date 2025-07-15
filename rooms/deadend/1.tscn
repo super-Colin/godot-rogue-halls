@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://k66k3vwpyq4s"]
+[gd_scene load_steps=7 format=3 uid="uid://k66k3vwpyq4s"]
 
 [ext_resource type="Script" uid="uid://dubxvqp43ruxu" path="res://rooms/room.gd" id="1_4t83l"]
 [ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://level_pieces/transition_door.tscn" id="2_mkpae"]
+[ext_resource type="Texture2D" uid="uid://cm2emr5kak8xq" path="res://assets/windowHighLeadlightTop.png" id="2_rjq5q"]
+[ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://level_pieces/crate.tscn" id="3_jmhtp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pmtbo"]
 size = Vector2(218, 1357)
@@ -11,6 +13,11 @@ size = Vector2(2013, 196)
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_4t83l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1016, 37)
+scale = Vector2(38.8282, 30.4333)
+texture = ExtResource("2_rjq5q")
 
 [node name="TransitionDoor" parent="." instance=ExtResource("2_mkpae")]
 unique_name_in_owner = true
@@ -56,3 +63,6 @@ polygon = PackedVector2Array(-44, -208, -50, -9, 1974, -6, 1975, -207)
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 position = Vector2(1459, 947)
+
+[node name="Crate" parent="." instance=ExtResource("3_jmhtp")]
+position = Vector2(603, 957)

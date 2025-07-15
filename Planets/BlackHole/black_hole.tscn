@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://xy040rk21k6d"]
+
+[ext_resource type="Script" uid="uid://bspwjk2uo8r1i" path="res://Planets/BlackHole/blackhole.gd" id="1_jmh65"]
+[ext_resource type="Shader" uid="uid://c1xu2b0kmup30" path="res://Planets/BlackHole/BlackHole.gdshader" id="2_qej14"]
+[ext_resource type="Shader" uid="uid://wfvkh0trnx11" path="res://Planets/BlackHole/BlackHoleDisk.gdshader" id="3_ew023"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ew023"]
+shader = ExtResource("2_qej14")
+shader_parameter/pixels = 100.0
+shader_parameter/colors = PackedColorArray(0.152941, 0.152941, 0.211765, 1, 1, 1, 0.921569, 1, 0.929412, 0.482353, 0.223529, 1)
+shader_parameter/radius = 0.25
+shader_parameter/light_width = 0.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_57iqi"]
+shader = ExtResource("3_ew023")
+shader_parameter/pixels = 300.0
+shader_parameter/rotation = 6.139
+shader_parameter/light_origin = Vector2(0.39, 0.39)
+shader_parameter/time_speed = 0.2
+shader_parameter/disk_width = 0.053
+shader_parameter/ring_perspective = 14.0
+shader_parameter/should_dither = true
+shader_parameter/colors = PackedColorArray(1, 1, 0.921569, 1, 1, 0.960784, 0.25098, 1, 1, 0.721569, 0.290196, 1, 0.929412, 0.482353, 0.223529, 1, 0.741176, 0.25098, 0.207843, 1)
+shader_parameter/n_colors = 5
+shader_parameter/size = 5.0
+shader_parameter/OCTAVES = 1
+shader_parameter/seed = 1.474
+shader_parameter/time = 0.0
+
+[node name="BlackHole" type="Control"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 150.0
+mouse_filter = 2
+script = ExtResource("1_jmh65")
+
+[node name="BlackHole" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ew023")
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = 50.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 120.0
+mouse_filter = 2
+
+[node name="Disk" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_57iqi")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 0
+offset_left = -50.0
+offset_top = -80.0
+offset_right = 250.0
+offset_bottom = 220.0
+mouse_filter = 2

@@ -7,7 +7,7 @@ var path
 
 
 func getPlayerSpawnPoint():
-	return %PlayerSpawnPoint.position
+	return %PlayerSpawn.position
 
 
 # hallway/shaft (horzontal/vertical)

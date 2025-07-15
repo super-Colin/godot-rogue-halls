@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd7clgf25e5h1"]
+
+[ext_resource type="Script" uid="uid://dyl1sej6nbuy8" path="res://Planets/planet.gd" id="1_cau0s"]
+
+[node name="Planet" type="Control"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cau0s")

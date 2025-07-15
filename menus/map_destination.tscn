@@ -1,14 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://26jyeewg82uy"]
+[gd_scene load_steps=10 format=3 uid="uid://26jyeewg82uy"]
 
 [ext_resource type="Script" uid="uid://bknpsarxqojf3" path="res://menus/map_destination.gd" id="1_bdn2q"]
 [ext_resource type="Texture2D" uid="uid://b7wdej8b5ftx1" path="res://assets/The Chess 1-0 C_tile_13.png" id="1_hwvfq"]
 [ext_resource type="Texture2D" uid="uid://dhc406tshlctc" path="res://assets/pattern_46.png" id="2_dvq18"]
+[ext_resource type="PackedScene" uid="uid://bxxdxai13eg37" path="res://Planets/GasPlanetLayers/GasPlanetLayers.tscn" id="4_23vi6"]
+[ext_resource type="PackedScene" uid="uid://deijc2q754sel" path="res://Planets/Galaxy/galaxy.tscn" id="5_l4ptf"]
+[ext_resource type="PackedScene" uid="uid://xy040rk21k6d" path="res://Planets/BlackHole/black_hole.tscn" id="6_m6opl"]
+[ext_resource type="PackedScene" uid="uid://7cl88oes3yjm" path="res://Planets/Terran/terran.tscn" id="7_l4ptf"]
+[ext_resource type="PackedScene" uid="uid://dppccb2u3ngme" path="res://Planets/Star/star.tscn" id="8_m6opl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hvmma"]
-radius = 25.02
+radius = 77.5242
 
 [node name="MapDestination" type="Area2D"]
-collision_layer = 3
+z_index = 1
+z_as_relative = false
 priority = 1
 script = ExtResource("1_bdn2q")
 
@@ -17,13 +23,43 @@ visible = false
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_dvq18")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_hvmma")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 scale = Vector2(3, 3)
 texture = ExtResource("1_hwvfq")
+
+[node name="GasPlanet" parent="." instance=ExtResource("4_23vi6")]
+offset_left = -78.0
+offset_top = -80.0
+offset_right = 122.0
+offset_bottom = 120.0
+scale = Vector2(0.8, 0.8)
+
+[node name="Galaxy" parent="." instance=ExtResource("5_l4ptf")]
+offset_left = -103.0
+offset_top = -99.0
+offset_right = 97.0
+offset_bottom = 101.0
+
+[node name="BlackHole" parent="." instance=ExtResource("6_m6opl")]
+offset_left = -99.0
+offset_top = -72.0
+offset_right = 101.0
+offset_bottom = 78.0
+
+[node name="Terran" parent="." instance=ExtResource("7_l4ptf")]
+offset_left = -57.0
+offset_top = -60.0
+offset_right = 143.0
+offset_bottom = 140.0
+scale = Vector2(0.6, 0.6)
+
+[node name="Star" parent="." instance=ExtResource("8_m6opl")]
+offset_left = -69.0
+offset_top = -71.0
+offset_right = -69.0
+offset_bottom = -71.0
+scale = Vector2(0.7, 0.7)
 
 [node name="TextureButton" type="TextureButton" parent="."]
 anchors_preset = 8
@@ -31,11 +67,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -36.0
+offset_top = -37.0
+offset_right = 36.0
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
-texture_normal = ExtResource("1_hwvfq")
 stretch_mode = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+z_index = 1
+shape = SubResource("CircleShape2D_hvmma")

@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cans884jf1fnx"]
+[gd_scene load_steps=3 format=3 uid="uid://cans884jf1fnx"]
 
+[ext_resource type="PackedScene" uid="uid://26jyeewg82uy" path="res://menus/map_destination.tscn" id="1_2uom4"]
 [ext_resource type="Script" uid="uid://d0t6oesmboku2" path="res://menus/star_map_menu.gd" id="1_7fpcy"]
 
 [node name="star_map_menu" type="Control"]
@@ -11,3 +12,33 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_7fpcy")
+
+[node name="MapDestination" parent="." instance=ExtResource("1_2uom4")]
+position = Vector2(174.545, 540)
+
+[node name="@Area2D@513281" parent="." instance=ExtResource("1_2uom4")]
+position = Vector2(349.091, 360)
+
+[node name="@Area2D@513282" parent="." instance=ExtResource("1_2uom4")]
+position = Vector2(523.636, 360)
+
+[node name="@Area2D@513283" parent="." instance=ExtResource("1_2uom4")]
+position = Vector2(698.182, 360)
+
+[node name="@Area2D@513284" parent="." instance=ExtResource("1_2uom4")]
+position = Vector2(872.727, 360)
+
+[node name="@Area2D@513285" parent="." instance=ExtResource("1_2uom4")]
+position = Vector2(1047.27, 360)
+
+[node name="@Area2D@513286" parent="." instance=ExtResource("1_2uom4")]
+position = Vector2(1221.82, 360)
+
+[node name="@Area2D@513287" parent="." instance=ExtResource("1_2uom4")]
+position = Vector2(1396.36, 360)
+
+[node name="@Area2D@513288" parent="." instance=ExtResource("1_2uom4")]
+position = Vector2(1570.91, 360)
+
+[node name="@Area2D@513289" parent="." instance=ExtResource("1_2uom4")]
+position = Vector2(1745.45, 360)

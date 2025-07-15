@@ -6,7 +6,8 @@ enum RoomTypes {HALLWAY, SHAFT, ELBOW_UP, ELBOW_DOWN, TJUNCTION_UP, TJUNCTION_DO
 var uiRef
 var playerRef
 var playerInLevel = false
-var playerIsControllable = false
+#var playerIsControllable = false
+var playerIsControllable = true
 #var levelRef
 #var shipRef 
 
@@ -22,6 +23,8 @@ signal s_startLevel
 
 signal s_pauseRequested
 
+signal s_playerLightsOff
+signal s_playerLightsOn
 
 
 

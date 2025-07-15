@@ -1,9 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://caf8xfg6vi0k5"]
+[gd_scene load_steps=3 format=3 uid="uid://caf8xfg6vi0k5"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_0kh7f"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nnxok"]
-noise = SubResource("FastNoiseLite_0kh7f")
+[ext_resource type="Texture2D" uid="uid://mir8l3ygr8c7" path="res://assets/SoftCircle.png" id="1_nnxok"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0kh7f"]
 polygon = PackedVector2Array(19, -7, -11, -7, -11, 8, 19, 8, -4, 2, -4, -2)
@@ -13,7 +10,7 @@ polygon = PackedVector2Array(19, -7, -11, -7, -11, 8, 19, 8, -4, 2, -4, -2)
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(4.16919, 2.21191)
 shadow_enabled = true
-texture = SubResource("NoiseTexture2D_nnxok")
+texture = ExtResource("1_nnxok")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_0kh7f")

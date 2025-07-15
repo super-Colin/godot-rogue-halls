@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://by7o0iymt8xvt"]
+[gd_scene load_steps=5 format=3 uid="uid://by7o0iymt8xvt"]
 
 [ext_resource type="Script" uid="uid://dfhe6yorlt4jm" path="res://menus/main_menu.gd" id="1_4dxmd"]
 [ext_resource type="Texture2D" uid="uid://dhc406tshlctc" path="res://assets/pattern_46.png" id="2_0husn"]
 [ext_resource type="PackedScene" uid="uid://cans884jf1fnx" path="res://menus/star_map_menu.tscn" id="3_abbjk"]
+[ext_resource type="PackedScene" uid="uid://cueb0uhe4gqhl" path="res://menus/destination_display.tscn" id="4_4vlrk"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -95,12 +96,13 @@ text = "Confirm Destination"
 
 [node name="StartButton" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Start"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(1500, 800)
+custom_minimum_size = Vector2(1800, 800)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -115,3 +117,11 @@ grow_vertical = 2
 [node name="StarMapMenu" parent="MarginContainer" instance=ExtResource("3_abbjk")]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
+
+[node name="DestinationDisplay" parent="MarginContainer" instance=ExtResource("4_4vlrk")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8

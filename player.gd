@@ -60,7 +60,7 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 var dead = false
 var currentInteractionObject:Node
 var currentEnvironmentRef:Node
-
+var camera:Node
 
 
 
@@ -89,11 +89,20 @@ func _ready():
 	%PickupRange.body_entered.connect(checkForPromptUpdate.bind(true))
 	%PickupRange.body_exited.connect(checkForPromptUpdate.bind(false))
 	clearInteractionOject()
+	camera = $Camera2D
+	Globals.s_playerLightsOff.connect(turnLightsOff)
+	Globals.s_playerLightsOn.connect(turnLightsOn)
 	Globals.s_playerReady.emit()
 	#coyote_timer.wait_time = coyote_timer_value
 	#jump_buffer_timer.wait_time = jump_buffer_timer_value
 
 
+func turnLightsOff():
+	$PointLight2D.visible = false
+	$Flashlight.visible = false
+func turnLightsOn():
+	$PointLight2D.visible = true
+	$Flashlight.visible = true
 
 func _physics_process(delta):
 	if Engine.is_editor_hint():
@@ -103,14 +112,14 @@ func _physics_process(delta):
 		return
 	if not is_on_floor():
 		velocity.y += _get_gravity(velocity) * delta
-		_get_movement(air_resistance, air_acceleration, delta)
+		if Globals.playerIsControllable: _get_movement(air_resistance, air_acceleration, delta)
 	else:
 		#if coyote_timer.is_stopped():
 			#coyote_timer.start()
 		#if jump_buffer_timer.time_left > 0.0:
 			#jump_buffer_timer.stop()
 			#jump()
-		_get_movement(friction, acceleration, delta)
+		if Globals.playerIsControllable: _get_movement(friction, acceleration, delta)
 	
 	# Even if the player cannot control the character, apply gravity etc.
 	if not Globals.playerIsControllable:

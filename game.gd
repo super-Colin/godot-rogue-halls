@@ -23,6 +23,8 @@ func loadInMainShip():
 	ship.add_child(player)
 	$'.'.add_child(ship)
 	%Level.cleanup()
+	$Darkness.visible = false
+	Globals.s_playerLightsOff.emit()
 
 func startNewRun():
 	print("game - starting new run")
@@ -35,9 +37,12 @@ func startNewRun():
 func startLevel():
 	%Level.generateLevel()
 	var player = playerScene.instantiate()
-	player.position = %Level.get_node("PlayerSpawn").position
+	#player.position = %Level.get_node("PlayerSpawn").position
+	player.position = %Level.getPlayerSpawnPoint()
 	%Level.add_child(player)
 	$MainShip.queue_free()
+	$Darkness.visible = true
+	Globals.s_playerLightsOn.emit()
 	#%MainMenu.visible = false
 	#%ShipMenu.visible = false
 

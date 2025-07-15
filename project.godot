@@ -20,6 +20,7 @@ Globals="*res://Globals.gd"
 Inventory="*res://manager_inventory.gd"
 Stats="*res://player_stats.gd"
 AI="*res://ai_behavior.gd"
+Utilities="*res://utilities.gd"
 
 [display]
 

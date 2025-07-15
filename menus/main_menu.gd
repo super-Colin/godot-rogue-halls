@@ -23,6 +23,7 @@ func _ready() -> void:
 func selectedDestination(newDestination):
 	%ConfirmButton.disabled = false
 	#Globals.confirmedDestination = newDestination
+	%DestinationDisplay.visible = true
 
 func confirmedDestination():
 	if "currentlySelected" in %StarMapMenu and %StarMapMenu.currentlySelected:
@@ -30,6 +31,7 @@ func confirmedDestination():
 		%StarMapMenu.lockOutNewSelections()
 	%ConfirmButton.text = "Confirmed"
 	%ConfirmButton.disabled = true
+	#%DestinationDisplay.visible = true
 
 
 

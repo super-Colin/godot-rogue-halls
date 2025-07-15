@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjnoshg5ogxa7"]
+[gd_scene load_steps=5 format=3 uid="uid://cjnoshg5ogxa7"]
 
 [ext_resource type="Script" uid="uid://dubxvqp43ruxu" path="res://rooms/room.gd" id="1_ylmpm"]
 [ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://level_pieces/transition_door.tscn" id="2_5snyy"]
+[ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://level_pieces/crate.tscn" id="3_5snyy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ya37f"]
 size = Vector2(2013, 196)
@@ -32,3 +33,6 @@ shape = SubResource("RectangleShape2D_ya37f")
 unique_name_in_owner = true
 position = Vector2(-981, 110)
 polygon = PackedVector2Array(-44, -208, -50, -9, 1974, -6, 1975, -207)
+
+[node name="Crate" parent="." instance=ExtResource("3_5snyy")]
+position = Vector2(352, 980)
