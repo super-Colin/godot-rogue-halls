@@ -27,7 +27,7 @@ float rand(vec2 coord) {
 float noise(vec2 coord){
 	vec2 i = floor(coord);
 	vec2 f = fract(coord);
-	
+
 	float a = rand(i);
 	float b = rand(i + vec2(1.0, 0.0));
 	float c = rand(i + vec2(0.0, 1.0));
@@ -71,23 +71,23 @@ vec2 spherify(vec2 uv) {
 void fragment() {
 	//pixelize uv
 	vec2 uv = floor(UV*pixels)/pixels;
-	
+
 	bool dith = dither(uv, UV);
-	
+
 	// check distance distance to light
 	float d_light = distance(uv , vec2(light_origin));
-	
+
 	// cut out a circle
 	float d_circle = distance(uv, vec2(0.5));
 	// stepping over 0.5 instead of 0.49999 makes some pixels a little buggy
 	float a = step(d_circle, 0.49999);
-	
+
 	uv = spherify(uv);
 	uv = rotate(uv, rotation);
-	
+
 	// get a noise value with light distance added
 	d_light += fbm(uv*size+vec2(time*time_speed, 0.0))*0.3; // change the magic 0.3 here for different light strengths
-	
+
 	// size of edge in which colors should be dithered
 	float dither_border = (1.0/pixels)*dither_size;
 
@@ -105,6 +105,6 @@ void fragment() {
 			col = colors[1];
 		}
 	}
-	
+
 	COLOR = vec4(col.rgb, a * col.a);
 }

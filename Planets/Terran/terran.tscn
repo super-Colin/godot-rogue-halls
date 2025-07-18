@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://dkh5mp3t1mial" path="res://Planets/Terran/TerranClouds.gdshader" id="3_pql8q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_842be"]
+resource_local_to_scene = true
 shader = ExtResource("1_5whsg")
 shader_parameter/pixels = 100.0
 shader_parameter/rotation = 0.0
@@ -22,6 +23,7 @@ shader_parameter/time = 0.0
 shader_parameter/should_dither = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pql8q"]
+resource_local_to_scene = true
 shader = ExtResource("2_842be")
 shader_parameter/pixels = 100.0
 shader_parameter/rotation = 0.0
@@ -38,6 +40,7 @@ shader_parameter/seed = 6.076
 shader_parameter/time = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ioa1l"]
+resource_local_to_scene = true
 shader = ExtResource("3_pql8q")
 shader_parameter/pixels = 100.0
 shader_parameter/rotation = 5.713

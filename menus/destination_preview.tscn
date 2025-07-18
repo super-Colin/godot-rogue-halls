@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cueb0uhe4gqhl"]
+
+[ext_resource type="Script" uid="uid://6y5uqsqjbme1" path="res://menus/destination_preview.gd" id="1_vubp5"]
+[ext_resource type="PackedScene" uid="uid://beawlva46tcu7" path="res://destination_sprite.tscn" id="2_qukq0"]
+
+[node name="DestinationDisplay" type="VBoxContainer"]
+offset_right = 200.0
+offset_bottom = 227.0
+script = ExtResource("1_vubp5")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Oiduts-g-437"
+horizontal_alignment = 1
+
+[node name="SpriteHolder" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="DestinationSprite" parent="SpriteHolder" instance=ExtResource("2_qukq0")]
+layout_mode = 2

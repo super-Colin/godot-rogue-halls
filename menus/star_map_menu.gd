@@ -6,15 +6,16 @@ const mapDestinationScene = preload("res://menus/map_destination.tscn")
 
 
 
-@export_tool_button("Make Grid")
-var makeGridAction = makeGridMarkers
+@export_tool_button("Make Map")
+var makeMapAction = makeMap
 @export var gridSize:Vector2 = Vector2(10, 5)
 
 
 var currentlySelected:Node = null
+#var currentlySelected = null
 var lockedOut = false
 
-signal s_selected(destinationNode)
+signal s_selected(destinationDict)
 
 
 
@@ -22,7 +23,7 @@ signal s_selected(destinationNode)
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-	makeGridMarkers()
+	#makeMap()
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -34,10 +35,10 @@ func lockOutNewSelections():
 
 
 func makeMap():
-	return
+	return makeGrid()
 
 
-func makeGridMarkers():
+func makeGrid():
 	for c in $'.'.get_children():
 		c.free()
 	var xSpacing = $'.'.size.x / (gridSize.x + 1)
@@ -59,9 +60,9 @@ func makeGridMarkers():
 
 
 func setNewSelected(newSelected:Node):
-	if lockedOut:
-		newSelected.unselected()
-		return
+	#if lockedOut:
+		#newSelected.unselected()
+		#return
 	if currentlySelected:
 		currentlySelected.unselected()
 	currentlySelected = newSelected

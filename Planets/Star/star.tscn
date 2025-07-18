@@ -6,19 +6,21 @@
 [ext_resource type="Shader" uid="uid://loucd8bc0shl" path="res://Planets/Star/StarFlares.gdshader" id="4_7x5qq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ftgjj"]
+resource_local_to_scene = true
 shader = ExtResource("2_fx0oc")
 shader_parameter/pixels = 204.06
 shader_parameter/colors = PackedColorArray(1, 1, 0.894118, 1)
-shader_parameter/time_speed = 0.05
+shader_parameter/time_speed = 0.249
 shader_parameter/time = 0.0
 shader_parameter/rotation = 0.0
 shader_parameter/seed = 2.188
 shader_parameter/circle_amount = 2.0
-shader_parameter/circle_size = 1.0
-shader_parameter/size = 3.0
-shader_parameter/OCTAVES = 4
+shader_parameter/circle_size = 0.667
+shader_parameter/size = 4.0
+shader_parameter/OCTAVES = 5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7x5qq"]
+resource_local_to_scene = true
 shader = ExtResource("3_ftgjj")
 shader_parameter/pixels = 100.0
 shader_parameter/time_speed = 0.001
@@ -33,6 +35,7 @@ shader_parameter/OCTAVES = 4
 shader_parameter/TILES = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2tpax"]
+resource_local_to_scene = true
 shader = ExtResource("4_7x5qq")
 shader_parameter/pixels = 300.0
 shader_parameter/colors = PackedColorArray(0.466667, 0.839216, 0.756863, 1, 1, 1, 0.894118, 1)
@@ -50,6 +53,7 @@ shader_parameter/size = 2.0
 shader_parameter/OCTAVES = 4
 
 [node name="Star" type="Control"]
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
@@ -57,12 +61,12 @@ script = ExtResource("1_yl1te")
 
 [node name="Blobs" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_ftgjj")
-custom_minimum_size = Vector2(400, 400)
+custom_minimum_size = Vector2(500, 500)
 layout_mode = 0
-offset_left = -100.0
-offset_top = -100.0
-offset_right = 300.0
-offset_bottom = 300.0
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 350.0
+offset_bottom = 350.0
 mouse_filter = 2
 
 [node name="Star" type="ColorRect" parent="."]

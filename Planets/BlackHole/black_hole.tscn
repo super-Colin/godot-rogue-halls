@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://wfvkh0trnx11" path="res://Planets/BlackHole/BlackHoleDisk.gdshader" id="3_ew023"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ew023"]
+resource_local_to_scene = true
 shader = ExtResource("2_qej14")
 shader_parameter/pixels = 100.0
 shader_parameter/colors = PackedColorArray(0.152941, 0.152941, 0.211765, 1, 1, 1, 0.921569, 1, 0.929412, 0.482353, 0.223529, 1)
@@ -12,6 +13,7 @@ shader_parameter/radius = 0.25
 shader_parameter/light_width = 0.05
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_57iqi"]
+resource_local_to_scene = true
 shader = ExtResource("3_ew023")
 shader_parameter/pixels = 300.0
 shader_parameter/rotation = 6.139

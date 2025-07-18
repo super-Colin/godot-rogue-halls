@@ -84,6 +84,7 @@ func percentThroughRange(rangeMin, rangeMax, currentVal)->float:
 	return percentage
 
 
+var percentageOfRange = valueFromPercentageOfRange
 func valueFromPercentageOfRange(rangeMin, rangeMax, percentage, moreThanFullPercent=false)->float:
 	if percentage > 1.0 and not moreThanFullPercent:
 		printerr("utils - passed too big of a number! " + str(percentage) + ", setting it to 1.0")

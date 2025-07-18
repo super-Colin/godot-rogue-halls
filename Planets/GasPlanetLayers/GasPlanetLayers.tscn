@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://brc7tmtl4ghbd" path="res://Planets/GasPlanetLayers/Ring.gdshader" id="3_5mxum"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5mxum"]
+resource_local_to_scene = true
 shader = ExtResource("2_a8xw5")
 shader_parameter/pixels = 100.0
 shader_parameter/rotation = 0.0
@@ -26,6 +27,7 @@ shader_parameter/seed = 1.88
 shader_parameter/time = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8hmay"]
+resource_local_to_scene = true
 shader = ExtResource("3_5mxum")
 shader_parameter/pixels = 300.0
 shader_parameter/rotation = 0.5

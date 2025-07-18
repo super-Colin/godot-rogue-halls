@@ -13,6 +13,7 @@ func _ready() -> void:
 	#%StartButton.pressed.connect(releaseScreenFocus)
 	%StarMapMenu.s_selected.connect(selectedDestination)
 	%ConfirmButton.pressed.connect(confirmedDestination)
+	%StarMapMenu.makeMap()
 
 
 #func releaseScreenFocus():
@@ -24,6 +25,7 @@ func selectedDestination(newDestination):
 	%ConfirmButton.disabled = false
 	#Globals.confirmedDestination = newDestination
 	%DestinationDisplay.visible = true
+	%DestinationDisplay.updatePreview(newDestination.destinationDict)
 
 func confirmedDestination():
 	if "currentlySelected" in %StarMapMenu and %StarMapMenu.currentlySelected:

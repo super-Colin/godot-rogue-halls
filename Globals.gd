@@ -1,7 +1,7 @@
 extends Node
 
 enum RoomTypes {HALLWAY, SHAFT, ELBOW_UP, ELBOW_DOWN, TJUNCTION_UP, TJUNCTION_DOWN, DEADEND, OPEN, ENCLOSED}
-
+enum DestinationTypes {TERRAN, STAR, GAS_PLANET, GALAXY, BLACKHOLE}
 
 var uiRef
 var playerRef
