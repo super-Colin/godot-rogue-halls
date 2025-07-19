@@ -1,6 +1,6 @@
 extends "res://Planets/Planet.gd"
 
-func set_pixels(amount):	
+func set_pixels(amount):
 	$Water.material.set_shader_parameter("pixels", amount)
 	$Land.material.set_shader_parameter("pixels", amount)
 	$Cloud.material.set_shader_parameter("pixels", amount)
@@ -48,26 +48,31 @@ func get_dither():
 func get_colors():
 	return get_colors_from_shader($Water.material) + get_colors_from_shader($Land.material) + get_colors_from_shader($Cloud.material)
 
+
+
+
 func set_colors(colors):
 	set_colors_on_shader($Water.material, colors.slice(0, 3))
 	set_colors_on_shader($Land.material, colors.slice(3, 7))
 	set_colors_on_shader($Cloud.material, colors.slice(7, 11))
 
+
+
+#func _generate_new_colorscheme(n_colors, hue_diff = 0.9, saturation = 0.5):
 func randomize_colors():
+	print("terran - randomizing colors.")
 	var seed_colors = _generate_new_colorscheme(randi()%2+3, randf_range(0.7, 1.0), randf_range(0.45, 0.55))
+	print("terran - randomizing colors. seed colors: ", seed_colors)
 	var land_colors = []
 	var water_colors = []
 	var cloud_colors = []
 	for i in 4:
 		var new_col = seed_colors[0].darkened(i/4.0)
 		land_colors.append(Color.from_hsv(new_col.h + (0.2 * (i/4.0)), new_col.s, new_col.v))
-	
 	for i in 3:
 		var new_col = seed_colors[1].darkened(i/5.0)
 		water_colors.append(Color.from_hsv(new_col.h + (0.1 * (i/2.0)), new_col.s, new_col.v))
-	
 	for i in 4:
 		var new_col = seed_colors[2].lightened((1.0 - (i/4.0)) * 0.8)
 		cloud_colors.append(Color.from_hsv(new_col.h + (0.2 * (i/4.0)), new_col.s, new_col.v))
-
 	set_colors(water_colors + land_colors + cloud_colors)

@@ -26,6 +26,7 @@ func selectedDestination(newDestination):
 	#Globals.confirmedDestination = newDestination
 	%DestinationDisplay.visible = true
 	%DestinationDisplay.updatePreview(newDestination.destinationDict)
+	#%DestinationDisplay.updatePreview(newDestination.destinationDict.duplicate())
 
 func confirmedDestination():
 	if "currentlySelected" in %StarMapMenu and %StarMapMenu.currentlySelected:

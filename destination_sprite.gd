@@ -1,40 +1,52 @@
 extends Control
 
 
-
+var shaderSettings = {}
 
 
 
 
 func freeUndisplayedPlanets(destinationType):
 	if destinationType == Globals.DestinationTypes.BLACKHOLE:
-		$GasPlanet.queue_free()
-		$Galaxy.queue_free()
-		$Terran.queue_free()
-		$Star.queue_free()
+		$GasPlanet.free()
+		$Galaxy.free()
+		$Terran.free()
+		$Star.free()
 	elif destinationType == Globals.DestinationTypes.GALAXY:
-		$GasPlanet.queue_free()
-		$BlackHole.queue_free()
-		$Terran.queue_free()
-		$Star.queue_free()
+		$GasPlanet.free()
+		$BlackHole.free()
+		$Terran.free()
+		$Star.free()
 	elif destinationType == Globals.DestinationTypes.GAS_PLANET:
-		$Galaxy.queue_free()
-		$BlackHole.queue_free()
-		$Terran.queue_free()
-		$Star.queue_free()
+		$Galaxy.free()
+		$BlackHole.free()
+		$Terran.free()
+		$Star.free()
 	elif destinationType == Globals.DestinationTypes.TERRAN:
-		$GasPlanet.queue_free()
-		$Galaxy.queue_free()
-		$BlackHole.queue_free()
-		$Star.queue_free()
+		$GasPlanet.free()
+		$Galaxy.free()
+		$BlackHole.free()
+		$Star.free()
 	elif destinationType == Globals.DestinationTypes.STAR:
-		$GasPlanet.queue_free()
-		$Galaxy.queue_free()
-		$Terran.queue_free()
-		$BlackHole.queue_free()
+		$GasPlanet.free()
+		$Galaxy.free()
+		$Terran.free()
+		$BlackHole.free()
 	adjustRootMinSize()
+	#await get_tree().process_frame
+	#randomizeColors()
 
 
+
+
+
+func randomizeColors():
+	$'.'.get_children()[0].randomize_colors()
+func getColors():
+	return $'.'.get_children()[0].get_colors()
+func setColors(colors):
+	print("dest sprite - setting colors")
+	return $'.'.get_children()[0].set_colors(colors)
 
 func adjustRootMinSize():
 	var childSprite = $'.'.get_children()[0]

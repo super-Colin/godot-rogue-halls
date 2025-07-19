@@ -10,12 +10,12 @@ func _ready() -> void:
 
 
 func _area_entered(area):
-	print("laser - area", area)
+	#print("laser - area", area)
 	$".".queue_free()
 
 
 func _body_entered(body):
-	print("laser - body", body)
+	#print("laser - body", body)
 	if "hitByLaser" in body:
 		body.hitByLaser($'.')
 	$".".queue_free()

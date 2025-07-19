@@ -53,6 +53,7 @@ func makeGrid():
 			var newDest = mapDestinationScene.instantiate()
 			newDest.position = Vector2(xSpacing * (x+1), ySpacing * (y+1) )
 			newDest.configureWithDict(newDestDict)
+			
 			#var newDestCoord = chooseCoordsForThisColumn(x, y)
 			if not Engine.is_editor_hint():
 				newDest.s_selected.connect(setNewSelected)
@@ -100,10 +101,17 @@ func setNewSelected(newSelected:Node):
 	#if lockedOut:
 		#newSelected.unselected()
 		#return
-	if currentlySelected:
+	if currentlySelected and currentlySelected == newSelected:
+		print("star map - is currently selected dest")
+		return
+	if not currentlySelected:
+		currentlySelected = newSelected
+		s_selected.emit(currentlySelected)
+	#elif currentlySelected:
+	else:
 		currentlySelected.unselected()
-	currentlySelected = newSelected
-	s_selected.emit(currentlySelected)
+		currentlySelected = newSelected
+		s_selected.emit(currentlySelected)
 
 
 

@@ -71,12 +71,12 @@ signal updateInteractionPrompt(string)
 func enteredEnvironment(newEnvironment):
 	if newEnvironment is EnvironmentSettings:
 		currentEnvironmentRef = newEnvironment
-		print("player - entered newEnvironment: ", newEnvironment)
+		#print("player - entered newEnvironment: ", newEnvironment)
 
 func exitedEnvironment(environment):
 	if environment == currentEnvironmentRef:
 		currentEnvironmentRef == null
-		print("player - exited the environment: ", environment)
+		#print("player - exited the environment: ", environment)
 
 
 
@@ -136,7 +136,7 @@ func _physics_process(delta):
 		fireLaser()
 	if Input.is_action_just_released("Interact"):
 		if currentInteractionObject != null:
-			print("player - interacting with object: ", currentInteractionObject)
+			#print("player - interacting with object: ", currentInteractionObject)
 			currentInteractionObject.playerInteraction()
 	#if velocity != Vector2.ZERO:
 		#$AnimatedSprite2D.play("walk")
@@ -159,7 +159,7 @@ func _physics_process(delta):
 
 
 func fireLaser():
-	print("player - firing laser, charges left: ", Stats.laserCharges)
+	#print("player - firing laser, charges left: ", Stats.laserCharges)
 	if Stats.laserCharges < 1:
 		return
 	Stats.laserCharges -= 1
@@ -174,7 +174,7 @@ func checkForPromptUpdate(areaOrBody:Node, entered:bool): # entered or exited
 	if not "playerInteraction" in areaOrBody:
 		return
 	if entered:
-		print("player: object is usable: ", areaOrBody)
+		#print("player: object is usable: ", areaOrBody)
 		currentInteractionObject = areaOrBody
 		#updateInteractionPrompt.emit(currentInteractionObject.interactionPrompt)
 		updatePrompt(currentInteractionObject.interactionPrompt)
@@ -212,7 +212,7 @@ func handleOxygenDrain(delta):
 		Globals.s_playerDied.emit()
 		dead = true
 		%PlayerSprite.modulate = "aa5853"
-		print("player - died from oxygen")
+		#print("player - died from oxygen")
 
 
 func generateEnergy(delta):

@@ -30,7 +30,7 @@ func get_colors():
 	return get_colors_from_shader($Galaxy.material)
 
 func set_colors(colors):
-	set_colors_on_shader($Galaxy.material, colors)
+	set_colors_on_shader($Galaxy.material, colors.duplicate())
 
 func randomize_colors():
 	var seed_colors = _generate_new_colorscheme(6 , randf_range(0.5,0.8), 1.4)
@@ -39,5 +39,4 @@ func randomize_colors():
 		var new_col = seed_colors[i].darkened(i/7.0)
 		new_col = new_col.lightened((1.0 - (i/6.0)) * 0.6)
 		cols.append(new_col)
-
 	set_colors(cols)

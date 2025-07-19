@@ -60,7 +60,6 @@ func _generate_new_colorscheme(n_colors, hue_diff = 0.9, saturation = 0.5):
 	var b = Vector3(0.5,0.5,0.5) * saturation
 	var c = Vector3(randf_range(0.5, 1.5), randf_range(0.5, 1.5), randf_range(0.5, 1.5)) * hue_diff
 	var d = Vector3(randf_range(0.0, 1.0), randf_range(0.0, 1.0), randf_range(0.0, 1.0)) * randf_range(1.0, 3.0)
-
 	var cols = PackedColorArray()
 	var n = float(n_colors - 1.0)
 	n = max(1, n)
@@ -69,9 +68,7 @@ func _generate_new_colorscheme(n_colors, hue_diff = 0.9, saturation = 0.5):
 		vec3.x = (a.x + b.x *cos(6.28318 * (c.x*float(i/n) + d.x)))
 		vec3.y = (a.y + b.y *cos(6.28318 * (c.y*float(i/n) + d.y)))
 		vec3.z = (a.z + b.z *cos(6.28318 * (c.z*float(i/n) + d.z)))
-
 		cols.append(Color(vec3.x, vec3.y, vec3.z))
-	
 	return cols
 
 func get_layers():

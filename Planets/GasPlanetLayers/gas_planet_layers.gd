@@ -43,19 +43,17 @@ func get_colors():
 func set_colors(colors):
 	var cols1 = colors.slice(0, 3)
 	var cols2 = colors.slice(3, 6)
-	
 	set_colors_on_shader($GasLayers.material, cols1)
 	set_colors_on_shader($Ring.material, cols1)
-	
 	set_colors_on_shader($GasLayers.material, cols2, "dark_colors")
 	set_colors_on_shader($Ring.material, cols2, "dark_colors")
 
 func randomize_colors():
 	var seed_colors = _generate_new_colorscheme(6 + randi() % 4, randf_range(0.3,0.55), 1.4)
+	print("gas planet - randomizing colors. seed colors: ", seed_colors)
 	var cols = []
 	for i in 6:
 		var new_col = seed_colors[i].darkened(i/7.0)
 		new_col = new_col.lightened((1.0 - (i/6.0)) * 0.3)
 		cols.append(new_col)
-
 	set_colors(cols)

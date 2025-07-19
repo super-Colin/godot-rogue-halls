@@ -24,6 +24,16 @@ func _ready() -> void:
 func configureWithDict(destDict):
 	destinationDict = destDict
 	$DestinationSprite.freeUndisplayedPlanets(destinationDict.type)
+	if not "colors" in destinationDict:
+		$DestinationSprite.randomizeColors()
+		destinationDict.colors = $DestinationSprite.getColors()
+		#print("map dest - NEW destinationDict.colors: ", destinationDict.colors)
+	else:
+		print("map dest - SETTING destinationDict.colors: ", destinationDict.colors)
+		$DestinationSprite.setColors(destinationDict.colors)
+
+
+
 
 
 func _physics_process(delta: float) -> void:
@@ -60,7 +70,7 @@ func _process(delta: float) -> void:
 		return
 	if mouseHoveringOn and Input.is_action_just_pressed("Accept"):
 		selected()
-		print("dest - clicked")
+		#print("dest - clicked")
 
 
 
@@ -75,6 +85,7 @@ func selected():
 	#s_selected.emit(destinationDict)
 
 func unselected():
+	#pass
 	isSelected = false
 	$Selected.visible = false
 

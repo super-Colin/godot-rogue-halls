@@ -7,7 +7,7 @@ uniform float time_speed : hint_range(0.0, 1.0) = 0.2;
 uniform float dither_size : hint_range(0.0, 10.0) = 2.0;
 uniform bool should_dither = true;
 uniform vec4[7] colors : source_color;
-uniform int n_colors = 6;
+uniform int n_colors = 7;
 
 uniform float size = 50.0;
 uniform int OCTAVES : hint_range(0, 20, 1);
