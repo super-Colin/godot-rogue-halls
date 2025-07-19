@@ -20,6 +20,8 @@ func updatePreview(destinationDict):
 	destSprite.freeUndisplayedPlanets(destinationDict.type)
 	$SpriteHolder.add_child(destSprite) # causes bug, because of shared shader resource
 	#$SpriteHolder.add_child(Control.new())
+	$Name.text = destinationDict.name
+	$Description.text = destinationDict.description
 
 
 

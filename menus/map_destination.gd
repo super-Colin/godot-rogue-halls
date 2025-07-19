@@ -1,27 +1,30 @@
+@tool
 extends Area2D
-#extends Button
 
 
 var mouseHoveringOn = false
 var isSelected = false
 var shipIsHere = false
-var destinationDict = {
-	"type":Globals.DestinationTypes.TERRAN, 
-	"name":"Default Name"
-}
+var destinationDict = {}
 
 signal s_selected(selectedNode:Node)
 
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 	#$'.'.mouse_entered.connect(_mouseEntered)
 	#$'.'.mouse_exited.connect(_mouseExited)
 	$TextureButton.mouse_entered.connect(_mouseEntered)
 	$TextureButton.mouse_exited.connect(_mouseExited)
-	$DestinationSprite.freeUndisplayedPlanets(destinationDict.type)
 	$'.'.z_index = 0
 #$TextureButton
+
+func configureWithDict(destDict):
+	destinationDict = destDict
+	$DestinationSprite.freeUndisplayedPlanets(destinationDict.type)
+
 
 func _physics_process(delta: float) -> void:
 	pass
@@ -53,6 +56,8 @@ func scaleSelf(scaleUp=true):
 
 
 func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	if mouseHoveringOn and Input.is_action_just_pressed("Accept"):
 		selected()
 		print("dest - clicked")

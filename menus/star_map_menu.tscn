@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cans884jf1fnx"]
+[gd_scene load_steps=4 format=3 uid="uid://cans884jf1fnx"]
 
 [ext_resource type="Script" uid="uid://d0t6oesmboku2" path="res://menus/star_map_menu.gd" id="1_7fpcy"]
+[ext_resource type="PackedScene" uid="uid://26jyeewg82uy" path="res://menus/map_destination.tscn" id="2_2ml44"]
+[ext_resource type="Script" uid="uid://bknpsarxqojf3" path="res://menus/map_destination.gd" id="3_rjfen"]
 
 [node name="star_map_menu" type="Control"]
 layout_mode = 3
@@ -11,3 +13,73 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_7fpcy")
+
+[node name="MapDestination" type="Area2D" parent="." instance=ExtResource("2_2ml44")]
+z_index = 1
+z_as_relative = false
+position = Vector2(174.545, 540)
+priority = 1
+script = ExtResource("3_rjfen")
+
+[node name="@Area2D@96677" type="Area2D" parent="." instance=ExtResource("2_2ml44")]
+z_index = 1
+z_as_relative = false
+position = Vector2(349.091, 360)
+priority = 1
+script = ExtResource("3_rjfen")
+
+[node name="@Area2D@96678" type="Area2D" parent="." instance=ExtResource("2_2ml44")]
+z_index = 1
+z_as_relative = false
+position = Vector2(523.636, 360)
+priority = 1
+script = ExtResource("3_rjfen")
+
+[node name="@Area2D@96679" type="Area2D" parent="." instance=ExtResource("2_2ml44")]
+z_index = 1
+z_as_relative = false
+position = Vector2(698.182, 360)
+priority = 1
+script = ExtResource("3_rjfen")
+
+[node name="@Area2D@96680" type="Area2D" parent="." instance=ExtResource("2_2ml44")]
+z_index = 1
+z_as_relative = false
+position = Vector2(872.727, 360)
+priority = 1
+script = ExtResource("3_rjfen")
+
+[node name="@Area2D@96681" type="Area2D" parent="." instance=ExtResource("2_2ml44")]
+z_index = 1
+z_as_relative = false
+position = Vector2(1047.27, 360)
+priority = 1
+script = ExtResource("3_rjfen")
+
+[node name="@Area2D@96682" type="Area2D" parent="." instance=ExtResource("2_2ml44")]
+z_index = 1
+z_as_relative = false
+position = Vector2(1221.82, 360)
+priority = 1
+script = ExtResource("3_rjfen")
+
+[node name="@Area2D@96683" type="Area2D" parent="." instance=ExtResource("2_2ml44")]
+z_index = 1
+z_as_relative = false
+position = Vector2(1396.36, 360)
+priority = 1
+script = ExtResource("3_rjfen")
+
+[node name="@Area2D@96684" type="Area2D" parent="." instance=ExtResource("2_2ml44")]
+z_index = 1
+z_as_relative = false
+position = Vector2(1570.91, 360)
+priority = 1
+script = ExtResource("3_rjfen")
+
+[node name="@Area2D@96685" type="Area2D" parent="." instance=ExtResource("2_2ml44")]
+z_index = 1
+z_as_relative = false
+position = Vector2(1745.45, 360)
+priority = 1
+script = ExtResource("3_rjfen")

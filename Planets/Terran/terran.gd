@@ -39,6 +39,8 @@ func set_custom_time(t):
 func set_dither(d):
 	$Water.material.set_shader_parameter("should_dither", d)
 
+
+
 func get_dither():
 	return $Water.material.get_shader_parameter("should_dither")
 

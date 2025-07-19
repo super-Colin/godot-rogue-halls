@@ -8,7 +8,7 @@ offset_right = 200.0
 offset_bottom = 227.0
 script = ExtResource("1_vubp5")
 
-[node name="Label" type="Label" parent="."]
+[node name="Name" type="Label" parent="."]
 layout_mode = 2
 text = "Oiduts-g-437"
 horizontal_alignment = 1
@@ -18,3 +18,9 @@ layout_mode = 2
 
 [node name="DestinationSprite" parent="SpriteHolder" instance=ExtResource("2_qukq0")]
 layout_mode = 2
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 2
+text = "Default Description:
+No Modifiers..."
+horizontal_alignment = 1

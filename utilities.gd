@@ -74,7 +74,7 @@ func take_screenshot(size:Vector2=Vector2(1000,1000)):
 
 
 
-
+#region     Math
 
 func percentThroughRange(rangeMin, rangeMax, currentVal)->float:
 	var valRange = rangeMax - rangeMin
@@ -102,10 +102,7 @@ func rotationRelativeToCamera(inputVec:Vector2, withQuarterTurn=true)->float:
 	if withQuarterTurn:
 		return (inputVec.angle() - 1.57025) - Globals.CarNodeReference.rotation
 	return (inputVec.angle()) - Globals.CarNodeReference.rotation
-
-
-
-
+#endregion  Math
 #region     Rainbow Text
 
 # Array of rainbow colors (red, orange, yellow, green, blue, indigo, violet)
