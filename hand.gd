@@ -10,6 +10,8 @@ func _ready() -> void:
 	heldObject = $'.'.get_node("Gun")
 
 
+func dropHeldItem():
+	$PinJoint2D.node_b = NodePath("")
 
 
 

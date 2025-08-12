@@ -13,12 +13,12 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	# hand correcting
+	# hand correcting gun rotation
 	state.angular_velocity = -$'.'.rotation * 10
-	#$'.'.get_parent().apply_torque(-state.angular_velocity * 100000)
 	# Recoil
 	if firedLaser:
-		var sign = sign($'.'.get_parent().rotation - PI)
+		#print("gun - laser parent rotation: ", $'.'.get_parent().rotation)
+		var sign = sign(abs($'.'.get_parent().rotation) - PI/2)
 		$'.'.apply_torque_impulse(100000 * sign)
 		firedLaser = false
 

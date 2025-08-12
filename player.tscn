@@ -106,3 +106,4 @@ collision_layer = 0
 [node name="PinJoint2D" type="PinJoint2D" parent="Hand"]
 node_a = NodePath("..")
 node_b = NodePath("../Gun")
+softness = 1.09

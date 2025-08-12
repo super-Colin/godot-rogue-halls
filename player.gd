@@ -191,7 +191,6 @@ func _physics_process(delta):
 
 
 
-## TODO: will be moved to gun class
 func fireLaser():
 	#print("player - firing laser, charges left: ", Stats.laserCharges)
 	if Stats.laserCharges < 1:
@@ -199,9 +198,6 @@ func fireLaser():
 	Stats.laserCharges -= 1
 	if "fireLaser" in $Hand.heldObject:
 		$Hand.heldObject.fireLaser()
-	#var las = laserProjectileScene.instantiate()
-	#las.position = $'.'.global_position
-	#get_tree().root.add_child(las)
 
 
 
@@ -245,10 +241,15 @@ func handleOxygenDrain(delta):
 	Stats.oxygen -= delta
 	# Die at -x, bar doesn't show below 0, screen starts flashing red... then game over
 	if Stats.oxygen < -4.0:
-		Globals.s_playerDied.emit()
-		dead = true
-		%PlayerSprite.modulate = "aa5853"
+		playerDied()
 		#print("player - died from oxygen")
+
+
+func playerDied():
+	Globals.s_playerDied.emit()
+	dead = true
+	%PlayerSprite.modulate = "aa5853"
+	$Hand.dropHeldItem()
 
 
 func generateEnergy(delta):

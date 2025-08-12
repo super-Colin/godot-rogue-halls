@@ -14,6 +14,7 @@ script = ExtResource("1_buh4c")
 interactionPrompt = "Check Computer"
 
 [node name="Console" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_lu137")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

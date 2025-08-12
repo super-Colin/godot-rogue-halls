@@ -21,8 +21,10 @@ func configure(roomType, roomArgsDict):
 	if roomType == RoomTypes.DEADEND:
 		if roomArgsDict.right_open:
 			$Walls/Right.queue_free()
+			$Walls/TilesRight.queue_free()
 		elif roomArgsDict.left_open:
 			$Walls/Left.queue_free()
+			$Walls/TilesLeft.queue_free()
 	if roomArgsDict.is_level_exit:
 		%TransitionDoor.isLevelExit = roomArgsDict.is_level_exit
 		%TransitionDoor.interactionPrompt = "Exit Level"
