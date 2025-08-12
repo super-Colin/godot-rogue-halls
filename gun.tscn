@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://6aj2rcwp8gt0"]
+
+[ext_resource type="Script" uid="uid://6ijjwkkpwcjg" path="res://gun.gd" id="1_dk5gl"]
+[ext_resource type="Texture2D" uid="uid://dh2h1k13g3ynf" path="res://assets/item_gun.png" id="1_vk1bi"]
+
+[node name="Gun" type="RigidBody2D"]
+mass = 0.25
+center_of_mass_mode = 1
+can_sleep = false
+script = ExtResource("1_dk5gl")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-54, -24)
+polygon = PackedVector2Array(25, 4, 15, 14, 13, 29, -2, 43, 7, 54, 22, 40, 61, 40, 62, 51, 77, 51, 78, 41, 89, 39, 91, 29, 112, 30, 111, 11, 92, 12, 92, -4, 82, -4, 79, 3)
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(-133, 0)
+points = PackedVector2Array(155, 0, 822, 0)
+width = 3.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="ItemGun" type="Sprite2D" parent="."]
+texture = ExtResource("1_vk1bi")

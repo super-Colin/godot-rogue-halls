@@ -2,8 +2,9 @@
 class_name Player
 extends CharacterBody2D
 
-var laserProjectileScene = preload("res://laser_projectile.tscn")
+#var laserProjectileScene = preload("res://laser_projectile.tscn")
 
+const weapon = preload("res://gun.tscn")
 
 
 
@@ -57,26 +58,58 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 @onready var fall_gravity : float = (-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent) * -1
 
 
+
+
+# ----
+@export var handReach = 130
+@export var handAngularSpeed: float = 10.0  # Radians per second
+
 var dead = false
 var currentInteractionObject:Node
 var currentEnvironmentRef:Node
 var camera:Node
-
+var handFacing
 
 
 
 signal updateInteractionPrompt(string)
 
 
-func enteredEnvironment(newEnvironment):
-	if newEnvironment is EnvironmentSettings:
-		currentEnvironmentRef = newEnvironment
-		#print("player - entered newEnvironment: ", newEnvironment)
 
-func exitedEnvironment(environment):
-	if environment == currentEnvironmentRef:
-		currentEnvironmentRef == null
-		#print("player - exited the environment: ", environment)
+
+#func trackMouseWithHand():
+	#$Hand.position = handReach * get_local_mouse_position().normalized()
+
+func trackMouseWithHandDelta(delta):
+	var origin = Vector2.ZERO  # assuming local space origin
+	var mouse_pos = get_local_mouse_position()
+	# Current angle of the hand (based on its position)
+	var current_angle = $Hand.position.angle()
+	# Target angle from origin to mouse
+	var target_angle = mouse_pos.angle()
+	# Move the current angle toward the target angle
+	var new_angle = move_toward_angle(current_angle, target_angle, handAngularSpeed * delta)
+	# Update hand position
+	$Hand.position = Vector2(handReach, 0).rotated(new_angle)
+	# Optionally rotate the hand to point outward
+	$Hand.rotation = new_angle
+	
+
+func move_toward_angle(from_angle: float, to_angle: float, max_step: float) -> float:
+	var delta = wrapf(to_angle - from_angle, -PI, PI)
+	if abs(delta) <= max_step:
+		return to_angle
+	return from_angle + sign(delta) * max_step
+
+
+
+# ? Maybe ? make the hand the collision that needs to overlap with interactables??
+
+
+
+
+
+
 
 
 
@@ -97,18 +130,18 @@ func _ready():
 	#jump_buffer_timer.wait_time = jump_buffer_timer_value
 
 
-func turnLightsOff():
-	$PointLight2D.visible = false
-	$Flashlight.visible = false
-func turnLightsOn():
-	$PointLight2D.visible = true
-	$Flashlight.visible = true
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	if dead:
+		return
+	trackMouseWithHandDelta(delta)
+	#trackMouseWithHand()
 
 func _physics_process(delta):
 	if Engine.is_editor_hint():
 		return
 	if dead:
-	#if dead or not Globals.playerIsControllable:
 		return
 	if not is_on_floor():
 		velocity.y += _get_gravity(velocity) * delta
@@ -120,13 +153,14 @@ func _physics_process(delta):
 			#jump_buffer_timer.stop()
 			#jump()
 		if Globals.playerIsControllable: _get_movement(friction, acceleration, delta)
-	
-	# Even if the player cannot control the character, apply gravity etc.
+	# Even if the player cannot control the character, apply gravity
 	if not Globals.playerIsControllable:
 		move_and_slide()
 		return
-	
-	_set_player_direction(sign(velocity.x))
+	#_set_player_direction(sign(velocity.x))
+	_set_player_direction(sign($Hand.position.x))
+	if velocity.x > 0.1 and sign(velocity.x) != sign($Hand.position.x):
+		print("player - looking / walking backwards: ", sign(velocity.x))
 	if Input.is_action_just_pressed("Jump"):
 		jump()
 		#_projected_jump_trojectory(delta, sign(velocity.x))
@@ -157,15 +191,17 @@ func _physics_process(delta):
 
 
 
-
+## TODO: will be moved to gun class
 func fireLaser():
 	#print("player - firing laser, charges left: ", Stats.laserCharges)
 	if Stats.laserCharges < 1:
 		return
 	Stats.laserCharges -= 1
-	var las = laserProjectileScene.instantiate()
-	las.position = $'.'.global_position
-	get_tree().root.add_child(las)
+	if "fireLaser" in $Hand.heldObject:
+		$Hand.heldObject.fireLaser()
+	#var las = laserProjectileScene.instantiate()
+	#las.position = $'.'.global_position
+	#get_tree().root.add_child(las)
 
 
 
@@ -303,3 +339,44 @@ func _set_player_direction(direction: int) -> void:
 	if direction < 0.0: # moving left
 		%Flashlight.rotation = PI
 		%PlayerSprite.flip_h = true
+
+
+
+
+
+
+
+
+
+
+func turnLightsOff():
+	#$PointLight2D.visible = false
+	$Flashlight.visible = false
+func turnLightsOn():
+	#$PointLight2D.visible = true
+	$Flashlight.visible = true
+
+
+
+
+
+
+
+
+func enteredEnvironment(newEnvironment):
+	if newEnvironment is EnvironmentSettings:
+		currentEnvironmentRef = newEnvironment
+		#print("player - entered newEnvironment: ", newEnvironment)
+
+func exitedEnvironment(environment):
+	if environment == currentEnvironmentRef:
+		currentEnvironmentRef == null
+		#print("player - exited the environment: ", environment)
+
+
+
+
+
+
+
+#

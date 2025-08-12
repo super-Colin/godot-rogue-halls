@@ -73,9 +73,13 @@ func take_screenshot(size:Vector2=Vector2(1000,1000)):
 
 
 
-
 #region     Math
 
+# Returns a point along a circle around the object, with the provided radius
+func mouseOrbitPosition(objToOrbit:Node2D, orbitRadius:int)->Vector2: 
+	return orbitRadius * objToOrbit.get_local_mouse_position().normalized()
+
+# Takes the current value through a range and returns a normalized float 
 func percentThroughRange(rangeMin, rangeMax, currentVal)->float:
 	var valRange = rangeMax - rangeMin
 	var distanceThrough = currentVal - rangeMin
@@ -83,7 +87,7 @@ func percentThroughRange(rangeMin, rangeMax, currentVal)->float:
 	#print("utils - final percent: '" + str(percentage) + "' percent of '" + str(valRange) + "', from: '" + str(distanceThrough) + "'")
 	return percentage
 
-
+# Takes a normalized percentage/float and gets the equivalent value of a given range
 var percentageOfRange = valueFromPercentageOfRange
 func valueFromPercentageOfRange(rangeMin, rangeMax, percentage, moreThanFullPercent=false)->float:
 	if percentage > 1.0 and not moreThanFullPercent:

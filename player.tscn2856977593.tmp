@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c6txhrt448b4u"]
+[gd_scene load_steps=7 format=3 uid="uid://c6txhrt448b4u"]
 
 [ext_resource type="Texture2D" uid="uid://8vt5rcarnmw2" path="res://assets/alienYellow.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://6mw2v5l8oogf" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="PackedScene" uid="uid://caf8xfg6vi0k5" path="res://flashlight.tscn" id="3_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://kf6lscln6ygs" path="res://assets/SofterCircle.png" id="4_hqtel"]
-[ext_resource type="Script" uid="uid://brjvotnoiepy2" path="res://hand.gd" id="5_2hs0m"]
-[ext_resource type="PackedScene" uid="uid://6aj2rcwp8gt0" path="res://gun.tscn" id="5_sweqy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 57.0
@@ -16,7 +14,7 @@ radius = 128.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 157
+collision_mask = 141
 script = ExtResource("1_onrkg")
 max_speed = 500.0
 
@@ -51,23 +49,13 @@ one_shot = true
 
 [node name="Flashlight" parent="." instance=ExtResource("3_i3pqv")]
 unique_name_in_owner = true
+visible = false
 position = Vector2(0, -50)
 
-[node name="PointLight2Close" type="PointLight2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 scale = Vector2(2, 2)
 texture = ExtResource("4_hqtel")
-
-[node name="PointLight2DFar" type="PointLight2D" parent="."]
-scale = Vector2(2, 2)
-color = Color(1, 1, 1, 0.341176)
-texture = ExtResource("4_hqtel")
-texture_scale = 3.0
-
-[node name="PointLight2D3" type="PointLight2D" parent="."]
-scale = Vector2(2, 2)
-color = Color(1, 1, 1, 0.156863)
-texture = ExtResource("4_hqtel")
-texture_scale = 5.0
 
 [node name="InteractionPrompt" type="Label" parent="."]
 unique_name_in_owner = true
@@ -87,11 +75,8 @@ text = "Interaction Prompt"
 horizontal_alignment = 1
 
 [node name="Hand" type="CharacterBody2D" parent="."]
-position = Vector2(127, 0)
-collision_layer = 0
-collision_mask = 8
-slide_on_ceiling = false
-script = ExtResource("5_2hs0m")
+position = Vector2(129, -2)
+collision_layer = 13
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hand"]
 polygon = PackedVector2Array(-25, 12, 0, 26, 17, 3, -2, -11)
@@ -99,10 +84,3 @@ polygon = PackedVector2Array(-25, 12, 0, 26, 17, 3, -2, -11)
 [node name="Polygon2D" type="Polygon2D" parent="Hand"]
 position = Vector2(5, 6)
 polygon = PackedVector2Array(-2, -14, -20, 0, -10, 13, 8, 4)
-
-[node name="Gun" parent="Hand" instance=ExtResource("5_sweqy")]
-collision_layer = 0
-
-[node name="PinJoint2D" type="PinJoint2D" parent="Hand"]
-node_a = NodePath("..")
-node_b = NodePath("../Gun")

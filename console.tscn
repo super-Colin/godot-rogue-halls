@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cisv4u03vah24"]
+[gd_scene load_steps=6 format=3 uid="uid://cisv4u03vah24"]
 
 [ext_resource type="Script" uid="uid://dhthhtqk71xkr" path="res://console.gd" id="1_buh4c"]
 [ext_resource type="Texture2D" uid="uid://d1kbtmc7b85aq" path="res://assets/console-19-600x400.png" id="1_lu137"]
 [ext_resource type="PackedScene" uid="uid://by7o0iymt8xvt" path="res://menus/main_menu_screen.tscn" id="3_ewjey"]
+[ext_resource type="Texture2D" uid="uid://bw545ko6wjvs7" path="res://assets/big-computer.png" id="3_ljg6h"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewjey"]
 
@@ -14,6 +15,12 @@ interactionPrompt = "Check Computer"
 
 [node name="Console" type="Sprite2D" parent="."]
 texture = ExtResource("1_lu137")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(9, 73)
+scale = Vector2(4.48113, 4.48113)
+texture = ExtResource("3_ljg6h")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-356, 341, 381, 351, 410, 211, 250, 170, 250, -149, -250, -151, -250, 176, -358, 198)

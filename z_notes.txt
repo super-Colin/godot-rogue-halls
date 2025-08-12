@@ -1,6 +1,18 @@
 Space hall scavanger
 
 
+Assets:
+	Legacy [Ansimuz]
+	- cyber detective
+	- warped zone
+	Super Pixel Art [unTied Games]
+	- tileset collection/ orbital base
+	- tileset collection/ derelict space ship
+	- station x
+	- space base
+
+
+
 
 motion cancel shader on an enemy
 

@@ -10,7 +10,10 @@ size = Vector2(121, 122)
 polygon = PackedVector2Array(-62, -62, -62, 62, 61, 62, 60, -62)
 
 [node name="Crate" type="RigidBody2D"]
-collision_layer = 17
+z_index = 1
+z_as_relative = false
+scale = Vector2(0.988752, 0.994232)
+collision_mask = 31
 script = ExtResource("1_uep05")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -19,7 +22,9 @@ shape = SubResource("RectangleShape2D_uep05")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_4417n")
+occluder_light_mask = 17
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 17
 scale = Vector2(2.47, 2.47)
 texture = ExtResource("2_mo0jf")

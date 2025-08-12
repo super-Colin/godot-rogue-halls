@@ -40,6 +40,7 @@ visible = false
 position = Vector2(5759, 2062)
 scale = Vector2(338.293, 183.805)
 blend_mode = 1
+range_item_cull_mask = 159
 texture = SubResource("GradientTexture2D_ryrav")
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
