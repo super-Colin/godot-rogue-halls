@@ -10,8 +10,13 @@ Assets:
 	- tileset collection/ derelict space ship
 	- station x
 	- space base
+	[Penusbmic]
+	- Robots
+	- Tiny Gunner
 
 
+
+gun recoil should blast player back too
 
 
 motion cancel shader on an enemy
@@ -29,6 +34,11 @@ Ship management:
 
 === Story:
 You awake on your ship with no memories
+
+
+If you die on a mission, a clone is pooped out of a tube in the ceiling, with no explanation
+- it also costs resources, which can lead to a run over
+You are ultimately doing the ship computer' bidding, improving the ship
 
 === World:
 

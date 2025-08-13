@@ -28,7 +28,6 @@ position = Vector2(426, 1000)
 unique_name_in_owner = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 follow_viewport_enabled = true
 
 [node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("5_7jktm")]
@@ -40,7 +39,7 @@ visible = false
 position = Vector2(5759, 2062)
 scale = Vector2(338.293, 183.805)
 blend_mode = 1
-range_item_cull_mask = 159
+range_item_cull_mask = 157
 texture = SubResource("GradientTexture2D_ryrav")
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]

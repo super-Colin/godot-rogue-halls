@@ -61,7 +61,7 @@ const weapon = preload("res://gun.tscn")
 
 
 # ----
-@export var handReach = 130
+@export var handReach = 60
 @export var handAngularSpeed: float = 10.0  # Radians per second
 
 var dead = false
@@ -70,6 +70,7 @@ var currentEnvironmentRef:Node
 var camera:Node
 var handFacing
 
+var responseToAnimationFinished
 
 
 signal updateInteractionPrompt(string)
@@ -139,30 +140,35 @@ func _process(delta: float) -> void:
 	#trackMouseWithHand()
 
 func _physics_process(delta):
+	var onFloor = is_on_floor()
 	if Engine.is_editor_hint():
 		return
 	if dead:
 		return
-	if not is_on_floor():
+	if not onFloor:
 		velocity.y += _get_gravity(velocity) * delta
-		if Globals.playerIsControllable: _get_movement(air_resistance, air_acceleration, delta)
+		if Globals.playerIsControllable: 
+			_get_movement(air_resistance, air_acceleration, delta)
+		if velocity.y > 0:
+			$AnimatedSprite2D.play("Falling")
 	else:
 		#if coyote_timer.is_stopped():
 			#coyote_timer.start()
 		#if jump_buffer_timer.time_left > 0.0:
 			#jump_buffer_timer.stop()
 			#jump()
-		if Globals.playerIsControllable: _get_movement(friction, acceleration, delta)
+		if Globals.playerIsControllable: 
+			_get_movement(friction, acceleration, delta)
 	# Even if the player cannot control the character, apply gravity
 	if not Globals.playerIsControllable:
 		move_and_slide()
 		return
 	#_set_player_direction(sign(velocity.x))
 	_set_player_direction(sign($Hand.position.x))
-	if velocity.x > 0.1 and sign(velocity.x) != sign($Hand.position.x):
-		print("player - looking / walking backwards: ", sign(velocity.x))
+
 	if Input.is_action_just_pressed("Jump"):
 		jump()
+		onFloor = false # so that walk animation doesn't cut this offt
 		#_projected_jump_trojectory(delta, sign(velocity.x))
 	if Input.is_action_just_released("Jump"):
 		jump_cut()
@@ -172,10 +178,16 @@ func _physics_process(delta):
 		if currentInteractionObject != null:
 			#print("player - interacting with object: ", currentInteractionObject)
 			currentInteractionObject.playerInteraction()
-	#if velocity != Vector2.ZERO:
-		#$AnimatedSprite2D.play("walk")
-	#else:
-		#$AnimatedSprite2D.play("idle")
+	if velocity.x > 0.1 and sign(velocity.x) != sign($Hand.position.x):
+		#print("player - looking / walking backwards: ", sign(velocity.x))
+		if onFloor:
+			$AnimatedSprite2D.play_backwards("Walking")
+	elif velocity != Vector2.ZERO:
+		if onFloor:
+			$AnimatedSprite2D.play("Walking")
+	else:
+		if onFloor:
+			$AnimatedSprite2D.play("Idle")
 	if currentEnvironmentRef:
 		if currentEnvironmentRef.infiniteEnergy:
 			fullRecharge()
@@ -303,13 +315,13 @@ func _get_movement(fric: float, accel: float, delta: float):
 
 
 
-
 # Adds the player's jump velocity if able
 func jump():
 	#if coyote_timer.time_left > 0.0:
 		#coyote_timer.stop()
 	velocity.y = jump_velocity
-	
+	$AnimatedSprite2D.play("Jetpack")
+	#responseToAnimationFinished = ""
 	#if _get_gravity(velocity) == fall_gravity:
 		#jump_buffer_timer.start()
 
@@ -318,7 +330,6 @@ func jump():
 func jump_cut():
 	if not variable_jump_height:
 		return
-	
 	if velocity.y < minimum_jump_height * up_direction.y:
 		velocity.y = minimum_jump_height * up_direction.y
 
@@ -336,10 +347,12 @@ func _set_player_direction(direction: int) -> void:
 	#print("player - flashlight direction is: ", direction)
 	if direction > 0.0: # moving right
 		%Flashlight.rotation = 0
-		%PlayerSprite.flip_h = false
+		#%PlayerSprite.flip_h = false
+		$AnimatedSprite2D.flip_h = false
 	if direction < 0.0: # moving left
 		%Flashlight.rotation = PI
-		%PlayerSprite.flip_h = true
+		#%PlayerSprite.flip_h = true
+		$AnimatedSprite2D.flip_h = true
 
 
 
@@ -352,9 +365,11 @@ func _set_player_direction(direction: int) -> void:
 
 func turnLightsOff():
 	#$PointLight2D.visible = false
+	#return
 	$Flashlight.visible = false
 func turnLightsOn():
 	#$PointLight2D.visible = true
+	#return
 	$Flashlight.visible = true
 
 
