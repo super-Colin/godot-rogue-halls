@@ -10,10 +10,12 @@ extends Node
 #var activeTransitionCamera:Node
 #func transitionCameras(fromCamera, toCamera)
 func transitionCameras(toCamera):
-	print("Utils - changing to camera: ", toCamera)
 	var activeCam = get_viewport().get_camera_2d()
+	if toCamera == activeCam:
+		print("Utils - trying to transition to currently active camera: ", toCamera)
+		#return
+	print("Utils - changing to camera: ", toCamera, " from camera: ", activeCam)
 	var transitionCamera = activeCam.duplicate()
-	print("Utils - from camera: ", activeCam)
 	transitionCamera.global_position = activeCam.global_position
 	get_tree().root.add_child(transitionCamera)
 	activeCam.enabled = false

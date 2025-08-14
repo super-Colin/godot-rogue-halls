@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://6aj2rcwp8gt0"]
+[gd_scene load_steps=4 format=3 uid="uid://6aj2rcwp8gt0"]
 
-[ext_resource type="Script" uid="uid://6ijjwkkpwcjg" path="res://gun.gd" id="1_dk5gl"]
+[ext_resource type="Script" uid="uid://6ijjwkkpwcjg" path="res://weapon.gd" id="1_dk5gl"]
 [ext_resource type="Texture2D" uid="uid://dh2h1k13g3ynf" path="res://assets/item_gun.png" id="1_vk1bi"]
+[ext_resource type="PackedScene" uid="uid://cilufabp0hdtg" path="res://ammo_meter.tscn" id="3_kw0bs"]
 
 [node name="Gun" type="RigidBody2D"]
 mass = 0.25
@@ -21,3 +22,12 @@ default_color = Color(1, 0, 0, 1)
 
 [node name="ItemGun" type="Sprite2D" parent="."]
 texture = ExtResource("1_vk1bi")
+
+[node name="AmmoMeterMarker1" type="Marker2D" parent="."]
+position = Vector2(-30, -20)
+
+[node name="AmmoMeterMarker2" type="Marker2D" parent="."]
+position = Vector2(24, 6)
+
+[node name="AmmoMeter" parent="." instance=ExtResource("3_kw0bs")]
+position = Vector2(-30, -19)

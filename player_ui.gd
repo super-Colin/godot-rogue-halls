@@ -29,6 +29,7 @@ func updatePlayerInventory():
 
 
 func _physics_process(delta: float) -> void:
+	return
 	if Globals.playerRef:
 		%Energy.value = Stats.energy
 		%Oxygen.value = Stats.oxygen
@@ -49,6 +50,7 @@ func trackLaserCharges():
 		i += 1
 
 func setup():
+	return
 	setEnergyBar()
 	setOxygenBar()
 	setMagazineBar()

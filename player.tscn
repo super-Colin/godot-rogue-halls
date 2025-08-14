@@ -1,6 +1,5 @@
-[gd_scene load_steps=34 format=3 uid="uid://c6txhrt448b4u"]
+[gd_scene load_steps=39 format=3 uid="uid://c6txhrt448b4u"]
 
-[ext_resource type="Texture2D" uid="uid://8vt5rcarnmw2" path="res://assets/alienYellow.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://6mw2v5l8oogf" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="PackedScene" uid="uid://caf8xfg6vi0k5" path="res://flashlight.tscn" id="3_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://kf6lscln6ygs" path="res://assets/SofterCircle.png" id="4_hqtel"]
@@ -14,6 +13,30 @@ height = 144.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3pqv"]
 radius = 128.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hs0m"]
+atlas = ExtResource("7_1jxqw")
+region = Rect2(0, 320, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jxqw"]
+atlas = ExtResource("7_1jxqw")
+region = Rect2(48, 320, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_634y6"]
+atlas = ExtResource("7_1jxqw")
+region = Rect2(96, 320, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efrwb"]
+atlas = ExtResource("7_1jxqw")
+region = Rect2(144, 320, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiqhm"]
+atlas = ExtResource("7_1jxqw")
+region = Rect2(192, 320, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkwlq"]
+atlas = ExtResource("7_1jxqw")
+region = Rect2(240, 320, 48, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dw050"]
 atlas = ExtResource("7_1jxqw")
@@ -109,6 +132,29 @@ region = Rect2(336, 32, 48, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_634y6"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hs0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jxqw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_634y6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efrwb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hiqhm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkwlq")
+}],
+"loop": true,
+"name": &"Death",
+"speed": 7.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dw050")
@@ -227,22 +273,14 @@ collision_mask = 24
 shape = SubResource("CircleShape2D_i3pqv")
 debug_color = Color(7.70092e-07, 0.647019, 0.255419, 0.160784)
 
-[node name="PlayerSprite" type="Sprite2D" parent="."]
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-visible = false
 light_mask = 2
-scale = Vector2(1.52899, 1.52899)
-texture = ExtResource("1_4flbx")
-region_enabled = true
-region_rect = Rect2(0, 86.5808, 69.8059, 86.6701)
-
-[node name="JumpBufferTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
-[node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
+position = Vector2(-1, -54)
+scale = Vector2(7.82812, 7.82812)
+sprite_frames = SubResource("SpriteFrames_634y6")
+animation = &"Death"
+autoplay = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -303,12 +341,3 @@ softness = 1.09
 
 [node name="Flashlight" parent="." instance=ExtResource("3_i3pqv")]
 unique_name_in_owner = true
-position = Vector2(-15, -43)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-light_mask = 2
-position = Vector2(-1, -56)
-scale = Vector2(7.82812, 7.82812)
-sprite_frames = SubResource("SpriteFrames_634y6")
-animation = &"Idle"
-frame_progress = 0.653073

@@ -282,8 +282,7 @@ position = Vector2(-78, -146)
 polygon = PackedVector2Array(-154, -98, 4200, -104, 4201, 1995, -189, 2054, -165, -92, 142, 210, 142, 1233, 1938, 1233, 1936, 208, 142, 210)
 
 [node name="TransitionDoor" parent="." instance=ExtResource("3_lt3ng")]
-visible = false
-position = Vector2(152, 922)
+position = Vector2(273, 921)
 isShipExit = true
 
 [node name="Console" parent="." instance=ExtResource("3_06qg0")]

@@ -78,7 +78,7 @@ light_mask = 2
 sprite_frames = SubResource("SpriteFrames_5xt1w")
 animation = &"Traveling"
 autoplay = "Traveling"
-frame_progress = 0.23107
+frame_progress = 0.937892
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(1, 0.211765, 0.0745098, 1)

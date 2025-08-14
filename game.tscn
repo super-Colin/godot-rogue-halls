@@ -22,12 +22,13 @@ script = ExtResource("1_j5wjh")
 [node name="MainShip" parent="." instance=ExtResource("6_ryrav")]
 
 [node name="Player" parent="MainShip" instance=ExtResource("5_ryrav")]
-position = Vector2(426, 1000)
+position = Vector2(426, 1015)
 
 [node name="Level" parent="." instance=ExtResource("2_fc0e3")]
 unique_name_in_owner = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 follow_viewport_enabled = true
 
 [node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("5_7jktm")]

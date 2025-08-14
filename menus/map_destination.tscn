@@ -10,6 +10,8 @@ radius = 77.5242
 [node name="MapDestination" type="Area2D"]
 z_index = 1
 z_as_relative = false
+collision_layer = 0
+collision_mask = 0
 priority = 1
 script = ExtResource("1_bdn2q")
 

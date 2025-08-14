@@ -2,54 +2,81 @@ extends Node
 
 
 var baseStats={
-	laserChargesMax : 3.0,
-	#laserCharges : 3.0,
-	laserGenerationEnergyEfficiency : 1.0, # lower is better
-	laserGenerationRate : 0.2, # higher is better
-	#laserRegenerationOn : true,
-
-	energyMax : 30.0,
-	#energy : 30.0,
-	energyGeneration : 0.0,
-
-	oxygenMax : 30.0,
-	#oxygen : 30.0,
-	oxygenGenerationEnergyEfficiency : 1.0, # lower is better
-	oxygenGenerationRate : 2.0, # higher is better
-
-	#suitConditionMax : 100.0,
-	#suitCondition : 100.0,
-	inventorySlots : 3,
+	"suit":{
+		"current" : 100.0, # Basically health
+		"max" : 100.0, # Basically health
+		"maxBonusPercent": 0.0,
+		"maxBonusFlat": 0,
+		"generationRate" : 0.0, # higher is better
+		"generationBonusPercent": 0.0,
+		"inventorySlots" : 3,
+		"inventorySlotsBonusFlat" : 0,
+	},
+	"energy":{
+		"current" : 30.0,
+		"max" : 30.0,
+		"maxBonusPercent": 0.0,
+		"maxBonusFlat": 0,
+		"generationRate" : 0.0, # higher is better
+		"generationBonusPercent": 0.0,
+		"generationBonusFlat": 0,
+	},
+	"oxygen":{
+		"current" : 10.0,
+		"max" : 10.0,
+		"maxBonusPercent": 0.0,
+		"maxBonusFlat": 0,
+		"generationEfficiency" : 1.0, # lower is better
+		"generationRate" : 2.0, # higher is better
+		"generationBonusPercent": 0.0,
+		"generationBonusFlat": 0,
+	},
+	"weapon":{
+		# current and max will be handled by the weapon itself
+		"maxBonusPercent": 0.0,
+		"maxBonusFlat": 0,
+		"generationEfficiency" : 1.0, # lower is better
+		"generationRate" : 1.0, # higher is better
+		"generationBonusPercent": 0.0,
+		#"generationBonusFlat": 0,
+	},
+	"equipment":{
+		# current and max will be handled by the weapon itself
+		"maxBonusPercent": 0.0,
+		"maxBonusFlat": 0,
+		"generationEfficiency" : 1.0, # lower is better
+		"generationRate" : 1.0, # higher is better
+		"generationBonusPercent": 0.0,
+		#"generationBonusFlat": 0,
+	},
 }
+
+
+var suit
+var energy
+var oxygen
+var weapon
+var equipment
+
+func _ready() -> void:
+	resetStats()
+
+func functionalMax(key, obj=null): #
+	if not obj:
+		var total = $'.'[key].max + ($'.'[key].max * $'.'[key].maxBonusPercent)
+		total += $'.'[key].maxBonusFlat
+		return total
+	else:
+		var total = obj[key].max + (obj[key].max * $'.'[key].maxBonusPercent)
+		total += $'.'[key].maxBonusFlat
+		return total
+
 func resetStats():
 	for key in baseStats.keys():
-		$'.'[key] = baseStats[key]
+		$'.'[key] = baseStats[key].duplicate()
 
 
-var laserChargesMax = 3.0
-var laserCharges = 3.0
-var laserGenerationEnergyEfficiency = 1.0 # lower is better
-var laserGenerationRate = 0.2 # higher is better
-var laserRegenerationOn = true
 
-var energyMax = 30.0
-var energy = 30.0
-var energyGeneration = 0.0
-
-var oxygenMax = 30.0
-var oxygen = 30.0
-var oxygenGenerationEnergyEfficiency = 1.0 # lower is better
-var oxygenGenerationRate = 2.0 # higher is better
-
-var suitConditionMax = 100.0
-var suitCondition = 100.0
-
-var inventorySlots = 3
-
-## RPG style skills, level with exp
-#var speed = 3.0
-#var strength = 3.0
-#var shooting = 3.0
 
 
 
@@ -93,17 +120,17 @@ var upgrades = {
 	"combat":{
 		"1":{
 			"cost":{Inventory.items.scrap:1},
-			"stats":{"laserGenerationRate":0.3, "laserChargesMax":1},
+			"stats":{"laserGenerationRate":0.1, "laserChargesMax":0.1},
 			"bought":false # Reset this on new run
 		},
 		"2":{
 			"cost":{Inventory.items.scrap:2},
-			"stats":{"energyGeneration":0.2, "laserChargesMax":1},
+			"stats":{"laserGenerationRate":0.25, "laserChargesMax":0.25},
 			"bought":false
 		},
 		"3":{
 			"cost":{Inventory.items.core:1},
-			"stats":{"laserGenerationRate":1, "laserChargesMax":1},
+			"stats":{"laserGenerationRate":0.34, "laserChargesMax":.34},
 			"bought":false
 		},
 	},

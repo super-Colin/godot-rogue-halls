@@ -26,6 +26,7 @@ func pullCameraFocus():
 
 
 func releaseScreenFocus():
+	print("console - releasing focus")
 	Globals.playerIsControllable = true
 	#%ScreenCamera.enabled = false
 	Utilities.transitionCameras(Globals.playerRef.camera)

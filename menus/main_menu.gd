@@ -8,7 +8,7 @@ signal s_releaseMenu
 
 func _ready() -> void:
 	#%StartButton.pressed.connect(func():newRun.emit())
-	%StartButton.pressed.connect(func():s_releaseMenu.emit())
+	%StartButton.pressed.connect(releaseScreenFocus)
 	%OptionsButton.pressed.connect(func():print("main menu - options pressed"))
 	#%StartButton.pressed.connect(releaseScreenFocus)
 	%StarMapMenu.s_selected.connect(selectedDestination)
@@ -16,9 +16,12 @@ func _ready() -> void:
 	%StarMapMenu.makeMap()
 
 
-#func releaseScreenFocus():
+
+func releaseScreenFocus():
 	#Globals.playerIsControllable = true
-	##$'.'.visible = false
+	#$'.'.visible = false
+	get_viewport().gui_get_focus_owner().release_focus()
+	s_releaseMenu.emit()
 
 
 func selectedDestination(newDestination):
