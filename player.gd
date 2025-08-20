@@ -8,7 +8,8 @@ const weapon = preload("res://gun.tscn")
 
 @export_group("Movement")
 ## Maximum speed reachable by player
-@export_range(0, 500) var max_speed := 200.0
+@export_range(0, 500) var max_speed := 300.0
+@export_range(0, 500) var max_speed_influence := 200.0
 ## Acceleration while on the ground (how quickly the player reaches max speed)
 @export_range(0, 500) var acceleration := 100.0
 ## Friction while on group (how quickly the player slows down)
@@ -65,9 +66,6 @@ signal updateInteractionPrompt(string)
 
 
 
-# Apply gravity to dead body
-# separate gravity from get_movement()
-# Air friction and ground friction
 # ? Maybe ? make the hand the collision that needs to overlap with interactables??
 # A gun that is just a jet pack with a huge battery
 
@@ -97,50 +95,41 @@ func _process(delta: float) -> void:
 		return
 	trackMouseWithHandDelta(delta)
 
-func applyGravity(delta):
-	velocity += get_gravity() * delta
+
+
+
+
+
+
+
+
+# Sets the gravity depending on the context
+#func _get_gravity(_velocity):
+	#return jump_gravity if _velocity.y < 0.0 else fall_gravity
+
+
 
 func _physics_process(delta):
-	if dead:
-		return
 	var onFloor = is_on_floor()
-	applyGravity(delta)
-	if not onFloor:
-		#velocity.y += _get_gravity(velocity) * delta
-		#applyGravity(delta)
-		if Globals.playerIsControllable: 
-			_get_movement(air_resistance, air_acceleration, delta)
-		if velocity.y > 0:
-			%PlayerSprite.play("Falling")
-	else:
-		if Globals.playerIsControllable: 
-			_get_movement(friction, acceleration, delta)
+	var facingBackward = velocity.x != 0.0 and sign(velocity.x) != sign($Hand.position.x)
+	_set_player_direction(sign($Hand.position.x)) # hand is tracking mouse in _process()
 	# Even if the player cannot control the character, apply gravity
-	if not Globals.playerIsControllable:
-		move_and_slide()
-		return
-	_set_player_direction(sign($Hand.position.x))
-	if Input.is_action_just_pressed("Jump"):
-		jump()
-		onFloor = false # so that walk animation doesn't cut this offt
-	if Input.is_action_just_released("Jump"):
-		jump_cut()
-	if Input.is_action_just_pressed("Fire"):
-		fireLaser()
-	if Input.is_action_just_released("Interact"):
-		if currentInteractionObject != null:
-			#print("player - interacting with object: ", currentInteractionObject)
-			currentInteractionObject.playerInteraction()
-	if velocity.x > 0.1 and sign(velocity.x) != sign($Hand.position.x):
-		#print("player - looking / walking backwards: ", sign(velocity.x))
-		if onFloor:
-			%PlayerSprite.play_backwards("Walking")
-	elif velocity.x != 0:
-		if onFloor:
-			%PlayerSprite.play("Walking")
-	else:
-		if onFloor:
-			%PlayerSprite.play("Idle")
+	if not onFloor:
+		velocity += get_gravity() * delta
+	#if dead or not Globals.playerIsControllable:
+	if not dead and Globals.playerIsControllable:
+		if not onFloor:
+			_get_movement(air_resistance, air_acceleration, delta)
+		else:
+			_get_movement(friction, acceleration, delta)
+		# fire laser / jump etc..
+		handleInputs(onFloor, facingBackward)
+		# Charge oxgen / laser 
+		setSpriteAnimation(onFloor, facingBackward)
+		handleRecharges(delta)
+	move_and_slide()
+
+func handleRecharges(delta):
 	if currentEnvironmentRef:
 		if currentEnvironmentRef.infiniteEnergy:
 			fullRecharge()
@@ -152,7 +141,70 @@ func _physics_process(delta):
 		#equipmentGeneration(delta)
 		# Environmental Generations / Drains
 		handleOxygenDrain(delta)
-	move_and_slide()
+
+func handleInputs(onFloor, facingBackward=false):
+	#if Input.is_action_just_pressed("Jump"):
+	if Input.is_action_pressed("Jump"):
+		if onFloor:
+			jump()
+			onFloor = false # so that walk animation doesn't cut this off
+		else:
+			#print("player - should use jet pack")
+			useJetpack()
+	elif Input.is_action_just_released("Jump"):
+		jump_cut()
+	if Input.is_action_just_pressed("Fire"):
+		fireLaser()
+	if Input.is_action_just_released("Interact"):
+		if currentInteractionObject != null:
+			#print("player - interacting with object: ", currentInteractionObject)
+			currentInteractionObject.playerInteraction()
+
+
+func setSpriteAnimation(onFloor, facingBackward=false):
+	if onFloor:
+		if velocity.x != 0:
+			if facingBackward:
+				%PlayerSprite.play_backwards("Walking")
+			else:
+				%PlayerSprite.play("Walking")
+		else:
+				%PlayerSprite.play("Idle")
+	else: 
+		if velocity.y > 0:
+			%PlayerSprite.play("Falling")
+		else:
+			%PlayerSprite.play("Jetpack")
+
+
+# Calculates the players movement depending on the context
+func _get_movement(fric: float, accel: float, delta: float):
+	var direction = Input.get_axis("Move_Left", "Move_Right")
+	var walkingInfluence
+	if direction:
+		walkingInfluence = sign(direction) * accel * delta * 100
+		# if not at max speed 
+		if sign(direction) != sign(velocity.x) or (not velocity.x < -max_speed and not velocity.x > max_speed):
+			velocity.x += walkingInfluence 
+		else:
+			velocity.x = move_toward(velocity.x, max_speed, fric * delta * 100)
+	else:
+		velocity.x = move_toward(velocity.x, 0, fric * delta * 100)
+
+
+
+
+func useJetpack():
+	print("player - using jet pack")
+
+
+
+
+
+
+
+
+
 
 
 
@@ -187,7 +239,7 @@ func generateWeapon(delta):
 func generateOxygen(delta):
 	var energyCost = (Stats.oxygen.generationRate * delta) * Stats.oxygen.generationEfficiency
 	if Stats.energy.current >= energyCost and Stats.oxygen.current < Stats.functionalMax("oxygen"):
-		Stats.energy.current -= energyCost
+		Stats.energy.current -= energyCost 
 		Stats.oxygen.current += delta * Stats.oxygen.generationRate 
 
 func fullRecharge():
@@ -264,33 +316,13 @@ func updatePrompt(newPrompt):
 
 
 
-# Sets the gravity depending on the context
-#func _get_gravity(_velocity):
-	#return jump_gravity if _velocity.y < 0.0 else fall_gravity
-
-
-# Calculates the players movement depending on the context
-func _get_movement(fric: float, accel: float, delta: float):
-	var direction = Input.get_axis("Move_Left", "Move_Right")
-	var walkingInfluence
-	if direction:
-		walkingInfluence = sign(direction) * accel * delta * 100
-	# If no direction input
-	if !direction:
-		velocity.x = move_toward(velocity.x, 0, fric * delta * 100)
-	# if trying to 
-	elif sign(direction) != sign(velocity.x) or (not velocity.x < -max_speed and not velocity.x > max_speed):
-		velocity.x += walkingInfluence 
-	# 
-	else:
-		velocity.x = move_toward(velocity.x, max_speed, fric * delta * 100)
 
 
 
 # Adds the player's jump velocity if able
 func jump():
 	velocity.y = jump_velocity
-	%PlayerSprite.play("Jetpack")
+	#%PlayerSprite.play("Jetpack")
 	#responseToAnimationFinished = ""
 
 

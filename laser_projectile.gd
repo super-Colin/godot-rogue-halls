@@ -1,6 +1,6 @@
 extends Area2D
 
-var projectileSpeed = 10
+var projectileSpeed = 20
 var damage = 60
 
 func _ready() -> void:
@@ -17,7 +17,7 @@ func isThingOnSameCollisionLayer(thing):
 	#print("laser - thing collision_layer ", thing.collision_layer)
 
 func _area_entered(area):
-	isThingOnSameCollisionLayer(area)
+	#isThingOnSameCollisionLayer(area)
 	#print("laser - area", area)
 	$".".queue_free()
 

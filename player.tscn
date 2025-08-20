@@ -279,7 +279,7 @@ light_mask = 2
 position = Vector2(-1, -54)
 scale = Vector2(7.82812, 7.82812)
 sprite_frames = SubResource("SpriteFrames_634y6")
-animation = &"Death"
+animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -341,3 +341,4 @@ softness = 1.09
 
 [node name="Flashlight" parent="." instance=ExtResource("3_i3pqv")]
 unique_name_in_owner = true
+position = Vector2(0, -16)

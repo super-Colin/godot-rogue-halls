@@ -21,6 +21,17 @@ var laserProjectileScene = preload("res://laser_projectile.tscn")
 
 var currentAmmo = 3.0
 var generationBonusPercent = 0.0
+var chargeBlinkingTimer = 0.0
+
+
+#func _process(delta: float) -> void:
+	#if currentAmmo != maxAmmo:
+		#chargeBlinkingTimer += delta
+		##if chargeBlinkingTimer >= generationRate / 2:
+		#if chargeBlinkingTimer >= generationRate:
+			#$AmmoMeter.toggleChargingColorOnLast(floori(currentAmmo))
+			#chargeBlinkingTimer = 0.0
+
 
 func setupWeapon(maxAmmoBonusPercent:float=0.0, maxAmmoBonusFlat:int=0, bonusGenerationRate:float=0.0):
 	maxAmmo += maxAmmo * maxAmmoBonusPercent
@@ -37,9 +48,17 @@ func getGenerationEnergyCost(delta)->float:
 func generateAmmo(delta):
 	if currentAmmo == maxAmmo:
 		return
-	print("weapon - generating ammo")
+	#print("weapon - generating ammo")
+	var oldAmmoCount = currentAmmo
 	currentAmmo = clamp(currentAmmo + generationAmount(delta), 0, maxAmmo)
-	$AmmoMeter.updateAmmoCount(currentAmmo)
+	if floori(oldAmmoCount) != floori(currentAmmo):
+		$AmmoMeter.updateAmmoCount(currentAmmo)
+	if currentAmmo != maxAmmo:
+		chargeBlinkingTimer += delta
+		if chargeBlinkingTimer >= generationRate / 2:
+		#if chargeBlinkingTimer >= generationRate:
+			$AmmoMeter.toggleChargingColorOnLast(floori(currentAmmo))
+			chargeBlinkingTimer = 0.0
 
 func generationAmount(delta)->float:
 	return (generationRate + (generationRate * generationBonusPercent)) * delta

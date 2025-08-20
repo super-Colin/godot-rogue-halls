@@ -1,8 +1,13 @@
 extends Node2D
 
 
+@export var chargedColor = Color.GREEN
+@export var unchargedColor = Color.RED
+@export var chargingColor = Color.PURPLE
 @export var tiltAmount:float = 0.2
+
 var meterSize
+var isChargingColor = false
 
 
 func setup(meterSize:Vector2, maxAmmo):
@@ -22,8 +27,16 @@ func makeAmmoPolygon(barSize):
 	var points = [Vector2(0, 0), Vector2(barSize.x, 0), barSize, Vector2(0, barSize.y)]
 	p.polygon = points
 	return p
-	
 
+
+func toggleChargingColorOnLast(currentAmmo):
+	var ammoNodes = $'.'.get_children()
+	#print("ammo meter - ammo nodes: ", ammoNodes)
+	if isChargingColor:
+		ammoNodes[currentAmmo].color = chargingColor
+	else:
+		ammoNodes[currentAmmo].color = unchargedColor
+	isChargingColor = ! isChargingColor
 
 
 func updateAmmoCount(newTotal:int):
