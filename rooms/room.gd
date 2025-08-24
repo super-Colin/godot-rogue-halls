@@ -1,10 +1,26 @@
 class_name Room
 extends Node2D
 
-enum RoomTypes {HALLWAY, SHAFT, ELBOW_UP, ELBOW_DOWN, TJUNCTION_UP, TJUNCTION_DOWN, DEADEND, OPEN, ENCLOSED}
+#var defualtDict = {
+	#"coord":Vector2(0,0),
+	#"left_open": false,
+	#"right_open": false,
+	#"top_open": false,
+	#"bottom_open": false,
+	#"enemy_level": 1,
+	#"is_level_entry": false,
+	#"is_level_exit": false,
+	#"is_hallway": false,
+	#"is_loot_room":false,
+	#"z_transfer": false,
+	#"z_transfer_to_coord": Vector3(0,0,0),
+	#"types": ["ship"] #  "toxic"
+#}
 
 
-@export var roomType:RoomTypes = RoomTypes.HALLWAY
+
+
+@export var roomType:Level.RoomTypes = Level.RoomTypes.HALLWAY
 
 var roomCoord:Vector2
 
@@ -18,13 +34,12 @@ func _ready() -> void:
 func configure(roomType, roomArgsDict):
 	print("room - configuring")
 	roomCoord = roomArgsDict.coord
-	if roomType == RoomTypes.DEADEND:
-		if roomArgsDict.right_open:
-			$Walls/Right.queue_free()
-			$Walls/TilesRight.queue_free()
-		elif roomArgsDict.left_open:
-			$Walls/Left.queue_free()
-			$Walls/TilesLeft.queue_free()
+	if roomType == Level.RoomTypes.DEADEND_LEFT:
+		$Walls/Right.queue_free()
+		$Walls/TilesRight.queue_free()
+	elif roomType == Level.RoomTypes.DEADEND_RIGHT:
+		$Walls/Left.queue_free()
+		$Walls/TilesLeft.queue_free()
 	if roomArgsDict.is_level_exit:
 		%TransitionDoor.isLevelExit = roomArgsDict.is_level_exit
 		%TransitionDoor.interactionPrompt = "Exit Level"

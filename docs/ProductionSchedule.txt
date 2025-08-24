@@ -16,6 +16,16 @@ RNG level generation can create multiple layers
 
 
 
+enum RoomTypes {
+    HALLWAY, 
+    SHAFT, 
+    LJUNCTION_LEFT, 
+    LJUNCTION_RIGHT, 
+    TJUNCTION_UP, 
+    TJUNCTION_DOWN, 
+    DEADEND, 
+    OPEN, 
+    ENCLOSED}
 
 
 
