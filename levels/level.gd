@@ -9,6 +9,7 @@ enum RoomTypes {
 }
 
 
+var basicEnemyScene = preload("res://enemies/enemy.tscn")
 
 
 var roomGridCellSize = Vector2(1920, 1080)
@@ -17,7 +18,7 @@ var path
 
 var levelEndRoomRef
 #var levelStartRoomRef
-
+var playerSpawnPointRef
 
 
 func generateLevel():
@@ -34,13 +35,24 @@ func generateLevel():
 			var newRoom = makeRoomForPath(previousDirection, path[pathI], coords)
 			$'.'.add_child(newRoom)
 			previousDirection = path[pathI]
-			if zLayer+1 == zLayers and pathI+1 == path.size():
-				#newRoom.isShipExit = true
-				#newRoom.s_doorEntered.connect(func():Globals.s_exitLevel.emit())
-				newRoom.setupDoor(exitDoorDict())
+			if zLayer == 0 and pathI == 0: # if very first room store the spawn point
+				playerSpawnPointRef = newRoom.getPlayerSpawn()
+				newRoom.setup()
+			elif zLayer+1 == zLayers and pathI+1 == path.size():
+				newRoom.setup(exitDoorDict())
 			else:
-				newRoom.setupDoor()
+				newRoom.setup()
+			if randi() % 3 > 1:
+				var enemy = createEnemy()
+				enemy.position = newRoom.getEnemySpawn().position
+				#enemy.position = newRoom.getEnemySpawnPosition()
 
+
+func createEnemy():
+	var enemy = basicEnemyScene.instantiate()
+	$'.'.add_child(enemy)
+	return enemy
+	#return basicEnemyScene.instantiate()
 
 func exitDoorDict():
 	return {
@@ -112,7 +124,7 @@ func loadRoomType(roomType:RoomTypes, modifiers:Dictionary={}):
 		RoomTypes.TJUNCTION_DOWN: folderPath = "t_junction/down"
 	#room.s_doorEntered.connect(movePlayerThroughDoor)
 	#print("level - loading room: ", folderPath)
-	var theRoomScene = load("res://rooms/"+ folderPath +"/1.tscn")
+	var theRoomScene = load("res://levels/rooms/"+ folderPath +"/1.tscn")
 	var newRoom = theRoomScene.instantiate()
 	#newRoom.configure(roomType, roomDic)
 	#newRoom.position = newRoom.roomCoord * roomGridCellSize
@@ -147,8 +159,11 @@ func addRoomDefaultsToDict(roomDic:Dictionary):
 
 
 
-func getPlayerSpawnPoint():
-	return %PlayerSpawn.position
+func getPlayerSpawnPosition():
+	if not playerSpawnPointRef:
+		return %PlayerSpawn.position
+	else:
+		return playerSpawnPointRef.position
 
 
 

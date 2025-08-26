@@ -5,6 +5,7 @@ extends Node2D
 var playerScene = preload("res://player/player.tscn")
 var mainShipScene = preload("res://levels/ship_interior.tscn")
 
+var mainShipRef
 
 func _ready() -> void:
 	#%MainMenu.newRun.connect(startNewRun)
@@ -13,6 +14,7 @@ func _ready() -> void:
 	Globals.s_startLevel.connect(startLevel)
 	Globals.s_exitShip.connect(startLevel)
 	Globals.s_exitLevel.connect(loadInMainShip) # emitted from transition door or room
+	mainShipRef = $MainShip
 	#printOutInputMap()
 
 func loadInMainShip():
@@ -21,6 +23,7 @@ func loadInMainShip():
 	var player = playerScene.instantiate()
 	player.position = ship.get_node("PlayerSpawn").position
 	ship.add_child(player)
+	mainShipRef = ship
 	$'.'.add_child(ship)
 	%Level.cleanup()
 	$Darkness.visible = false
@@ -38,9 +41,10 @@ func startLevel():
 	%Level.generateLevel()
 	var player = playerScene.instantiate()
 	#player.position = %Level.get_node("PlayerSpawn").position
-	player.position = %Level.getPlayerSpawnPoint()
+	player.position = %Level.getPlayerSpawnPosition()
 	%Level.add_child(player)
-	$MainShip.queue_free()
+	#$MainShip.queue_free()
+	$'.'.mainShipRef.queue_free()
 	$Darkness.visible = true
 	Globals.s_playerLightsOn.emit()
 	#%MainMenu.visible = false
