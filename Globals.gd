@@ -27,10 +27,14 @@ signal s_playerLightsOff
 signal s_playerLightsOn
 
 
+var pausable = true
 
 
-
-
+func pauseGame():
+	if pausable:
+		print("globals - pausing")
+		get_tree().paused = ! get_tree().paused
+ 
 
 
 

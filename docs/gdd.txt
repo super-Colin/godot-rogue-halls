@@ -40,4 +40,3 @@ Plot a course (pick level)
 === Monetization strategy: If applicable.
 Steam, ... and as many other platforms as possible
 Longtail, just make a good game..
-

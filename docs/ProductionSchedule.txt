@@ -7,6 +7,7 @@ playable, simple prototype of the 2 phases
 Simple story outline
 === 2 months:
 RNG level generation coming together, can make very simple level
+Basic enemies / enemy AI
 === 3 months:
 placeholder art being replaced with actual assets
 RNG level generation can create multiple layers

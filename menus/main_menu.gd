@@ -38,13 +38,3 @@ func confirmedDestination():
 	%ConfirmButton.text = "Confirmed"
 	%ConfirmButton.disabled = true
 	#%DestinationDisplay.visible = true
-
-
-
-
-
-
-func _physics_process(delta: float) -> void:
-	#if Input.get_axis("Move_Left", "Move_Right") != 0:
-		#print("menu - player moved")
-	pass

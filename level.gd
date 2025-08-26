@@ -30,29 +30,15 @@ func generateLevel():
 		coords += previousDirection # starts at 0
 		#previousDirection = direction
 		var newRoom = makeRoomForPath(previousDirection, direction, coords)
-		
-		#var roomType = getRoomType(previousDirection, direction)
-		###print("level - coords: ", coords, ", roomType: ", RoomTypes.keys()[roomType])
-		#var newRoom = loadRoomType(roomType)
-		##print("level - newRoom: ", newRoom)
-		## INVERTED Y !!!
-		#newRoom.position = invertY(coords) * roomGridCellSize
-		##newRoom.position = coords * roomGridCellSize
-		## INVERTED Y !!!
-		
 		$'.'.add_child(newRoom)
 		previousDirection = direction
-	#coords += previousDirection
-	#var newRoom = makeRoomForPath(previousDirection, Vector2.ZERO, coords)
+		
 
 
 func makeRoomForPath(previousDirection, nextDirection, coords):
 	var roomType = getRoomType(previousDirection, nextDirection)
 	var newRoom = loadRoomType(roomType)
-	# INVERTED Y !!!
-	#newRoom.position = invertY(coords) * roomGridCellSize
 	newRoom.position = coords * roomGridCellSize
-	# INVERTED Y !!!
 	print("level - making room type: ", RoomTypes.keys()[roomType], ", from prev: ", previousDirection, " to next: ", nextDirection," . coords: ", coords)
 	return newRoom
 

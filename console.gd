@@ -16,6 +16,7 @@ func playerInteraction():
 		releaseScreenFocus()
 	else:
 		pullCameraFocus()
+		Globals.pausable = false
 
 func pullCameraFocus():
 	#%ScreenCamera.enabled = true
