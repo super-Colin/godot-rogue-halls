@@ -285,7 +285,9 @@ func jump_cut():
 		velocity.y = minimum_jump_height * up_direction.y
 
 func useJetpack():
-	print("player - using jet pack")
+	#print("player - using jet pack")
+	return
+
 #endregion Jumping
 
 

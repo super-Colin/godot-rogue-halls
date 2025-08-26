@@ -283,6 +283,7 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.15, 0.15)
 
 [node name="PointLight2Close" type="PointLight2D" parent="."]
 scale = Vector2(2, 2)

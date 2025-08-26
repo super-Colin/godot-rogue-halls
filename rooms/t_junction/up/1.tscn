@@ -246,7 +246,6 @@ polygon = PackedVector2Array(2, -83, 2.375, -73, 1923.38, -73, 1923, -86)
 
 [node name="TJunctionUp" type="Node2D"]
 script = ExtResource("1_oawbv")
-roomType = null
 
 [node name="TileMapLayers" type="Node2D" parent="."]
 

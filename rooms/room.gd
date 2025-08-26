@@ -20,7 +20,12 @@ extends Node2D
 
 
 
+
+
+
 @export var roomType:Level.RoomTypes = Level.RoomTypes.HALLWAY
+@export var canBeRotated = false
+@export var canBeMirrored = false
 
 var roomCoord:Vector2
 

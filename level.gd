@@ -13,30 +13,58 @@ enum RoomTypes {
 
 var roomGridCellSize = Vector2(1920, 1080)
 var path
-var grid = {}
+#var grid = {}
 
-
+var levelEndRoomRef
+#var levelStartRoomRef
 
 
 
 func generateLevel():
 	print("level - generating level")
 	path = generatePath(3)
+	print("level - path is: ", path)
 	var coords = Vector2.ZERO
 	var previousDirection = Vector2.ZERO
 	for direction in path:
 		coords += previousDirection # starts at 0
-		var roomType = getRoomType(previousDirection, direction)
-		print("level - coords: ", coords, ", roomType: ", roomType)
-		var room = makeRoom(roomType)
+		#previousDirection = direction
+		var newRoom = makeRoomForPath(previousDirection, direction, coords)
+		
+		#var roomType = getRoomType(previousDirection, direction)
+		###print("level - coords: ", coords, ", roomType: ", RoomTypes.keys()[roomType])
+		#var newRoom = loadRoomType(roomType)
+		##print("level - newRoom: ", newRoom)
+		## INVERTED Y !!!
+		#newRoom.position = invertY(coords) * roomGridCellSize
+		##newRoom.position = coords * roomGridCellSize
+		## INVERTED Y !!!
+		
+		$'.'.add_child(newRoom)
 		previousDirection = direction
+	#coords += previousDirection
+	#var newRoom = makeRoomForPath(previousDirection, Vector2.ZERO, coords)
 
+
+func makeRoomForPath(previousDirection, nextDirection, coords):
+	var roomType = getRoomType(previousDirection, nextDirection)
+	var newRoom = loadRoomType(roomType)
+	# INVERTED Y !!!
+	newRoom.position = invertY(coords) * roomGridCellSize
+	# INVERTED Y !!!
+	print("level - making room type: ", RoomTypes.keys()[roomType], ", from prev: ", previousDirection, " to next: ", nextDirection," . coords: ", coords)
+	return newRoom
+
+
+func invertY(vec:Vector2):
+	return Vector2(vec.x, -vec.y)
 
 #region Initial Path
 func generatePath(maxLength = 10):
 #func generatePath(maxLength = 10)->Array[Vector2]:
-	var currentPosition = Vector2.ZERO
+	var grid = {}
 	var path = []
+	var currentPosition = Vector2.ZERO
 	var previousDirection = Vector2.ZERO
 	for r in maxLength:
 		var nextDirection = randomDirection(previousDirection)
@@ -44,7 +72,11 @@ func generatePath(maxLength = 10):
 		# do better checking here
 		if grid.has(newPosition):
 			continue
-		var roomType = getRoomType(previousDirection, nextDirection)
+		path.append(nextDirection)
+		previousDirection = nextDirection
+		#var roomType = getRoomType(previousDirection, nextDirection)
+	path.append(Vector2.ZERO)
+	return path
 
 func randomDirection(previousDirection:Vector2):
 	var directions = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
@@ -57,7 +89,7 @@ func randomDirection(previousDirection:Vector2):
 
 #region Make Room
 #func makeRoom(roomType:RoomTypes, roomDic:Dictionary={}):
-func makeRoom(roomType:RoomTypes, modifiers:Dictionary={}):
+func loadRoomType(roomType:RoomTypes, modifiers:Dictionary={}):
 	#var roomDic = addRoomDefaultsToDict({})
 	var folderPath
 	match roomType:
@@ -77,10 +109,11 @@ func makeRoom(roomType:RoomTypes, modifiers:Dictionary={}):
 		RoomTypes.TJUNCTION_UP: folderPath = "t_junction/up"
 		RoomTypes.TJUNCTION_DOWN: folderPath = "t_junction/down"
 	#room.s_doorEntered.connect(movePlayerThroughDoor)
+	#print("level - loading room: ", folderPath)
 	var theRoomScene = load("res://rooms/"+ folderPath +"/1.tscn")
 	var newRoom = theRoomScene.instantiate()
 	#newRoom.configure(roomType, roomDic)
-	newRoom.position = newRoom.roomCoord * roomGridCellSize
+	#newRoom.position = newRoom.roomCoord * roomGridCellSize
 	#return theRoomScene
 	return newRoom
 
@@ -112,76 +145,10 @@ func addRoomDefaultsToDict(roomDic:Dictionary):
 
 
 
-
-
-
-
-
-#
-#
-#func makeRooms(_path=null):
-	##return layout1()
-	#return layout2()
-
-
-
-
-
-#
-#
-#func layout1():
-	#return [
-		#makeRoom(Globals.RoomTypes.DEADEND, {"coord":Vector2(0,0), "right_open":true, "is_level_entry":true, }),
-		#makeRoom(Globals.RoomTypes.HALLWAY, {"coord":Vector2(1,0), }),
-		#makeRoom(Globals.RoomTypes.DEADEND, {"coord":Vector2(2,0), "left_open":true, "is_level_exit":true, }),
-	#]
-#
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 func getPlayerSpawnPoint():
 	return %PlayerSpawn.position
 
 
-# hallway/shaft (horzontal/vertical)
-# elbow, t-juction, no-walls, deadend
-
-
-
-
-
-
-
-
-
-
-
-
-#
-#func layout2():
-	#return [
-		#makeRoom(Globals.RoomTypes.DEADEND, {"coord":Vector2(0,0), "right_open":true, "is_level_entry":true, }),
-		#makeRoom(Globals.RoomTypes.HALLWAY, {"coord":Vector2(1,0), }),
-		#makeRoom(Globals.RoomTypes.DEADEND, {"coord":Vector2(2,0), "left_open":true, "is_level_exit":true, }),
-	#]
-#
-#
 
 
 
@@ -194,37 +161,43 @@ func movePlayerThroughDoor(toLocation):
 
 #func getRoomType(previousDirection:Vector2, nextDirection:Vector2, branches:Array[Vector2] = []):
 func getRoomType(previousDirection:Vector2, nextDirection:Vector2)->RoomTypes:
-	print("level - room ", previousDirection, ", ", previousDirection.rotated(0.5))
+	#print("level - room ", previousDirection, ", ", previousDirection.rotated(0.5))
+	#print("level - room ", previousDirection, ", ", nextDirection)
 	if previousDirection == Vector2.ZERO:
 		match nextDirection:
 			Vector2.UP: return RoomTypes.DEADEND_DOWN
 			Vector2.DOWN: return RoomTypes.DEADEND_UP
-			Vector2.LEFT: return RoomTypes.DEADEND_RIGHT
-			Vector2.RIGHT: return RoomTypes.DEADEND_LEFT
+			Vector2.LEFT: return RoomTypes.DEADEND_LEFT
+			Vector2.RIGHT: return RoomTypes.DEADEND_RIGHT
 	elif previousDirection == Vector2.LEFT: # coming from left 
-		match nextDirection:
-			Vector2.UP: return RoomTypes.LJUNCTION_LEFT_UP
-			Vector2.DOWN: return RoomTypes.LJUNCTION_LEFT_DOWN
-			#Vector2.LEFT: return RoomTypes.DEADEND_RIGHT
-			Vector2.RIGHT: return RoomTypes.HALLWAY
-	elif previousDirection == Vector2.RIGHT:
 		match nextDirection:
 			Vector2.UP: return RoomTypes.LJUNCTION_RIGHT_UP
 			Vector2.DOWN: return RoomTypes.LJUNCTION_RIGHT_DOWN
 			Vector2.LEFT: return RoomTypes.HALLWAY
-			#Vector2.RIGHT: return RoomTypes.DEADEND_LEFT
+			Vector2.RIGHT: return RoomTypes.HALLWAY
+			Vector2.ZERO: return RoomTypes.DEADEND_RIGHT
+	elif previousDirection == Vector2.RIGHT:
+		match nextDirection:
+			Vector2.UP: return RoomTypes.LJUNCTION_LEFT_UP
+			Vector2.DOWN: return RoomTypes.LJUNCTION_LEFT_DOWN
+			Vector2.LEFT: return RoomTypes.HALLWAY
+			Vector2.RIGHT: return RoomTypes.HALLWAY
+			Vector2.ZERO: return RoomTypes.DEADEND_LEFT
 	elif previousDirection == Vector2.UP: 
 		match nextDirection:
-			#Vector2.UP: return RoomTypes.SHAFT
+			Vector2.UP: return RoomTypes.SHAFT
 			Vector2.DOWN: return RoomTypes.SHAFT
 			Vector2.LEFT: return RoomTypes.LJUNCTION_LEFT_UP
 			Vector2.RIGHT: return RoomTypes.LJUNCTION_RIGHT_UP
+			Vector2.ZERO: return RoomTypes.DEADEND_DOWN
 	elif previousDirection == Vector2.DOWN:
 		match nextDirection:
 			Vector2.UP: return RoomTypes.SHAFT
-			#Vector2.DOWN: return RoomTypes.SHAFT
+			Vector2.DOWN: return RoomTypes.SHAFT
 			Vector2.LEFT: return RoomTypes.LJUNCTION_LEFT_DOWN
 			Vector2.RIGHT: return RoomTypes.LJUNCTION_RIGHT_DOWN
+			Vector2.ZERO: return RoomTypes.DEADEND_UP
+	print("level - getRoomType: ", previousDirection, nextDirection, ", returning fallback")
 	return RoomTypes.OPEN # fall back
 
 
