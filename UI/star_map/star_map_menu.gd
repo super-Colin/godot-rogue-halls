@@ -2,7 +2,7 @@
 extends Control
 
 
-const mapDestinationScene = preload("res://menus/map_destination.tscn")
+const mapDestinationScene = preload("res://UI/star_map/map_destination.tscn")
 
 
 

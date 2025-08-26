@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://52g2a280nwl0"]
 
 [ext_resource type="Texture2D" uid="uid://vf2veboqankt" path="res://assets/doorOpen.png" id="1_1xse8"]
-[ext_resource type="Script" uid="uid://bdtb1etwax3ev" path="res://level_pieces/transition_door.gd" id="1_4s35w"]
+[ext_resource type="Script" uid="uid://bdtb1etwax3ev" path="res://levels/level_pieces/transition_door.gd" id="1_4s35w"]
 [ext_resource type="Texture2D" uid="uid://c2jaug6xeq108" path="res://assets/doorOpenTop.png" id="2_4s35w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wtyg"]

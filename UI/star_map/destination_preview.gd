@@ -1,14 +1,9 @@
 extends Control
 
-const destinationSpriteScene = preload("res://destination_sprite.tscn")
 
 
 
-
-
-#func _ready() -> void:
-	#await get_tree().process_frame
-	#$VBoxContainer/Planet.scale = Vector2(2.0,2.0)
+const destinationSpriteScene = preload("res:///UI/star_map/destination_sprite.tscn")
 
 
 
@@ -23,20 +18,6 @@ func updatePreview(destinationDict):
 	destSprite.setColors(destinationDict.colors)
 	$Name.text = destinationDict.name
 	$Description.text = destinationDict.description
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://beawlva46tcu7"]
 
 [ext_resource type="PackedScene" uid="uid://bxxdxai13eg37" path="res://Planets/GasPlanetLayers/GasPlanetLayers.tscn" id="1_7cfig"]
-[ext_resource type="Script" uid="uid://bhb24h61vxc2a" path="res://destination_sprite.gd" id="1_a76w0"]
+[ext_resource type="Script" uid="uid://bhb24h61vxc2a" path="res://UI/star_map/destination_sprite.gd" id="1_a76w0"]
 [ext_resource type="PackedScene" uid="uid://deijc2q754sel" path="res://Planets/Galaxy/galaxy.tscn" id="2_a76w0"]
 [ext_resource type="PackedScene" uid="uid://xy040rk21k6d" path="res://Planets/BlackHole/black_hole.tscn" id="3_bjavy"]
 [ext_resource type="PackedScene" uid="uid://7cl88oes3yjm" path="res://Planets/Terran/terran.tscn" id="4_oar8c"]

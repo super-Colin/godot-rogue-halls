@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 
-const weapon = preload("res://gun.tscn")
+const weapon = preload("res://weapons/gun.tscn")
 
 
 #region Exports

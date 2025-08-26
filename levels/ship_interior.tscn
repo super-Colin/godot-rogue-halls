@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=4 uid="uid://bqorj7se6lptu"]
 
-[ext_resource type="Script" uid="uid://c0vrrj5mccrs7" path="res://ship_interior.gd" id="1_lhc14"]
+[ext_resource type="Script" uid="uid://c0vrrj5mccrs7" path="res://levels/ship_interior.gd" id="1_lhc14"]
 [ext_resource type="Script" uid="uid://decm4t42mpevk" path="res://environment_area.gd" id="1_uia4y"]
-[ext_resource type="PackedScene" uid="uid://cisv4u03vah24" path="res://console.tscn" id="3_06qg0"]
-[ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://level_pieces/transition_door.tscn" id="3_lt3ng"]
+[ext_resource type="PackedScene" uid="uid://cisv4u03vah24" path="res://levels/level_pieces/console.tscn" id="3_06qg0"]
+[ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://levels/level_pieces/transition_door.tscn" id="3_lt3ng"]
 [ext_resource type="Texture2D" uid="uid://vsi83u47fp53" path="res://assets/derelict_tiles_untied.png" id="6_lhc14"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uia4y"]

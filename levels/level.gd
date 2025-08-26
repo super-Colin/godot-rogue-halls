@@ -26,13 +26,28 @@ func generateLevel():
 	print("level - path is: ", path)
 	var coords = Vector2.ZERO
 	var previousDirection = Vector2.ZERO
-	for direction in path:
-		coords += previousDirection # starts at 0
-		#previousDirection = direction
-		var newRoom = makeRoomForPath(previousDirection, direction, coords)
-		$'.'.add_child(newRoom)
-		previousDirection = direction
-		
+	var zLayers = 1
+	for zLayer in zLayers:
+		for pathI in path.size():
+			coords += previousDirection # starts at 0
+			#previousDirection = direction
+			var newRoom = makeRoomForPath(previousDirection, path[pathI], coords)
+			$'.'.add_child(newRoom)
+			previousDirection = path[pathI]
+			if zLayer+1 == zLayers and pathI+1 == path.size():
+				#newRoom.isShipExit = true
+				#newRoom.s_doorEntered.connect(func():Globals.s_exitLevel.emit())
+				newRoom.setupDoor(exitDoorDict())
+			else:
+				newRoom.setupDoor()
+
+
+func exitDoorDict():
+	return {
+		"isLevelExit" : true,
+		"interactionPrompt" : "Exit Level"
+		#"toCoord":Vector3.FORWARD
+	}
 
 
 func makeRoomForPath(previousDirection, nextDirection, coords):

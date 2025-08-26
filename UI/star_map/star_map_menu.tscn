@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cans884jf1fnx"]
 
-[ext_resource type="Script" uid="uid://d0t6oesmboku2" path="res://menus/star_map_menu.gd" id="1_7fpcy"]
-[ext_resource type="PackedScene" uid="uid://26jyeewg82uy" path="res://menus/map_destination.tscn" id="2_2ml44"]
+[ext_resource type="Script" uid="uid://d0t6oesmboku2" path="res://UI/star_map/star_map_menu.gd" id="1_7fpcy"]
+[ext_resource type="PackedScene" uid="uid://26jyeewg82uy" path="res://UI/star_map/map_destination.tscn" id="2_2ml44"]
 
 [node name="star_map_menu" type="Control"]
 layout_mode = 3

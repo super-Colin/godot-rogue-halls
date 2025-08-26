@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://drajoe6caob2t"]
 
-[ext_resource type="Script" uid="uid://jy4kvlx8m05f" path="res://level.gd" id="1_uxl1b"]
+[ext_resource type="Script" uid="uid://jy4kvlx8m05f" path="res://levels/level.gd" id="1_uxl1b"]
 [ext_resource type="Texture2D" uid="uid://cumaw7c1aqwmo" path="res://assets/tiles_sheet.png" id="2_7jbqj"]
-[ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://level_pieces/crate.tscn" id="3_43rnp"]
+[ext_resource type="PackedScene" uid="uid://chso3bqugycky" path="res://levels/level_pieces/crate.tscn" id="3_43rnp"]
 [ext_resource type="PackedScene" uid="uid://d1gbcitmb13oa" path="res://enemy.tscn" id="4_7evwb"]
-[ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://level_pieces/transition_door.tscn" id="5_a2sb8"]
+[ext_resource type="PackedScene" uid="uid://52g2a280nwl0" path="res://levels/level_pieces/transition_door.tscn" id="5_a2sb8"]
 [ext_resource type="PackedScene" uid="uid://djph6lk4gcr73" path="res://pickups/battery_pickup.tscn" id="6_68nge"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kftm2"]

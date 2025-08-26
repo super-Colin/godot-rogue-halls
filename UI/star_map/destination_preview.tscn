@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cueb0uhe4gqhl"]
 
-[ext_resource type="Script" uid="uid://6y5uqsqjbme1" path="res://menus/destination_preview.gd" id="1_vubp5"]
-[ext_resource type="PackedScene" uid="uid://beawlva46tcu7" path="res://destination_sprite.tscn" id="2_qukq0"]
+[ext_resource type="Script" uid="uid://6y5uqsqjbme1" path="res://UI/star_map/destination_preview.gd" id="1_vubp5"]
+[ext_resource type="PackedScene" uid="uid://beawlva46tcu7" path="res://UI/star_map/destination_sprite.tscn" id="2_qukq0"]
 
 [node name="DestinationDisplay" type="VBoxContainer"]
 offset_right = 200.0

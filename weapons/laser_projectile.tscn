@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://byb2km2antifu"]
 
-[ext_resource type="Script" uid="uid://dgbdrhaqnr40" path="res://laser_projectile.gd" id="1_yagdn"]
+[ext_resource type="Script" uid="uid://dgbdrhaqnr40" path="res://weapons/laser_projectile.gd" id="1_yagdn"]
 [ext_resource type="Texture2D" uid="uid://5bdk22rheluj" path="res://assets/pj4_energy_blast_A_large_orange.png" id="2_12w58"]
 [ext_resource type="Texture2D" uid="uid://kf6lscln6ygs" path="res://assets/SofterCircle.png" id="3_mj24a"]
 

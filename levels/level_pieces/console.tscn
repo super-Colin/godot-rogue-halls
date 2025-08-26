@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cisv4u03vah24"]
 
-[ext_resource type="Script" uid="uid://dhthhtqk71xkr" path="res://console.gd" id="1_buh4c"]
+[ext_resource type="Script" uid="uid://dhthhtqk71xkr" path="res://levels/level_pieces/console.gd" id="1_buh4c"]
 [ext_resource type="Texture2D" uid="uid://d1kbtmc7b85aq" path="res://assets/console-19-600x400.png" id="1_lu137"]
-[ext_resource type="PackedScene" uid="uid://by7o0iymt8xvt" path="res://menus/main_menu_screen.tscn" id="3_ewjey"]
+[ext_resource type="PackedScene" uid="uid://by7o0iymt8xvt" path="res://UI/main_menu_screen.tscn" id="3_ewjey"]
 [ext_resource type="Texture2D" uid="uid://bw545ko6wjvs7" path="res://assets/big-computer.png" id="3_ljg6h"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewjey"]

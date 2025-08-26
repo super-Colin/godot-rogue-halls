@@ -5,7 +5,7 @@ enum AmmoTypes {LASER, BULLET, MISSLE}
 @export var ammoType = AmmoTypes.LASER
 
 
-var laserProjectileScene = preload("res://laser_projectile.tscn")
+var laserProjectileScene = preload("res://weapons/laser_projectile.tscn")
 
 #var baseStats= {
 	#"weapon":{

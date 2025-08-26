@@ -2,8 +2,8 @@ extends Node2D
 
 
 #var hallScene = preload("res://rooms/hall.tscn")
-var playerScene = preload("res://player.tscn")
-var mainShipScene = preload("res://ship_interior.tscn")
+var playerScene = preload("res://player/player.tscn")
+var mainShipScene = preload("res://levels/ship_interior.tscn")
 
 
 func _ready() -> void:
@@ -12,7 +12,7 @@ func _ready() -> void:
 	#Globals.s_exitLevel.connect(Globals.uiRef.showShipMenu)
 	Globals.s_startLevel.connect(startLevel)
 	Globals.s_exitShip.connect(startLevel)
-	Globals.s_exitLevel.connect(loadInMainShip)
+	Globals.s_exitLevel.connect(loadInMainShip) # emitted from transition door or room
 	#printOutInputMap()
 
 func loadInMainShip():
@@ -45,6 +45,7 @@ func startLevel():
 	Globals.s_playerLightsOn.emit()
 	#%MainMenu.visible = false
 	#%ShipMenu.visible = false
+	
 
 
 

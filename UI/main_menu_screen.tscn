@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://by7o0iymt8xvt"]
 
-[ext_resource type="Script" uid="uid://dfhe6yorlt4jm" path="res://menus/main_menu.gd" id="1_4dxmd"]
+[ext_resource type="Script" uid="uid://dfhe6yorlt4jm" path="res://UI/main_menu.gd" id="1_4dxmd"]
 [ext_resource type="Texture2D" uid="uid://dhc406tshlctc" path="res://assets/pattern_46.png" id="2_0husn"]
-[ext_resource type="PackedScene" uid="uid://cans884jf1fnx" path="res://menus/star_map_menu.tscn" id="3_abbjk"]
-[ext_resource type="PackedScene" uid="uid://cueb0uhe4gqhl" path="res://menus/destination_preview.tscn" id="4_4vlrk"]
+[ext_resource type="PackedScene" uid="uid://cans884jf1fnx" path="res://UI/star_map/star_map_menu.tscn" id="3_abbjk"]
+[ext_resource type="PackedScene" uid="uid://cueb0uhe4gqhl" path="res://UI/star_map/destination_preview.tscn" id="4_4vlrk"]
 
 [node name="MainMenu" type="Control"]
 process_mode = 3

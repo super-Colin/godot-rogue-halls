@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://cwdekrbnrp8yo"]
 
 [ext_resource type="Script" uid="uid://c4sikoknnuubk" path="res://game.gd" id="1_j5wjh"]
-[ext_resource type="PackedScene" uid="uid://cygpdhltcqi0i" path="res://level.tscn" id="2_fc0e3"]
-[ext_resource type="PackedScene" uid="uid://b6mvathho3qof" path="res://player_ui.tscn" id="5_7jktm"]
-[ext_resource type="PackedScene" uid="uid://c6txhrt448b4u" path="res://player.tscn" id="5_ryrav"]
-[ext_resource type="PackedScene" uid="uid://bqorj7se6lptu" path="res://ship_interior.tscn" id="6_ryrav"]
+[ext_resource type="PackedScene" uid="uid://cygpdhltcqi0i" path="res://levels/level.tscn" id="2_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://b6mvathho3qof" path="res://UI/player_ui.tscn" id="5_7jktm"]
+[ext_resource type="PackedScene" uid="uid://c6txhrt448b4u" path="res://player/player.tscn" id="5_ryrav"]
+[ext_resource type="PackedScene" uid="uid://bqorj7se6lptu" path="res://levels/ship_interior.tscn" id="6_ryrav"]
 
 [sub_resource type="Gradient" id="Gradient_7jktm"]
 offsets = PackedFloat32Array(1)

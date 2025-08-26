@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://26jyeewg82uy"]
 
-[ext_resource type="Script" uid="uid://bknpsarxqojf3" path="res://menus/map_destination.gd" id="1_bdn2q"]
+[ext_resource type="Script" uid="uid://bknpsarxqojf3" path="res://UI/star_map/map_destination.gd" id="1_bdn2q"]
 [ext_resource type="Texture2D" uid="uid://cy2asd78fbaww" path="res://assets/planet_select.png" id="2_m6opl"]
-[ext_resource type="PackedScene" uid="uid://beawlva46tcu7" path="res://destination_sprite.tscn" id="3_hulo3"]
+[ext_resource type="PackedScene" uid="uid://beawlva46tcu7" path="res://UI/star_map/destination_sprite.tscn" id="3_hulo3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hvmma"]
 radius = 77.5242

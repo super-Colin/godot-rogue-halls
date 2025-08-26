@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cilufabp0hdtg"]
 
-[ext_resource type="Script" uid="uid://cvdh88f6s0rsc" path="res://ammo_meter.gd" id="1_llc0y"]
+[ext_resource type="Script" uid="uid://cvdh88f6s0rsc" path="res://weapons/ammo_meter.gd" id="1_llc0y"]
 
 [node name="AmmoMeter" type="Node2D"]
 script = ExtResource("1_llc0y")
