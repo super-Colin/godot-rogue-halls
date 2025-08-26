@@ -21,7 +21,7 @@ var levelEndRoomRef
 
 
 func generateLevel():
-	print("level - generating level")
+	print("level - generating level, vector up: ", Vector2.UP)
 	path = generatePath(3)
 	print("level - path is: ", path)
 	var coords = Vector2.ZERO
@@ -50,7 +50,8 @@ func makeRoomForPath(previousDirection, nextDirection, coords):
 	var roomType = getRoomType(previousDirection, nextDirection)
 	var newRoom = loadRoomType(roomType)
 	# INVERTED Y !!!
-	newRoom.position = invertY(coords) * roomGridCellSize
+	#newRoom.position = invertY(coords) * roomGridCellSize
+	newRoom.position = coords * roomGridCellSize
 	# INVERTED Y !!!
 	print("level - making room type: ", RoomTypes.keys()[roomType], ", from prev: ", previousDirection, " to next: ", nextDirection," . coords: ", coords)
 	return newRoom
@@ -165,8 +166,8 @@ func getRoomType(previousDirection:Vector2, nextDirection:Vector2)->RoomTypes:
 	#print("level - room ", previousDirection, ", ", nextDirection)
 	if previousDirection == Vector2.ZERO:
 		match nextDirection:
-			Vector2.UP: return RoomTypes.DEADEND_DOWN
-			Vector2.DOWN: return RoomTypes.DEADEND_UP
+			Vector2.UP: return RoomTypes.DEADEND_UP
+			Vector2.DOWN: return RoomTypes.DEADEND_DOWN
 			Vector2.LEFT: return RoomTypes.DEADEND_LEFT
 			Vector2.RIGHT: return RoomTypes.DEADEND_RIGHT
 	elif previousDirection == Vector2.LEFT: # coming from left 
@@ -187,15 +188,15 @@ func getRoomType(previousDirection:Vector2, nextDirection:Vector2)->RoomTypes:
 		match nextDirection:
 			Vector2.UP: return RoomTypes.SHAFT
 			Vector2.DOWN: return RoomTypes.SHAFT
-			Vector2.LEFT: return RoomTypes.LJUNCTION_LEFT_UP
-			Vector2.RIGHT: return RoomTypes.LJUNCTION_RIGHT_UP
+			Vector2.LEFT: return RoomTypes.LJUNCTION_LEFT_DOWN
+			Vector2.RIGHT: return RoomTypes.LJUNCTION_RIGHT_DOWN
 			Vector2.ZERO: return RoomTypes.DEADEND_DOWN
 	elif previousDirection == Vector2.DOWN:
 		match nextDirection:
 			Vector2.UP: return RoomTypes.SHAFT
 			Vector2.DOWN: return RoomTypes.SHAFT
-			Vector2.LEFT: return RoomTypes.LJUNCTION_LEFT_DOWN
-			Vector2.RIGHT: return RoomTypes.LJUNCTION_RIGHT_DOWN
+			Vector2.LEFT: return RoomTypes.LJUNCTION_LEFT_UP
+			Vector2.RIGHT: return RoomTypes.LJUNCTION_RIGHT_UP
 			Vector2.ZERO: return RoomTypes.DEADEND_UP
 	print("level - getRoomType: ", previousDirection, nextDirection, ", returning fallback")
 	return RoomTypes.OPEN # fall back
