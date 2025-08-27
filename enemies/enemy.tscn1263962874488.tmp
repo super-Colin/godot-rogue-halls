@@ -12,8 +12,6 @@ height = 144.0
 collision_layer = 3
 script = ExtResource("1_4gyqm")
 
-[node name="Timer" type="Timer" parent="."]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_4gyqm")
 

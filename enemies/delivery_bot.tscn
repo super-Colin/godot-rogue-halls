@@ -1,0 +1,162 @@
+[gd_scene load_steps=20 format=3 uid="uid://b3dwftbwu76b1"]
+
+[ext_resource type="Script" uid="uid://cwdmguv6sg582" path="res://enemies/enemy.gd" id="1_7qilk"]
+[ext_resource type="Texture2D" uid="uid://c3aowr45u4xab" path="res://assets/Delivery Bot yellow without shadow 23x21.png" id="1_f1k38"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qilk"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(0, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4nhb"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(0, 21, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpbld"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(23, 21, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cc3r1"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(46, 21, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_man1i"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(69, 21, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8i8e"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(92, 21, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0m3bu"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(0, 84, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqair"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(23, 84, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nj186"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(46, 84, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ac21"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(69, 84, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hgm7"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(92, 84, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu763"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(115, 84, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1k38"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(0, 63, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3thm4"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(23, 63, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lj278"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(46, 63, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0o8u"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(69, 63, 23, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3thm4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qilk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4nhb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpbld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cc3r1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_man1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8i8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_man1i")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0m3bu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqair")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nj186")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ac21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hgm7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu763")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nj186")
+}],
+"loop": true,
+"name": &"new_animation_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1k38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3thm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lj278")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0o8u")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[node name="DeliveryBot" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_7qilk")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-21, -19)
+polygon = PackedVector2Array(-36, -35, -58, 69, 99, 69, 80, -35)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(7.828, 7.828)
+sprite_frames = SubResource("SpriteFrames_3thm4")
+animation = &"walking"
+frame_progress = 0.975411
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(500, 0)

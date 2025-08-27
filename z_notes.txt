@@ -5,6 +5,7 @@ Assets:
 	Legacy [Ansimuz]
 	- cyber detective
 	- warped zone
+	- characters -> space marine
 	Super Pixel Art [unTied Games]
 	- tileset collection/ orbital base
 	- tileset collection/ derelict space ship

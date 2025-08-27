@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c6txhrt448b4u"]
+[gd_scene load_steps=40 format=3 uid="uid://c6txhrt448b4u"]
 
 [ext_resource type="Script" uid="uid://6mw2v5l8oogf" path="res://player/player.gd" id="1_onrkg"]
 [ext_resource type="PackedScene" uid="uid://caf8xfg6vi0k5" path="res://player/flashlight.tscn" id="3_i3pqv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://brjvotnoiepy2" path="res://player/hand.gd" id="5_2hs0m"]
 [ext_resource type="PackedScene" uid="uid://6aj2rcwp8gt0" path="res://weapons/gun.tscn" id="5_sweqy"]
 [ext_resource type="Texture2D" uid="uid://bi325e2f5ss3" path="res://assets/Tiny Gunslinger 48x32.png" id="7_1jxqw"]
+[ext_resource type="PackedScene" uid="uid://b3dwftbwu76b1" path="res://enemies/delivery_bot.tscn" id="7_boad6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 57.0
@@ -343,3 +344,6 @@ softness = 1.09
 [node name="Flashlight" parent="." instance=ExtResource("3_i3pqv")]
 unique_name_in_owner = true
 position = Vector2(0, -16)
+
+[node name="DeliveryBot" parent="." instance=ExtResource("7_boad6")]
+position = Vector2(-226, -3)
