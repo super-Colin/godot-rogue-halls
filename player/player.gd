@@ -46,6 +46,10 @@ const weapon = preload("res://weapons/gun.tscn")
 @export var handAngularSpeed: float = 10.0  # Radians per second
 #endregion Exports
 
+
+var maxHealth = 100
+var currentHealth = 100
+
 var dead = false
 var currentInteractionObject:Node
 var currentEnvironmentRef:Node
@@ -347,13 +351,22 @@ func exitedEnvironment(environment):
 
 
 func turnLightsOff():
-	#$PointLight2D.visible = false
-	#return
 	$Flashlight.visible = false
+
 func turnLightsOn():
-	#$PointLight2D.visible = true
-	#return
 	$Flashlight.visible = true
+
+
+
+
+func hitByLaser(laser):
+	takeDamage(laser.damage)
+
+func takeDamage(amount):
+	currentHealth -= amount
+	if currentHealth <= 0:
+		#$'.'.queue_free()
+		playerDied()
 
 
 
@@ -363,6 +376,12 @@ func playerDied():
 	%PlayerSprite.modulate = "aa5853"
 	%PlayerSprite.play("Death")
 	$Hand.dropHeldItem()
-	%Flashlight.visible = false
+	turnLightsOff()
+	#call_deferred("_disableCollision")
+
+func _disableCollision():
+	$CollisionShape2D.disabled = true
+
+
 
 #

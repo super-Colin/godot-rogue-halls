@@ -1,31 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://b3dwftbwu76b1"]
+[gd_scene load_steps=21 format=3 uid="uid://b3dwftbwu76b1"]
 
 [ext_resource type="Script" uid="uid://cwdmguv6sg582" path="res://enemies/enemy.gd" id="1_7qilk"]
 [ext_resource type="Texture2D" uid="uid://c3aowr45u4xab" path="res://assets/Delivery Bot yellow without shadow 23x21.png" id="1_f1k38"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7qilk"]
-atlas = ExtResource("1_f1k38")
-region = Rect2(0, 0, 23, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e4nhb"]
-atlas = ExtResource("1_f1k38")
-region = Rect2(0, 21, 23, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kpbld"]
-atlas = ExtResource("1_f1k38")
-region = Rect2(23, 21, 23, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cc3r1"]
-atlas = ExtResource("1_f1k38")
-region = Rect2(46, 21, 23, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_man1i"]
-atlas = ExtResource("1_f1k38")
-region = Rect2(69, 21, 23, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a8i8e"]
-atlas = ExtResource("1_f1k38")
-region = Rect2(92, 21, 23, 21)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0m3bu"]
 atlas = ExtResource("1_f1k38")
@@ -67,8 +43,75 @@ region = Rect2(46, 63, 23, 21)
 atlas = ExtResource("1_f1k38")
 region = Rect2(69, 63, 23, 21)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qilk"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(0, 0, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4nhb"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(0, 21, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpbld"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(23, 21, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cc3r1"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(46, 21, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_man1i"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(69, 21, 23, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8i8e"]
+atlas = ExtResource("1_f1k38")
+region = Rect2(92, 21, 23, 21)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_3thm4"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0m3bu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqair")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nj186")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ac21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hgm7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu763")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nj186")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1k38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3thm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lj278")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0o8u")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7qilk")
@@ -99,50 +142,11 @@ animations = [{
 "loop": true,
 "name": &"new_animation",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0m3bu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gqair")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nj186")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0ac21")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3hgm7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qu763")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nj186")
-}],
-"loop": true,
-"name": &"new_animation_1",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f1k38")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3thm4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lj278")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e0o8u")
-}],
-"loop": true,
-"name": &"walking",
-"speed": 5.0
 }]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7qilk"]
+radius = 18.0
+height = 108.0
 
 [node name="DeliveryBot" type="CharacterBody2D"]
 collision_layer = 4
@@ -150,26 +154,36 @@ script = ExtResource("1_7qilk")
 defualtBehavior = 1
 enabledBehaviors = [1]
 fov_distance = 500.0
+fov_angle = 10.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(-21, -19)
-polygon = PackedVector2Array(-36, -35, -58, 69, 99, 69, 80, -35)
+polygon = PackedVector2Array(-36, -35, -58, 77, 97, 77, 80, -35)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(7.828, 7.828)
 sprite_frames = SubResource("SpriteFrames_3thm4")
-animation = &"new_animation_1"
-autoplay = "new_animation_1"
-frame_progress = 0.358244
+animation = &"Walking"
+autoplay = "Idle"
+frame_progress = 0.616662
 
 [node name="LineOfSight" type="RayCast2D" parent="."]
 target_position = Vector2(500, 0)
-collision_mask = 2
+collision_mask = 3
 
 [node name="WallCheck" type="RayCast2D" parent="."]
 position = Vector2(0, 53)
-target_position = Vector2(84, -11)
+target_position = Vector2(97, -15)
 
 [node name="LedgeCheck" type="RayCast2D" parent="."]
 position = Vector2(-1, -53)
 target_position = Vector2(129, 164)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(72, 0)
+shape = SubResource("CapsuleShape2D_7qilk")
+debug_color = Color(0.846381, 0.269301, 0.667181, 0.42)

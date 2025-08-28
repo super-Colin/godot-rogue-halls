@@ -1,15 +1,206 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1gbcitmb13oa"]
+[gd_scene load_steps=31 format=3 uid="uid://d1gbcitmb13oa"]
 
 [ext_resource type="Script" uid="uid://cwdmguv6sg582" path="res://enemies/enemy.gd" id="1_4gyqm"]
-[ext_resource type="Texture2D" uid="uid://caitg8tap6wxh" path="res://assets/player_sheet.png" id="1_7k104"]
+[ext_resource type="Texture2D" uid="uid://inyse3yfb27p" path="res://assets/Rusty Robot 20x29 without Shadow.png" id="2_orwns"]
 [ext_resource type="Texture2D" uid="uid://kf6lscln6ygs" path="res://assets/SofterCircle.png" id="3_orwns"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4gyqm"]
-radius = 57.0
-height = 144.0
+radius = 75.0
+height = 174.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6vjd"]
+atlas = ExtResource("2_orwns")
+region = Rect2(0, 0, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07tka"]
+atlas = ExtResource("2_orwns")
+region = Rect2(20, 0, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3t1x0"]
+atlas = ExtResource("2_orwns")
+region = Rect2(40, 0, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epsnb"]
+atlas = ExtResource("2_orwns")
+region = Rect2(60, 0, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4w5fm"]
+atlas = ExtResource("2_orwns")
+region = Rect2(80, 0, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uba7a"]
+atlas = ExtResource("2_orwns")
+region = Rect2(100, 0, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28xqf"]
+atlas = ExtResource("2_orwns")
+region = Rect2(120, 0, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g67el"]
+atlas = ExtResource("2_orwns")
+region = Rect2(140, 0, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_orwns"]
+atlas = ExtResource("2_orwns")
+region = Rect2(0, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvjrt"]
+atlas = ExtResource("2_orwns")
+region = Rect2(20, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg1no"]
+atlas = ExtResource("2_orwns")
+region = Rect2(40, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofl0k"]
+atlas = ExtResource("2_orwns")
+region = Rect2(60, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7mk6"]
+atlas = ExtResource("2_orwns")
+region = Rect2(80, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cve8t"]
+atlas = ExtResource("2_orwns")
+region = Rect2(100, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hpbo"]
+atlas = ExtResource("2_orwns")
+region = Rect2(120, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hd7e4"]
+atlas = ExtResource("2_orwns")
+region = Rect2(140, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccbdt"]
+atlas = ExtResource("2_orwns")
+region = Rect2(0, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgey2"]
+atlas = ExtResource("2_orwns")
+region = Rect2(20, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjbay"]
+atlas = ExtResource("2_orwns")
+region = Rect2(40, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0h01o"]
+atlas = ExtResource("2_orwns")
+region = Rect2(60, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cidi"]
+atlas = ExtResource("2_orwns")
+region = Rect2(80, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grymm"]
+atlas = ExtResource("2_orwns")
+region = Rect2(100, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymuxt"]
+atlas = ExtResource("2_orwns")
+region = Rect2(120, 29, 20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dcpb"]
+atlas = ExtResource("2_orwns")
+region = Rect2(140, 29, 20, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xvjrt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6vjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07tka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3t1x0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epsnb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4w5fm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uba7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28xqf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g67el")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_orwns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvjrt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg1no")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofl0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7mk6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cve8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5hpbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hd7e4")
+}],
+"loop": true,
+"name": &"Running",
+"speed": 22.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ccbdt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgey2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjbay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0h01o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cidi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grymm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymuxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dcpb")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_orwns"]
+radius = 18.0
+height = 158.0
 
 [node name="Enemy" type="CharacterBody2D"]
-collision_layer = 3
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_4gyqm")
 defualtBehavior = 1
 enabledBehaviors = Array[int]([1])
@@ -20,16 +211,17 @@ fov_distance = 500.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_4gyqm")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(1.52899, 1.52899)
-texture = ExtResource("1_7k104")
-region_enabled = true
-region_rect = Rect2(427.182, 93.2727, 66.3282, 92.7811)
+scale = Vector2(7.5, 7.5)
+sprite_frames = SubResource("SpriteFrames_xvjrt")
+animation = &"Walking"
+autoplay = "Idle"
+frame_progress = 0.735861
 
 [node name="LineOfSight" type="RayCast2D" parent="."]
 target_position = Vector2(1200, 0)
-collision_mask = 2
+collision_mask = 3
 
 [node name="WallCheck" type="RayCast2D" parent="."]
 position = Vector2(0, 53)
@@ -40,35 +232,22 @@ position = Vector2(5, -39)
 target_position = Vector2(96, 171)
 
 [node name="PointLightBG" type="PointLight2D" parent="."]
-color = Color(1, 0, 0, 0.407843)
+visible = false
+color = Color(1, 0, 0, 0.168627)
 texture = ExtResource("3_orwns")
-metadata/_edit_lock_ = true
 
-[node name="PointLightEye" type="PointLight2D" parent="."]
-position = Vector2(-17, -19)
-color = Color(1, 0, 0, 0.509804)
-texture = ExtResource("3_orwns")
-texture_scale = 0.2
-metadata/_edit_lock_ = true
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
 
-[node name="PointLightEye2" type="PointLight2D" parent="."]
-position = Vector2(-17, -19)
-color = Color(1, 0, 0, 1)
+[node name="CollisionShape" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(72, 0)
+shape = SubResource("CapsuleShape2D_orwns")
+debug_color = Color(0.846381, 0.269301, 0.667181, 0.42)
+
+[node name="EyeLight" type="PointLight2D" parent="."]
+position = Vector2(36, -62)
+scale = Vector2(0.628333, 0.628333)
+color = Color(1, 0, 0, 0.431373)
 blend_mode = 2
 texture = ExtResource("3_orwns")
-texture_scale = 0.05
-metadata/_edit_lock_ = true
-
-[node name="PointLightEye3" type="PointLight2D" parent="."]
-position = Vector2(19, -19)
-color = Color(1, 0, 0, 0.509804)
-texture = ExtResource("3_orwns")
-texture_scale = 0.2
-metadata/_edit_lock_ = true
-
-[node name="PointLightEye4" type="PointLight2D" parent="."]
-position = Vector2(19, -19)
-color = Color(1, 0, 0, 1)
-blend_mode = 2
-texture = ExtResource("3_orwns")
-texture_scale = 0.05

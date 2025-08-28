@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+
 #region Exports
 @export_group("Behavior")
 @export var defualtBehavior:AI.Behaviors = AI.Behaviors.BASIC
@@ -9,6 +10,7 @@ extends CharacterBody2D
 @export_group("Hunting")
 @export var fov_distance = 1200.0
 @export var fov_angle = 60.0 # Degrees, half on each side
+@export_range(0, 100) var damage = 34.0
 
 
 @export_group("Movement")
@@ -44,8 +46,6 @@ extends CharacterBody2D
 @onready var jump_gravity : float = (-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak) * -1
 @onready var fall_gravity : float = (-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent) * -1
 
-@onready var currentBehavior = defualtBehavior
-
 #endregion Exports
 
 
@@ -63,45 +63,103 @@ var intention = AI.Intentions.WANDER
 
 
 
-
+func _ready() -> void:
+	$Hurtbox.body_entered.connect(hurtBody)
 
 
 
 func _physics_process(delta):
 	apply_gravity(delta)
 	if dead or not Globals.playerRef:
-		move_and_slide()
+		move_and_slide() # let gravity take effect
 		return
-	#moveFoward(delta)
-	chooseAction(delta)
+	canSeePlayer = _canSeePlayer()
+	AI.chooseIntention($'.')
+	actOnIntention(delta)
 	move_and_slide()
-	return
-	#apply_gravity(delta)
-	#canSeePlayer = _canSeePlayer()
-	#chooseAction(delta)
-	#return
-	#if canSeePlayer:
-		#print("enemy - can see player")
-	
-	
-	#AI.createIntention($'.', currentBehavior)
-	#if not is_on_floor():
-		#velocity.y += _get_gravity(velocity) * delta
-		#_get_movement(air_resistance, air_acceleration, delta)
-	#else:
-		#_get_movement(friction, acceleration, delta)
-	
-
-	#AI.act(delta, $'.', behavior)
-	#if not is_on_floor():
-		#velocity.y += _get_gravity(velocity) * delta
-		#_get_movement(air_resistance, air_acceleration, delta)
-	#else:
-		#_get_movement(friction, acceleration, delta)
-	#_set_sprite_direction(sign(velocity.x))
-	#move_and_slide()
+	setSpriteAnimation()
 
 
+
+func actOnIntention(delta):
+	match intention:
+		AI.Intentions.SWEEP:
+			_sweep(delta)
+		AI.Intentions.WANDER:
+			_wander(delta)
+		AI.Intentions.SEEK:
+			_seek()
+		AI.Intentions.CHASE:
+			_chase()
+
+
+
+
+
+func hurtBody(body):
+	print("enemy - hurting thing: ", body)
+	if body.has_method("takeDamage"):
+		body.takeDamage(damage)
+
+
+
+#region Senses
+
+func _canSeePlayer() -> bool:
+	#if not Globals.playerRef or not is_instance_valid(Globals.playerRef):
+	if not Globals.playerRef:
+		return false
+	var toPlayer = Globals.playerRef.global_position - global_position
+	var distance = toPlayer.length()
+	if distance > fov_distance:
+		return false
+	# Check angle between enemy's "facing direction" and the vector to the player
+	var facingDirection = getFacingDirection()
+	var angle = rad_to_deg(facingDirection.angle_to(toPlayer.normalized()))
+	if abs(angle) > fov_angle / 2.0:
+		return false
+	# Line-of-sight check using RayCast2D
+	if has_node("LineOfSight"):
+		var ray = $LineOfSight
+		ray.target_position = toPlayer
+		ray.force_raycast_update()
+		if ray.is_colliding():
+			#var collider = ray.get_collider()
+			if ray.get_collider() == Globals.playerRef:
+				return true
+	return false
+
+#endregion Senses
+
+
+
+
+#region Animation
+func setSpriteAnimation():
+	if is_on_floor():
+		if velocity.x != 0:
+			$Sprite.play("Walking")
+		else:
+			$Sprite.play("Idle")
+	else: 
+		if velocity.y > 0:
+			if $Sprite.sprite_frames.has_animation("Falling"):
+				$Sprite.play("Falling")
+		else:
+			if $Sprite.sprite_frames.has_animation("Jetpack"):
+				$Sprite.play("Jetpack")
+
+func checkIfAnimationShouldStop():
+	print("player - checking if dead: ", %PlayerSprite.animation)
+	if %PlayerSprite.animation == "Dieing":
+		print("player - player is dead: ")
+		%PlayerSprite.stop()
+
+#endregion Animation
+
+
+
+#region Movement
 
 
 func moveFoward(delta):
@@ -120,7 +178,7 @@ func moveFoward(delta):
 		else:
 			#print("enemy - too fast.. velocity: ", velocity)
 			velocity.x = move_toward(velocity.x, max_speed, fric * delta * 100)
-		print("enemy - walkingInfluence: ", walkingInfluence)
+		#print("enemy - walkingInfluences: ", walkingInfluence)
 	else:
 		#print("enemy - no direction: ", direction)
 		velocity.x = move_toward(velocity.x, 0, fric * delta * 100)
@@ -129,117 +187,21 @@ func moveFoward(delta):
 
 
 
-func apply_gravity(delta):
-	var gravVector = get_gravity()
-	velocity += gravVector * delta
-	if velocity.y < -max_speed:
-		print("enemy - apply_gravity velocity: ", velocity)
-		velocity.y = move_toward(velocity.y, -max_speed, air_resistance * delta * 100)
-
-
-
-
-
-
-
-
-
-
-
-
-
-func chooseAction(delta):
-	match behavior:
-		AI.Behaviors.BASIC:
-			#if enemyNodeRef.canSeePlayer:
-			intention = AI.Intentions.WANDER
-		AI.Behaviors.SWEEP:
-			intention = AI.Intentions.MOVE_TOWARD
-			#createNewTargetPoint()
-			_sweep(delta)
-			return
-	match intention:
-		AI.Intentions.WANDER:
-			_wander(delta)
-		#AI.Intentions.PATROL:
-			#_patrol()
-		AI.Intentions.SEEK:
-			_seek()
-		AI.Intentions.CHASE:
-			_chase()
-
-#
-#func createNewTargetPoint(newPoint=null):
-	#if not newPoint: # for the wandering mode
-		#currentTargetPoint = Vector2()
-
-
-
-
-
-
-
-
-
-
-func _canSeePlayer() -> bool:
-	#if not Globals.playerRef or not is_instance_valid(Globals.playerRef):
-	if not Globals.playerRef:
-		return false
-	var to_player = Globals.playerRef.global_position - global_position
-	var distance = to_player.length()
-	if distance > fov_distance:
-		return false
-	# Check angle between enemy's "facing direction" and the vector to the player
-	var facing_dir = Vector2.RIGHT if not $Sprite.flip_h else Vector2.LEFT
-	var angle = rad_to_deg(facing_dir.angle_to(to_player.normalized()))
-	if abs(angle) > fov_angle / 2.0:
-		return false
-	# Line-of-sight check using RayCast2D
-	if has_node("LineOfSight"):
-		var ray = $LineOfSight
-		ray.target_position = to_player
-		ray.force_raycast_update()
-		if ray.is_colliding():
-			var collider = ray.get_collider()
-			if collider == Globals.playerRef:
-				return true
-			else:
-				return false
-		else:
-			return true
-	return false
-
-
-
-
-
 
 func isCloseToWall():
 	if $WallCheck.is_colliding():
-		print("enemy - hit wall")
+		#print("enemy - hit wall")
 		return true
 	return false
 
 func isCloseToLedge():
-	if not $LedgeCheck.is_colliding():
-		print("enemy - on ledge")
+	if is_on_floor() and not $LedgeCheck.is_colliding():
+		#print("enemy - on ledge")
 		return true
 	return false
 
 
 
-func _sweep(delta):
-	#print("enemy - sweeping")
-	#if isCloseToWall() or isCloseToLedge():
-	if isCloseToWall():
-		print("enemy - turning around because close to wall or ledge")
-		turnAround()
-		var sign = sign(getFacingDirection().x)
-		#currentTargetPoint = Vector2(-sign * fov_distance, 0) # turn around
-	#velocity.x = lerp(velocity.x, randf_range(-1, 1) * acceleration, delta)
-	#moveTowardTargetPoint(delta)
-	moveFoward(delta)
 
 
 func turnAround():
@@ -255,7 +217,8 @@ func turnRight():
 	$WallCheck.target_position.x = abs($WallCheck.target_position.x)
 	$LedgeCheck.target_position.x = abs($LedgeCheck.target_position.x)
 	$LineOfSight.target_position.x = abs($LineOfSight.target_position.x)
-	#$LineOfSight.position.x = abs($LineOfSight.position.x)
+	$Hurtbox/CollisionShape.position.x = abs($Hurtbox/CollisionShape.position.x)
+	$EyeLight.position.x = abs($EyeLight.position.x)
 	#currentTargetPoint.x = fov_distance, 0
 	currentTargetPoint = Vector2(fov_distance, 0)
 
@@ -264,15 +227,31 @@ func turnLeft():
 	$WallCheck.target_position.x = -abs($WallCheck.target_position.x)
 	$LedgeCheck.target_position.x = -abs($LedgeCheck.target_position.x)
 	$LineOfSight.target_position.x = -abs($LineOfSight.target_position.x)
+	$Hurtbox/CollisionShape.position.x = -abs($Hurtbox/CollisionShape.position.x)
+	if $'.'.has_node("EyeLight"):
+		$EyeLight.position.x = -abs($EyeLight.position.x)
 	#$LineOfSight.position.x = -abs($LineOfSight.position.x)
-	currentTargetPoint = Vector2(-fov_distance, 0)
 	#currentTargetPoint.x = -fov_distance
+	currentTargetPoint = Vector2(-fov_distance, 0)
 
 
 
 
 func getFacingDirection()->Vector2:
 	return Vector2.RIGHT if not $Sprite.flip_h else Vector2.LEFT
+
+#endregion Movement
+
+
+#region Behaviors
+
+func _sweep(delta):
+	#print("enemy - sweeping")
+	if isCloseToWall() or isCloseToLedge():
+		#print("enemy - turning around because close to wall or ledge")
+		turnAround()
+	moveFoward(delta)
+
 
 func _wander(delta):
 	#velocity.x = lerp(velocity.x, randf_range(-1, 1) * acceleration, 0.05)
@@ -298,7 +277,7 @@ func _chase():
 			var direction = sign(Globals.playerRef.global_position.x - global_position.x)
 			velocity.x = direction * (acceleration * 1.5)
 
-
+#endregion Behaviors
 
 
 
@@ -316,45 +295,6 @@ func _get_gravity(_velocity):
 
 
 
-
-
-func moveTowardTargetPoint(delta):
-	if not currentTargetPoint:
-		return
-	var direction = currentTargetPoint.global_position - global_position
-	var walkingInfluence
-	var accel = acceleration
-	var fric = friction
-	if not is_on_floor():
-		accel = air_acceleration
-		fric = air_resistance
-	if direction:
-		walkingInfluence = sign(direction) * accel * delta * 100
-		if (not velocity.x < -max_speed and not velocity.x > max_speed):
-			velocity.x += walkingInfluence
-		else:
-			velocity.x = move_toward(velocity.x, max_speed, fric * delta * 100)
-	else:
-		velocity.x = move_toward(velocity.x, 0, fric * delta * 100)
-	_set_sprite_direction(sign(velocity.x))
-
-
-func walkForward(fric: float, accel: float, delta: float):
-	return
-
-
-
-
-func _get_movement(fric: float, accel: float, delta: float):
-	var direction = (Globals.playerRef.global_position.x - $'.'.global_position.x )
-	if direction:
-		velocity.x += sign(direction) * accel * delta * 100
-	if !direction or sign(direction) != sign(velocity.x):
-		velocity.x = move_toward(velocity.x, 0, fric * delta * 100)
-	velocity.x = clamp(velocity.x, -max_speed, max_speed)
-	
-	#if is_variable_min_speed and min_speed > 0:
-			#velocity.x = maxf(abs(velocity.x), abs(min_speed * sign(direction))) * sign(direction)
 
 
 
@@ -388,6 +328,17 @@ func _set_sprite_direction(direction: int) -> void:
 func _draw():
 	draw_arc(Vector2.ZERO, fov_distance, deg_to_rad(-fov_angle / 2), deg_to_rad(fov_angle), 32, Color.RED)
 
+
+
+
+
+
+func apply_gravity(delta):
+	var gravVector = get_gravity()
+	velocity += gravVector * delta
+	if velocity.y < -max_speed:
+		print("enemy - apply_gravity velocity: ", velocity)
+		velocity.y = move_toward(velocity.y, -max_speed, air_resistance * delta * 100)
 
 
 

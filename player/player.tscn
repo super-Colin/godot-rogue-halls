@@ -276,8 +276,8 @@ debug_color = Color(7.70092e-07, 0.647019, 0.255419, 0.160784)
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 light_mask = 2
-position = Vector2(-1, -54)
-scale = Vector2(7.82812, 7.82812)
+position = Vector2(-1, -57)
+scale = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_634y6")
 animation = &"Idle"
 autoplay = "Idle"

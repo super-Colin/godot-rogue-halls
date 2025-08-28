@@ -4,7 +4,20 @@ extends Node
 
 enum Behaviors {BASIC, SWEEP}
 
-enum Intentions {WANDER, PATROL, SEEK, CHASE, MOVE_TOWARD}
+enum Intentions {WANDER, PATROL, SEEK, CHASE, MOVE_FOWARD, SWEEP}
+
+
+
+
+func chooseIntention(enemyNodeRef):
+	match enemyNodeRef.behavior:
+		AI.Behaviors.SWEEP: 
+			enemyNodeRef.intention = AI.Intentions.SWEEP
+		AI.Behaviors.BASIC:
+			if enemyNodeRef.canSeePlayer:
+				enemyNodeRef.intention = AI.Intentions.CHASE
+			else:
+				enemyNodeRef.intention = AI.Intentions.WANDER
 
 
 
@@ -12,15 +25,9 @@ enum Intentions {WANDER, PATROL, SEEK, CHASE, MOVE_TOWARD}
 
 
 
-func createIntention(enemyNodeRef, behavior):
-	match behavior:
-		Behaviors.BASIC:
-			#if enemyNodeRef.canSeePlayer:
-			enemyNodeRef.intention = Intentions.WANDER
-		Behaviors.SWEEP:
-			enemyNodeRef.intention = Intentions.MOVE_TOWARD
-			enemyNodeRef.createNewTargetPoint()
-	#print("AI - creating intention")
+
+
+
 
 
 func act(delta, enemyNodeRef, behavior = Behaviors.BASIC):
