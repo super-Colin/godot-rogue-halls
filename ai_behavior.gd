@@ -2,9 +2,9 @@ extends Node
 
 
 
-enum Behaviors {BASIC}
+enum Behaviors {BASIC, SWEEP}
 
-enum Intentions {WANDER, PATROL, SEEK, CHASE, }
+enum Intentions {WANDER, PATROL, SEEK, CHASE, MOVE_TOWARD}
 
 
 
@@ -15,18 +15,25 @@ enum Intentions {WANDER, PATROL, SEEK, CHASE, }
 func createIntention(enemyNodeRef, behavior):
 	match behavior:
 		Behaviors.BASIC:
+			#if enemyNodeRef.canSeePlayer:
 			enemyNodeRef.intention = Intentions.WANDER
-	print("AI - creating intention")
+		Behaviors.SWEEP:
+			enemyNodeRef.intention = Intentions.MOVE_TOWARD
+			enemyNodeRef.createNewTargetPoint()
+	#print("AI - creating intention")
 
 
 func act(delta, enemyNodeRef, behavior = Behaviors.BASIC):
 	#if behavior == Behaviors.BASIC:
-	if not enemyNodeRef.is_on_floor():
-		enemyNodeRef.velocity.y += enemyNodeRef._get_gravity(enemyNodeRef.velocity) * delta
-		#enemyNodeRef._get_movement(enemyNodeRef.air_resistance, enemyNodeRef.air_acceleration, delta)
-	else:
-		enemyNodeRef._get_movement(enemyNodeRef.friction, enemyNodeRef.acceleration, delta)
-	enemyNodeRef._set_sprite_direction(sign(enemyNodeRef.velocity.x))
+	#if not enemyNodeRef.is_on_floor():
+		#enemyNodeRef.velocity.y += enemyNodeRef._get_gravity(enemyNodeRef.velocity) * delta
+		##enemyNodeRef._get_movement(enemyNodeRef.air_resistance, enemyNodeRef.air_acceleration, delta)
+	#else:
+		#enemyNodeRef._get_movement(enemyNodeRef.friction, enemyNodeRef.acceleration, delta)
+	#enemyNodeRef._set_sprite_direction(sign(enemyNodeRef.velocity.x))
+	match behavior: # overriding behaviors
+		Behaviors.SWEEP:
+			enemyNodeRef._sweep()
 	match enemyNodeRef.intention:
 		Intentions.WANDER:
 			enemyNodeRef._wander(delta)
@@ -44,6 +51,11 @@ func act(delta, enemyNodeRef, behavior = Behaviors.BASIC):
 	#enemyNodeRef.velocity.x = lerp(enemyNodeRef.velocity.x, randf_range(-1, 1) * enemyNodeRef.acceleration, 0.1)
 
 
+
+
+
+#func sweepFloor(delta, enemyNodeRef):
+	#
 
 
 

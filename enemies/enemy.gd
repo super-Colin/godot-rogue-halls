@@ -1,6 +1,11 @@
 extends CharacterBody2D
 
 #region Exports
+@export_group("Behavior")
+@export var defualtBehavior:AI.Behaviors = AI.Behaviors.BASIC
+@export var enabledBehaviors:Array[AI.Behaviors] = [AI.Behaviors.BASIC]
+
+
 @export_group("Hunting")
 @export var fov_distance = 1200.0
 @export var fov_angle = 60.0 # Degrees, half on each side
@@ -39,6 +44,8 @@ extends CharacterBody2D
 @onready var jump_gravity : float = (-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak) * -1
 @onready var fall_gravity : float = (-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent) * -1
 
+@onready var currentBehavior = defualtBehavior
+
 #endregion Exports
 
 
@@ -47,19 +54,45 @@ var dead = false
 
 var canSeePlayer = false
 var lockedOnToPlayer = false
-var behavior = AI.Behaviors.BASIC
+
 var intention = AI.Intentions.WANDER
+@onready var behavior = defualtBehavior
+@onready var currentTargetPoint = $LineOfSight.target_position
+
+
+
+
+
 
 
 
 
 func _physics_process(delta):
+	apply_gravity(delta)
 	if dead or not Globals.playerRef:
+		move_and_slide()
 		return
-	canSeePlayer = _canSeePlayer()
-	if canSeePlayer:
-		print("enemy - can see player")
-	AI.act(delta, $'.', behavior)
+	#moveFoward(delta)
+	chooseAction(delta)
+	move_and_slide()
+	return
+	#apply_gravity(delta)
+	#canSeePlayer = _canSeePlayer()
+	#chooseAction(delta)
+	#return
+	#if canSeePlayer:
+		#print("enemy - can see player")
+	
+	
+	#AI.createIntention($'.', currentBehavior)
+	#if not is_on_floor():
+		#velocity.y += _get_gravity(velocity) * delta
+		#_get_movement(air_resistance, air_acceleration, delta)
+	#else:
+		#_get_movement(friction, acceleration, delta)
+	
+
+	#AI.act(delta, $'.', behavior)
 	#if not is_on_floor():
 		#velocity.y += _get_gravity(velocity) * delta
 		#_get_movement(air_resistance, air_acceleration, delta)
@@ -67,6 +100,84 @@ func _physics_process(delta):
 		#_get_movement(friction, acceleration, delta)
 	#_set_sprite_direction(sign(velocity.x))
 	#move_and_slide()
+
+
+
+
+func moveFoward(delta):
+	var direction = getFacingDirection()
+	#print("enemy - direction is: ", direction)
+	var walkingInfluence
+	var accel = acceleration
+	var fric = friction
+	if not is_on_floor():
+		accel = air_acceleration
+		fric = air_resistance
+	if direction:
+		walkingInfluence = sign(direction.x) * accel * delta * 100
+		if (not velocity.x < -max_speed and not velocity.x > max_speed):
+			velocity.x += walkingInfluence
+		else:
+			#print("enemy - too fast.. velocity: ", velocity)
+			velocity.x = move_toward(velocity.x, max_speed, fric * delta * 100)
+		print("enemy - walkingInfluence: ", walkingInfluence)
+	else:
+		#print("enemy - no direction: ", direction)
+		velocity.x = move_toward(velocity.x, 0, fric * delta * 100)
+	#_set_sprite_direction(sign(vertlocity.x))
+
+
+
+
+func apply_gravity(delta):
+	var gravVector = get_gravity()
+	velocity += gravVector * delta
+	if velocity.y < -max_speed:
+		print("enemy - apply_gravity velocity: ", velocity)
+		velocity.y = move_toward(velocity.y, -max_speed, air_resistance * delta * 100)
+
+
+
+
+
+
+
+
+
+
+
+
+
+func chooseAction(delta):
+	match behavior:
+		AI.Behaviors.BASIC:
+			#if enemyNodeRef.canSeePlayer:
+			intention = AI.Intentions.WANDER
+		AI.Behaviors.SWEEP:
+			intention = AI.Intentions.MOVE_TOWARD
+			#createNewTargetPoint()
+			_sweep(delta)
+			return
+	match intention:
+		AI.Intentions.WANDER:
+			_wander(delta)
+		#AI.Intentions.PATROL:
+			#_patrol()
+		AI.Intentions.SEEK:
+			_seek()
+		AI.Intentions.CHASE:
+			_chase()
+
+#
+#func createNewTargetPoint(newPoint=null):
+	#if not newPoint: # for the wandering mode
+		#currentTargetPoint = Vector2()
+
+
+
+
+
+
 
 
 
@@ -85,8 +196,8 @@ func _canSeePlayer() -> bool:
 	if abs(angle) > fov_angle / 2.0:
 		return false
 	# Line-of-sight check using RayCast2D
-	if has_node("RayCast2D"):
-		var ray = $RayCast2D
+	if has_node("LineOfSight"):
+		var ray = $LineOfSight
 		ray.target_position = to_player
 		ray.force_raycast_update()
 		if ray.is_colliding():
@@ -104,11 +215,64 @@ func _canSeePlayer() -> bool:
 
 
 
+func isCloseToWall():
+	if $WallCheck.is_colliding():
+		print("enemy - hit wall")
+		return true
+	return false
+
+func isCloseToLedge():
+	if not $LedgeCheck.is_colliding():
+		print("enemy - on ledge")
+		return true
+	return false
+
+
+
+func _sweep(delta):
+	#print("enemy - sweeping")
+	#if isCloseToWall() or isCloseToLedge():
+	if isCloseToWall():
+		print("enemy - turning around because close to wall or ledge")
+		turnAround()
+		var sign = sign(getFacingDirection().x)
+		#currentTargetPoint = Vector2(-sign * fov_distance, 0) # turn around
+	#velocity.x = lerp(velocity.x, randf_range(-1, 1) * acceleration, delta)
+	#moveTowardTargetPoint(delta)
+	moveFoward(delta)
+
+
+func turnAround():
+	#print("enemy - turning around")
+	if getFacingDirection() == Vector2.RIGHT:
+		turnLeft()
+	else:
+		turnRight()
+
+
+func turnRight():
+	$Sprite.flip_h = false
+	$WallCheck.target_position.x = abs($WallCheck.target_position.x)
+	$LedgeCheck.target_position.x = abs($LedgeCheck.target_position.x)
+	$LineOfSight.target_position.x = abs($LineOfSight.target_position.x)
+	#$LineOfSight.position.x = abs($LineOfSight.position.x)
+	#currentTargetPoint.x = fov_distance, 0
+	currentTargetPoint = Vector2(fov_distance, 0)
+
+func turnLeft():
+	$Sprite.flip_h = true
+	$WallCheck.target_position.x = -abs($WallCheck.target_position.x)
+	$LedgeCheck.target_position.x = -abs($LedgeCheck.target_position.x)
+	$LineOfSight.target_position.x = -abs($LineOfSight.target_position.x)
+	#$LineOfSight.position.x = -abs($LineOfSight.position.x)
+	currentTargetPoint = Vector2(-fov_distance, 0)
+	#currentTargetPoint.x = -fov_distance
 
 
 
 
-
+func getFacingDirection()->Vector2:
+	return Vector2.RIGHT if not $Sprite.flip_h else Vector2.LEFT
 
 func _wander(delta):
 	#velocity.x = lerp(velocity.x, randf_range(-1, 1) * acceleration, 0.05)
@@ -146,6 +310,37 @@ func _chase():
 func _get_gravity(_velocity):
 	return jump_gravity if _velocity.y < 0.0 else fall_gravity
 
+
+
+
+
+
+
+
+
+func moveTowardTargetPoint(delta):
+	if not currentTargetPoint:
+		return
+	var direction = currentTargetPoint.global_position - global_position
+	var walkingInfluence
+	var accel = acceleration
+	var fric = friction
+	if not is_on_floor():
+		accel = air_acceleration
+		fric = air_resistance
+	if direction:
+		walkingInfluence = sign(direction) * accel * delta * 100
+		if (not velocity.x < -max_speed and not velocity.x > max_speed):
+			velocity.x += walkingInfluence
+		else:
+			velocity.x = move_toward(velocity.x, max_speed, fric * delta * 100)
+	else:
+		velocity.x = move_toward(velocity.x, 0, fric * delta * 100)
+	_set_sprite_direction(sign(velocity.x))
+
+
+func walkForward(fric: float, accel: float, delta: float):
+	return
 
 
 

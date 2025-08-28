@@ -147,6 +147,9 @@ animations = [{
 [node name="DeliveryBot" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_7qilk")
+defualtBehavior = 1
+enabledBehaviors = [1]
+fov_distance = 500.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(-21, -19)
@@ -155,8 +158,18 @@ polygon = PackedVector2Array(-36, -35, -58, 69, 99, 69, 80, -35)
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(7.828, 7.828)
 sprite_frames = SubResource("SpriteFrames_3thm4")
-animation = &"walking"
-frame_progress = 0.975411
+animation = &"new_animation_1"
+autoplay = "new_animation_1"
+frame_progress = 0.358244
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="LineOfSight" type="RayCast2D" parent="."]
 target_position = Vector2(500, 0)
+collision_mask = 2
+
+[node name="WallCheck" type="RayCast2D" parent="."]
+position = Vector2(0, 53)
+target_position = Vector2(84, -11)
+
+[node name="LedgeCheck" type="RayCast2D" parent="."]
+position = Vector2(-1, -53)
+target_position = Vector2(129, 164)
